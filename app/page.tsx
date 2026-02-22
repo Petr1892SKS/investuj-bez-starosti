@@ -1,32 +1,642 @@
+"use client";
+import { useEffect, useState } from "react";
+
+const projects = [
+  { name: "Projekt Vinohrady", location: "Praha 2", type: "Byt 2+kk", status: "K dispozici", statusColor: "green" },
+  { name: "Projekt Holešovice", location: "Praha 7", type: "Byt 1+kk", status: "K dispozici", statusColor: "green" },
+  { name: "Projekt Žižkov", location: "Praha 3", type: "Byt 2+1", status: "Připravuje se", statusColor: "amber" },
+  { name: "Projekt Smíchov", location: "Praha 5", type: "Byt 3+kk", status: "K dispozici", statusColor: "green" },
+  { name: "Projekt Nusle", location: "Praha 4", type: "Byt 2+kk", status: "Připravuje se", statusColor: "amber" },
+  { name: "Projekt Dejvice", location: "Praha 6", type: "Byt 1+kk", status: "K dispozici", statusColor: "green" },
+];
+
+const faqs = [
+  { q: "Co přesně znamená garance výše příjmu?", a: "Garantujeme vám přesnou výši měsíčního příjmu z nájmu – víte dopředu, kolik každý měsíc dostanete. Tato částka odpovídá 5 % ročně z hodnoty vaší investice a je smluvně ukotvena." },
+  { q: "Musím se starat o nájemníky a opravy?", a: "Vůbec ne. O výběr nájemníků, komunikaci, technické záležitosti a veškerý provoz se stará náš tým. Vy jen přijímáte pravidelný příjem." },
+  { q: "Je to vhodné i pro začátečníky v investování?", a: "Ano. Produkt je navržen tak, aby byl přístupný i těm, kteří s investicemi do nemovitostí teprve začínají. Rádi vám vše vysvětlíme při nezávazné konzultaci." },
+  { q: "Jak začít?", a: "Stačí vyplnit konzultační formulář níže nebo nás kontaktovat přímo. Doporučíme vám vhodný projekt a provedeme vás celým procesem od A do Z." },
+];
+
+const testimonials = [
+  { name: "Martin K.", role: "Investor, Praha", text: "Oceňuji, že vím dopředu přesně, kolik každý měsíc dostanu. Žádná překvapení, žádné starosti s nájemníky.", stars: 5 },
+  { name: "Jana H.", role: "Podnikatelka, Brno", text: "Hledala jsem alternativu k fondům a dluhopisům. Tohle mi dává reálné aktivum i pravidelný příjem zároveň.", stars: 5 },
+  { name: "Tomáš V.", role: "Lékař, Olomouc", text: "Nemám čas řešit nemovitosti sám. Tady mi opravdu vše zařídí – a já jen přijímám příjem.", stars: 5 },
+];
+
+const IconPin = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+    <circle cx="12" cy="9" r="2.5"/>
+  </svg>
+);
+
+const IconHome = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+    <path d="M9 21V12h6v9"/>
+  </svg>
+);
+
+const IconArrow = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5 12h14M13 6l6 6-6 6"/>
+  </svg>
+);
+
+const IconShield = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    <path d="M9 12l2 2 4-4"/>
+  </svg>
+);
+
+const IconSettings = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+  </svg>
+);
+
+const IconUsers = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+    <circle cx="9" cy="7" r="4"/>
+    <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+  </svg>
+);
+
+const IconTool = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+  </svg>
+);
+
+const IconCheck = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 6L9 17l-5-5"/>
+  </svg>
+);
+
+const IconPlus = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="3" strokeLinecap="round">
+    <path d="M12 5v14M5 12h14"/>
+  </svg>
+);
+
 export default function Home() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [formState, setFormState] = useState({ name: "", email: "", phone: "", interest: "", message: "", gdpr: false });
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
+  const [testimonialIdx, setTestimonialIdx] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("revealed"); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    const stepObserver = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActiveStep(parseInt(e.target.getAttribute("data-step") || "0")); }),
+      { threshold: 0.6 }
+    );
+    document.querySelectorAll(".step-item").forEach((el) => stepObserver.observe(el));
+
+    const interval = setInterval(() => setTestimonialIdx((i) => (i + 1) % testimonials.length), 4500);
+    return () => { observer.disconnect(); stepObserver.disconnect(); clearInterval(interval); };
+  }, []);
+
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+
+  const validate = () => {
+    const errors: Record<string, string> = {};
+    if (!formState.name) errors.name = "Vyplňte jméno";
+    if (!formState.email || !/\S+@\S+\.\S+/.test(formState.email)) errors.email = "Zadejte platný email";
+    if (!formState.phone) errors.phone = "Vyplňte telefon";
+    if (!formState.interest) errors.interest = "Vyberte zájem";
+    if (!formState.gdpr) errors.gdpr = "Souhlas je povinný";
+    return errors;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors = validate();
+    if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
+    setFormLoading(true);
+    await new Promise((r) => setTimeout(r, 1500));
+    setFormLoading(false);
+    setFormSubmitted(true);
+  };
+
   return (
-    <main className="min-h-screen bg-white">
-      {/* Navigace */}
-      <nav className="flex items-center justify-between px-8 py-4 border-b">
-        <div className="font-bold text-xl">Investuj bez starosti</div>
-        <div className="flex gap-6 text-sm text-gray-600">
-          <a href="#">Jak to funguje</a>
-          <a href="#">Projekty</a>
-          <a href="#">O nás</a>
-          <a href="#">Konzultace</a>
+    <div className="ibz-root">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0;}
+        :root{
+          --blue:#366dff;--blue-dark:#1a4fd6;--blue-light:#eef2ff;
+          --gold:#f59e0b;--bg:#f7f7fb;--bg2:#ffffff;
+          --text:#0f172a;--text2:#475569;--border:#e2e8f0;
+          --radius:16px;--shadow:0 4px 24px rgba(54,109,255,0.08);
+          --shadow-hover:0 12px 40px rgba(54,109,255,0.16);
+        }
+        .ibz-root{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+        /* NAVBAR */
+        .navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,247,251,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 6%;height:68px;display:flex;align-items:center;justify-content:space-between;}
+        .navbar-logo{font-size:1.05rem;font-weight:800;color:var(--text);cursor:pointer;letter-spacing:-0.3px;}
+        .navbar-logo span{color:var(--blue);}
+        .navbar-links{display:flex;gap:2rem;list-style:none;}
+        .navbar-links a{color:var(--text2);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+        .navbar-links a:hover{color:var(--blue);}
+        .btn-primary{background:var(--blue);color:#fff;border:none;border-radius:50px;padding:10px 22px;font-size:0.875rem;font-weight:700;font-family:inherit;cursor:pointer;transition:background 0.2s,transform 0.15s,box-shadow 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+        .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(54,109,255,0.35);}
+        .btn-secondary{background:transparent;color:var(--blue);border:2px solid var(--blue);border-radius:50px;padding:10px 22px;font-size:0.875rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+        .btn-secondary:hover{background:var(--blue-light);transform:translateY(-1px);}
+
+        /* HERO */
+        .hero{min-height:100vh;display:flex;align-items:center;padding:110px 6% 70px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f7f7fb 0%,#eef2ff 60%,#f0f7ff 100%);}
+        .hero-shape{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.3;pointer-events:none;}
+        .hero-shape-1{width:700px;height:700px;background:radial-gradient(circle,#366dff44,transparent);top:-150px;right:-150px;}
+        .hero-shape-2{width:500px;height:500px;background:radial-gradient(circle,#f59e0b22,transparent);bottom:-50px;left:5%;}
+        .hero-content{max-width:700px;position:relative;z-index:2;}
+        .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--blue);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:7px 16px;border-radius:50px;margin-bottom:1.75rem;border:1px solid rgba(54,109,255,0.2);box-shadow:0 2px 8px rgba(54,109,255,0.1);}
+        .hero-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:blink 2s infinite;}
+        @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+        .hero h1{font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:1.25rem;color:var(--text);}
+        .hero h1 .accent{color:var(--blue);}
+        .hero-sub{font-size:1.1rem;color:var(--text2);line-height:1.75;margin-bottom:2rem;max-width:520px;font-weight:400;}
+        .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:2.5rem;}
+        .hero-badge{display:flex;align-items:center;gap:7px;background:white;border:1px solid var(--border);border-radius:50px;padding:8px 16px;font-size:0.8rem;font-weight:600;color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+        .badge-check{width:18px;height:18px;background:var(--blue-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+        .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;}
+
+        /* SECTIONS */
+        .section{padding:90px 6%;}
+        .section-label{font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);margin-bottom:0.75rem;}
+        .section-title{font-size:clamp(1.7rem,3vw,2.5rem);font-weight:800;letter-spacing:-1px;color:var(--text);margin-bottom:1rem;line-height:1.15;}
+        .section-sub{font-size:1rem;color:var(--text2);line-height:1.75;max-width:540px;}
+        .section-header{margin-bottom:3.5rem;}
+
+        /* REVEAL */
+        .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+        .reveal.revealed{opacity:1;transform:translateY(0);}
+        .d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}.d4{transition-delay:0.4s;}.d5{transition-delay:0.5s;}
+
+        /* PROJECTS */
+        .projects-section{background:white;}
+        .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px;}
+        .project-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius);padding:26px;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;position:relative;overflow:hidden;}
+        .project-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),#6b8eff);transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
+        .project-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover);border-color:rgba(54,109,255,0.25);}
+        .project-card:hover::after{transform:scaleX(1);}
+        .project-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+        .project-name{font-size:1.05rem;font-weight:700;color:var(--text);}
+        .project-status{font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:50px;white-space:nowrap;}
+        .status-green{background:#dcfce7;color:#15803d;}
+        .status-amber{background:#fef9c3;color:#92400e;}
+        .project-meta{display:flex;gap:14px;font-size:0.8rem;color:var(--text2);margin-bottom:18px;align-items:center;}
+        .project-meta-item{display:flex;align-items:center;gap:5px;}
+        .project-cta{display:flex;align-items:center;gap:5px;color:var(--blue);font-size:0.83rem;font-weight:700;transition:gap 0.2s;}
+        .project-card:hover .project-cta{gap:9px;}
+
+        /* WHY */
+        .why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;}
+        .why-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:30px 26px;transition:transform 0.25s,box-shadow 0.25s;}
+        .why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
+        .why-icon{width:50px;height:50px;background:var(--blue-light);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem;}
+        .why-title{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;line-height:1.3;}
+        .why-text{font-size:0.83rem;color:var(--text2);line-height:1.7;}
+
+        /* STEPS */
+        .steps-section{background:white;}
+        .steps-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1000px;}
+        .steps-sticky{position:sticky;top:120px;}
+        .steps-visual{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#eef2ff,#dbeafe);border-radius:24px;display:flex;align-items:center;justify-content:center;margin-top:2rem;}
+        .steps-visual-inner{text-align:center;}
+        .steps-visual-num{font-size:5rem;font-weight:800;color:var(--blue);opacity:0.15;line-height:1;}
+        .steps-visual-label{font-size:0.85rem;color:var(--text2);font-weight:600;}
+        .step-item{padding:26px 0;border-bottom:1px solid var(--border);display:flex;gap:18px;align-items:flex-start;}
+        .step-item:last-child{border-bottom:none;}
+        .step-num{width:38px;height:38px;border-radius:50%;background:var(--border);color:var(--text2);font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;}
+        .step-item.active .step-num{background:var(--blue);color:white;box-shadow:0 4px 14px rgba(54,109,255,0.4);}
+        .step-title{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:4px;}
+        .step-text{font-size:0.83rem;color:var(--text2);line-height:1.65;}
+
+        /* GUARANTEE */
+        .guarantee-section{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 100%);color:white;}
+        .guarantee-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+        .guarantee-section .section-label{color:#93c5fd;}
+        .guarantee-section .section-title{color:white;}
+        .guarantee-section .section-sub{color:#94a3b8;}
+        .guarantee-bullets{display:flex;flex-direction:column;gap:16px;margin-top:2rem;}
+        .g-bullet{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:13px;padding:18px;}
+        .g-bullet-icon{width:38px;height:38px;background:rgba(54,109,255,0.25);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+        .g-bullet-icon svg{stroke:white;}
+        .g-bullet-title{font-size:0.9rem;font-weight:700;color:white;margin-bottom:3px;}
+        .g-bullet-text{font-size:0.8rem;color:#94a3b8;line-height:1.55;}
+        .stat-box{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:22px;padding:44px;text-align:center;}
+        .stat-num{font-size:5rem;font-weight:800;color:var(--blue);letter-spacing:-3px;line-height:1;margin-bottom:10px;}
+        .stat-label{font-size:1rem;color:#cbd5e1;font-weight:500;margin-bottom:2rem;}
+        .stat-divider{border:none;border-top:1px solid rgba(255,255,255,0.1);margin-bottom:1.5rem;}
+        .stat-note{font-size:0.82rem;color:#64748b;line-height:1.6;}
+
+        /* TESTIMONIALS */
+        .testimonials-section{background:var(--bg);}
+        .t-card{background:white;border:1.5px solid var(--border);border-radius:20px;padding:40px;max-width:680px;margin:0 auto;}
+        .t-stars{color:var(--gold);font-size:1rem;letter-spacing:2px;margin-bottom:1.25rem;}
+        .t-text{font-size:1rem;color:var(--text);line-height:1.75;font-style:italic;margin-bottom:1.5rem;}
+        .t-author{font-weight:700;color:var(--text);font-size:0.9rem;}
+        .t-role{font-size:0.8rem;color:var(--text2);margin-top:2px;}
+        .t-dots{display:flex;justify-content:center;gap:8px;margin-top:1.5rem;}
+        .t-dot{width:7px;height:7px;border-radius:50%;background:var(--border);border:none;cursor:pointer;transition:background 0.2s,transform 0.2s;}
+        .t-dot.active{background:var(--blue);transform:scale(1.4);}
+
+        /* FAQ */
+        .faq-section{background:white;}
+        .faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:10px;}
+        .faq-item{background:var(--bg);border:1.5px solid var(--border);border-radius:13px;overflow:hidden;transition:box-shadow 0.2s,border-color 0.2s;}
+        .faq-item:hover{box-shadow:var(--shadow);border-color:rgba(54,109,255,0.2);}
+        .faq-item.open{border-color:rgba(54,109,255,0.3);}
+        .faq-q{width:100%;text-align:left;padding:18px 22px;font-family:inherit;font-size:0.9rem;font-weight:700;color:var(--text);background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;}
+        .faq-icon{width:26px;height:26px;background:var(--blue-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s,background 0.2s;}
+        .faq-item.open .faq-icon{transform:rotate(45deg);background:var(--blue);}
+        .faq-item.open .faq-icon svg{stroke:white;}
+        .faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s;padding:0 22px;font-size:0.87rem;color:var(--text2);line-height:1.7;}
+        .faq-item.open .faq-a{max-height:200px;padding:0 22px 18px;}
+
+        /* FORM */
+        .form-section{background:var(--bg);}
+        .form-wrap{max-width:660px;margin:0 auto;background:white;border-radius:24px;padding:48px;box-shadow:0 8px 48px rgba(54,109,255,0.09);border:1.5px solid var(--border);}
+        .form-head{text-align:center;margin-bottom:2rem;}
+        .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+        .fg{display:flex;flex-direction:column;gap:5px;}
+        .fg.full{grid-column:1/-1;}
+        .f-label{font-size:0.78rem;font-weight:600;color:var(--text);}
+        .f-input,.f-select,.f-textarea{font-family:inherit;font-size:0.875rem;color:var(--text);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;background:var(--bg);outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
+        .f-input:focus,.f-select:focus,.f-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(54,109,255,0.1);background:white;}
+        .f-textarea{resize:vertical;min-height:90px;}
+        .f-error{font-size:0.72rem;color:#ef4444;}
+        .f-check{display:flex;gap:9px;align-items:flex-start;}
+        .f-check input{margin-top:3px;accent-color:var(--blue);}
+        .f-check-label{font-size:0.8rem;color:var(--text2);line-height:1.55;}
+        .f-submit{width:100%;padding:14px;font-size:0.95rem;font-weight:700;background:var(--blue);color:white;border:none;border-radius:12px;font-family:inherit;cursor:pointer;transition:background 0.2s,transform 0.15s,box-shadow 0.2s;margin-top:1.25rem;}
+        .f-submit:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(54,109,255,0.35);}
+        .f-submit:disabled{opacity:0.65;cursor:not-allowed;}
+        .success{text-align:center;padding:32px 0;}
+        .success-icon{width:68px;height:68px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;animation:pop 0.5s cubic-bezier(0.34,1.56,0.64,1);}
+        @keyframes pop{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
+        .success-icon svg{stroke:#15803d;width:32px;height:32px;}
+        .success-title{font-size:1.3rem;font-weight:800;margin-bottom:0.5rem;}
+        .success-text{color:var(--text2);font-size:0.87rem;margin-bottom:1.5rem;line-height:1.6;}
+        .success-link{display:inline-flex;align-items:center;gap:7px;color:var(--blue);font-weight:700;text-decoration:none;font-size:0.87rem;border:2px solid var(--blue);border-radius:50px;padding:10px 20px;transition:background 0.2s;}
+        .success-link:hover{background:var(--blue-light);}
+
+        /* MINI CTA */
+        .mini-cta{background:var(--blue-light);border:1px solid rgba(54,109,255,0.15);border-radius:16px;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:2.5rem;}
+        .mini-cta-title{font-size:0.95rem;font-weight:700;color:var(--text);}
+        .mini-cta-sub{font-size:0.8rem;color:var(--text2);margin-top:3px;}
+
+        /* FOOTER */
+        .footer{background:var(--text);color:#94a3b8;padding:60px 6% 28px;}
+        .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:44px;}
+        .footer-logo{font-size:1rem;font-weight:800;color:white;margin-bottom:0.6rem;}
+        .footer-logo span{color:var(--blue);}
+        .footer-motto{font-size:0.83rem;line-height:1.65;max-width:260px;}
+        .footer-col-title{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:white;margin-bottom:1rem;}
+        .footer-links{display:flex;flex-direction:column;gap:8px;}
+        .footer-links a{color:#94a3b8;text-decoration:none;font-size:0.83rem;transition:color 0.2s;}
+        .footer-links a:hover{color:white;}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.07);padding-top:22px;display:flex;justify-content:space-between;align-items:center;font-size:0.77rem;}
+
+        /* RESPONSIVE */
+        @media(max-width:900px){
+          .navbar-links{display:none;}
+          .steps-wrap{grid-template-columns:1fr;}
+          .steps-sticky{position:relative;top:0;}
+          .guarantee-grid{grid-template-columns:1fr;}
+          .footer-grid{grid-template-columns:1fr 1fr;}
+          .form-grid{grid-template-columns:1fr;}
+          .mini-cta{flex-direction:column;text-align:center;}
+        }
+        @media(max-width:600px){
+          .hero h1{font-size:2rem;}
+          .hero-ctas{flex-direction:column;}
+          .footer-grid{grid-template-columns:1fr;}
+          .form-wrap{padding:26px 18px;}
+          .stat-num{font-size:3.5rem;}
+        }
+      `}</style>
+
+      {/* NAVBAR */}
+      <nav className="navbar">
+        <div className="navbar-logo" onClick={() => scrollTo("hero")}>
+          investuj<span>bezstarosti</span>.cz
         </div>
-        <button className="bg-black text-white px-4 py-2 rounded-lg text-sm">
-          Začít investovat
-        </button>
+        <ul className="navbar-links">
+          {[["Projekty","projekty"],["Jak to funguje","kroky"],["Garance a správa","garance"],["FAQ","faq"],["Kontakt","kontakt"]].map(([label,id]) => (
+            <li key={id}><a href="#" onClick={e=>{e.preventDefault();scrollTo(id);}}>{label}</a></li>
+          ))}
+        </ul>
+        <button className="btn-primary" onClick={() => scrollTo("kontakt")}>Nezávazná konzultace</button>
       </nav>
 
-      {/* Hero sekce */}
-      <section className="px-8 py-20 max-w-6xl mx-auto">
-        <h1 className="text-5xl font-bold max-w-2xl leading-tight">
-          Vlastněte byt, my zajistíme zbytek
-        </h1>
-        <p className="mt-6 text-xl text-gray-500 max-w-xl">
-          Investujte do nemovitostí bez starostí se správou. My se postaráme o vše za vás.
-        </p>
-        <button className="mt-8 bg-black text-white px-8 py-4 rounded-lg text-lg">
-          Zjistit více
-        </button>
+      {/* HERO */}
+      <section id="hero" className="hero">
+        <div className="hero-shape hero-shape-1"/>
+        <div className="hero-shape hero-shape-2"/>
+        <div className="hero-content">
+          <div className="hero-eyebrow"><div className="hero-dot"/>Investiční platforma</div>
+          <h1>Investujte do nemovitostí<br/><span className="accent">bez starostí</span></h1>
+          <p className="hero-sub">Vlastníte reálné aktivum. My zajistíme správu.<br/>Vy víte, kolik dostáváte.</p>
+          <div className="hero-badges">
+            {["All-in správa","Garance výše příjmu","Reálné vlastnictví"].map(label => (
+              <div key={label} className="hero-badge">
+                <div className="badge-check"><IconCheck/></div>
+                {label}
+              </div>
+            ))}
+          </div>
+          <div className="hero-ctas">
+            <button className="btn-primary" onClick={() => scrollTo("projekty")}>Zjistit dostupné projekty</button>
+            <button className="btn-secondary" onClick={() => scrollTo("kontakt")}>Nezávazná konzultace</button>
+          </div>
+        </div>
       </section>
-    </main>
-  )
+
+      {/* PROJEKTY */}
+      <section id="projekty" className="section projects-section">
+        <div className="section-header reveal">
+          <div className="section-label">Projekty</div>
+          <h2 className="section-title">Aktuální investiční projekty</h2>
+          <p className="section-sub">Vyberte si projekt. Pokud si nejste jistí, rádi poradíme nebo sestavíme portfolio.</p>
+        </div>
+        <div className="projects-grid">
+          {projects.map((p, i) => (
+            <div key={i} className={`project-card reveal d${(i%3)+1}`}>
+              <div className="project-card-header">
+                <div className="project-name">{p.name}</div>
+                <div className={`project-status status-${p.statusColor}`}>{p.status}</div>
+              </div>
+              <div className="project-meta">
+                <div className="project-meta-item"><IconPin/>{p.location}</div>
+                <div className="project-meta-item"><IconHome/>{p.type}</div>
+              </div>
+              <div className="project-cta">Detail projektu<IconArrow/></div>
+            </div>
+          ))}
+        </div>
+        <div className="mini-cta reveal">
+          <div>
+            <div className="mini-cta-title">Nevíte, který projekt vybrat?</div>
+            <div className="mini-cta-sub">Rádi sestavíme portfolio na míru vašim cílům.</div>
+          </div>
+          <button className="btn-primary" onClick={() => scrollTo("kontakt")}>Nezávazná konzultace</button>
+        </div>
+      </section>
+
+      {/* PROČ */}
+      <section className="section" style={{background:"var(--bg)"}}>
+        <div className="section-header reveal">
+          <div className="section-label">Proč investujbezstarosti</div>
+          <h2 className="section-title">Jednoduchost. Předvídatelnost. Klid.</h2>
+        </div>
+        <div className="why-grid">
+          {[
+            [<IconShield/>, "Garance výše měsíčního příjmu", "Víte dopředu přesně, kolik každý měsíc dostanete. Garantujeme výši příjmu z nájmu – žádná překvapení."],
+            [<IconSettings/>, "All-in správa bez operativy", "Nájemníci, opravy, provoz – vše řešíme za vás. Vy se staráte jen o to, co vás baví."],
+            [<IconUsers/>, "Prověřený systém výběru nájemníků", "Nájemníky vybíráme systematicky a zodpovědně. Váš byt je v dobrých rukou."],
+            [<IconTool/>, "Servisní a technický tým", "Technické záležitosti zařídíme. Máme vlastní tým, který se stará o vše potřebné."],
+          ].map(([icon, title, text], i) => (
+            <div key={i} className={`why-card reveal d${i+1}`}>
+              <div className="why-icon">{icon as React.ReactNode}</div>
+              <div className="why-title">{title as string}</div>
+              <div className="why-text">{text as string}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* KROKY */}
+      <section id="kroky" className="section steps-section">
+        <div className="steps-wrap">
+          <div className="steps-sticky reveal">
+            <div className="section-label">Jak to funguje</div>
+            <h2 className="section-title">Od prvního kontaktu po pravidelný příjem</h2>
+            <p className="section-sub">Celý proces jsme navrhli tak, aby byl pro vás co nejjednodušší.</p>
+            <div className="steps-visual">
+              <div className="steps-visual-inner">
+                <div className="steps-visual-num">0{activeStep+1}</div>
+                <div className="steps-visual-label">z celkem 4 kroků</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            {[
+              ["Vyberete projekt nebo řeknete cíle","Prozkoumáte dostupné projekty nebo nám sdělíte, co od investice očekáváte."],
+              ["Doporučíme řešení a projdeme podmínky","Naši poradci vám doporučí vhodný projekt a detailně vysvětlí vše, co potřebujete vědět."],
+              ["Koupě do vašeho vlastnictví","Nemovitost přejde do vašeho vlastnictví. Vše administrativní vyřešíme s vámi."],
+              ["Správa a pravidelný příjem","Od prvního dne se staráme o vše. Vy jen přijímáte garantovaný měsíční příjem."],
+            ].map(([title,text],i) => (
+              <div key={i} className={`step-item${activeStep===i?" active":""}`} data-step={i}>
+                <div className="step-num">{i+1}</div>
+                <div>
+                  <div className="step-title">{title}</div>
+                  <div className="step-text">{text}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GARANCE */}
+      <section id="garance" className="section guarantee-section">
+        <div className="guarantee-grid">
+          <div className="reveal">
+            <div className="section-label">Garance a správa</div>
+            <h2 className="section-title">Garance a bezstarostná správa</h2>
+            <p className="section-sub">Náš model je jednoduchý: vlastníte nemovitost, dostáváte garantovaný příjem a my se staráme o vše ostatní.</p>
+            <div className="guarantee-bullets">
+              {[
+                [<IconShield/>,"Správu řešíme za vás","Kompletní provoz nemovitosti je v našich rukou. Vy se nemusíte o nic starat."],
+                [<IconUsers/>,"Nájemníky vybíráme systémově","Máme propracovaný proces výběru nájemníků, který chrání vaši investici."],
+                [<IconTool/>,"Technické věci zařídíme","Náš technický tým se postará o vše potřebné bez vašeho zapojení."],
+              ].map(([icon,title,text],i) => (
+                <div key={i} className="g-bullet">
+                  <div className="g-bullet-icon">{icon as React.ReactNode}</div>
+                  <div>
+                    <div className="g-bullet-title">{title as string}</div>
+                    <div className="g-bullet-text">{text as string}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{marginTop:"2rem"}}>
+              <button className="btn-primary" onClick={() => scrollTo("kontakt")}>Získat konzultaci</button>
+            </div>
+          </div>
+          <div className="reveal d2">
+            <div className="stat-box">
+              <div className="stat-num">5 %</div>
+              <div className="stat-label">garantovaný roční výnos z nájmu</div>
+              <hr className="stat-divider"/>
+              <div className="stat-note">Fixní měsíční příjem. Přesná částka. Žádná překvapení.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="section testimonials-section">
+        <div className="section-header reveal" style={{textAlign:"center"}}>
+          <div className="section-label">Co říkají investoři</div>
+          <h2 className="section-title">Zkušenosti našich klientů</h2>
+        </div>
+        <div className="reveal">
+          <div className="t-card">
+            <div className="t-stars">{"★".repeat(testimonials[testimonialIdx].stars)}</div>
+            <div className="t-text">„{testimonials[testimonialIdx].text}"</div>
+            <div className="t-author">{testimonials[testimonialIdx].name}</div>
+            <div className="t-role">{testimonials[testimonialIdx].role}</div>
+          </div>
+          <div className="t-dots">
+            {testimonials.map((_,i) => (
+              <button key={i} className={`t-dot${i===testimonialIdx?" active":""}`} onClick={() => setTestimonialIdx(i)}/>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="section faq-section">
+        <div className="section-header reveal" style={{textAlign:"center",maxWidth:"600px",margin:"0 auto 3rem"}}>
+          <div className="section-label">FAQ</div>
+          <h2 className="section-title">Časté otázky</h2>
+        </div>
+        <div className="faq-list">
+          {faqs.map((faq,i) => (
+            <div key={i} className={`faq-item reveal d${i+1}${openFaq===i?" open":""}`}>
+              <button className="faq-q" onClick={() => setOpenFaq(openFaq===i?null:i)}>
+                {faq.q}
+                <div className="faq-icon"><IconPlus/></div>
+              </button>
+              <div className="faq-a">{faq.a}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mini-cta reveal" style={{maxWidth:"700px",margin:"2rem auto 0"}}>
+          <div>
+            <div className="mini-cta-title">Máte další otázky?</div>
+            <div className="mini-cta-sub">Rádi odpovíme na vše při nezávazné konzultaci.</div>
+          </div>
+          <button className="btn-primary" onClick={() => scrollTo("kontakt")}>Konzultace zdarma</button>
+        </div>
+      </section>
+
+      {/* FORM */}
+      <section id="kontakt" className="section form-section">
+        <div className="form-wrap reveal">
+          {formSubmitted ? (
+            <div className="success">
+              <div className="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              </div>
+              <div className="success-title">Odesláno! Brzy se ozveme.</div>
+              <div className="success-text">Vaši žádost jsme přijali. Ozveme se vám co nejdříve a doporučíme vhodné řešení.</div>
+              <a href="#" className="success-link">Stáhnout: Jak investovat bez starostí (PDF)</a>
+            </div>
+          ) : (
+            <>
+              <div className="form-head">
+                <div className="section-label" style={{justifyContent:"center",display:"flex"}}>Kontakt</div>
+                <h2 className="section-title">Nezávazná konzultace</h2>
+                <p className="section-sub" style={{margin:"0 auto"}}>Ozveme se a doporučíme vhodné řešení nebo projekty.</p>
+              </div>
+              <form onSubmit={handleSubmit} noValidate>
+                <input type="text" name="_honey" style={{display:"none"}}/>
+                <input type="hidden" name="form-name" value="konzultace"/>
+                <div className="form-grid">
+                  <div className="fg full">
+                    <label className="f-label">Jméno a příjmení / Firma</label>
+                    <input className="f-input" value={formState.name} onChange={e=>setFormState(s=>({...s,name:e.target.value}))} placeholder="Jan Novák"/>
+                    {formErrors.name&&<span className="f-error">{formErrors.name}</span>}
+                  </div>
+                  <div className="fg">
+                    <label className="f-label">Email</label>
+                    <input className="f-input" type="email" value={formState.email} onChange={e=>setFormState(s=>({...s,email:e.target.value}))} placeholder="jan@email.cz"/>
+                    {formErrors.email&&<span className="f-error">{formErrors.email}</span>}
+                  </div>
+                  <div className="fg">
+                    <label className="f-label">Telefon</label>
+                    <input className="f-input" type="tel" value={formState.phone} onChange={e=>setFormState(s=>({...s,phone:e.target.value}))} placeholder="+420 777 000 000"/>
+                    {formErrors.phone&&<span className="f-error">{formErrors.phone}</span>}
+                  </div>
+                  <div className="fg full">
+                    <label className="f-label">Zájem</label>
+                    <select className="f-select" value={formState.interest} onChange={e=>setFormState(s=>({...s,interest:e.target.value}))}>
+                      <option value="">Vyberte...</option>
+                      <option value="1">1 investiční byt</option>
+                      <option value="vice">Více bytů</option>
+                      <option value="portfolio">Chci poradit s portfoliem</option>
+                      <option value="jine">Jiné</option>
+                    </select>
+                    {formErrors.interest&&<span className="f-error">{formErrors.interest}</span>}
+                  </div>
+                  <div className="fg full">
+                    <label className="f-label">Zpráva (volitelné)</label>
+                    <textarea className="f-textarea" value={formState.message} onChange={e=>setFormState(s=>({...s,message:e.target.value}))} placeholder="Napište nám cokoli..."/>
+                  </div>
+                  <div className="fg full">
+                    <div className="f-check">
+                      <input type="checkbox" id="gdpr" checked={formState.gdpr} onChange={e=>setFormState(s=>({...s,gdpr:e.target.checked}))}/>
+                      <label className="f-check-label" htmlFor="gdpr">Souhlasím se zpracováním osobních údajů v souladu s <a href="#" style={{color:"var(--blue)"}}>GDPR</a>.</label>
+                    </div>
+                    {formErrors.gdpr&&<span className="f-error">{formErrors.gdpr}</span>}
+                  </div>
+                </div>
+                <button type="submit" className="f-submit" disabled={formLoading}>
+                  {formLoading?"Odesílám...":"Odeslat a získat konzultaci →"}
+                </button>
+              </form>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        <div className="footer-grid">
+          <div>
+            <div className="footer-logo">investuj<span>bezstarosti</span>.cz</div>
+            <div className="footer-motto">Vlastníte nemovitost. Dostáváte fixní měsíční příjem. O vše ostatní se staráme my.</div>
+          </div>
+          <div>
+            <div className="footer-col-title">Navigace</div>
+            <div className="footer-links">
+              {[["Projekty","projekty"],["Jak to funguje","kroky"],["Garance a správa","garance"],["FAQ","faq"]].map(([label,id]) => (
+                <a key={id} href="#" onClick={e=>{e.preventDefault();scrollTo(id);}}>{label}</a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div className="footer-col-title">Kontakt</div>
+            <div className="footer-links">
+              <a href="mailto:info@investujbezstarosti.cz">info@investujbezstarosti.cz</a>
+              <a href="tel:+420000000000">+420 000 000 000</a>
+              <a href="#">GDPR</a>
+              <a href="#">Všeobecné podmínky</a>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <span>© 2026 investujbezstarosti.cz. Všechna práva vyhrazena.</span>
+          <span>Made with care</span>
+        </div>
+      </footer>
+    </div>
+  );
 }
