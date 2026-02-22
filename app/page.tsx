@@ -184,6 +184,7 @@ export default function Home() {
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [statsTriggered, setStatsTriggered] = useState(false);
   const [calcAmount, setCalcAmount] = useState(3000000);
+  const [calcMode, setCalcMode] = useState<"najem"|"rust">("najem");
   const statsRef = useRef<HTMLDivElement>(null);
 
   const investors = useCounter(247, 1800, statsTriggered);
@@ -193,6 +194,7 @@ export default function Home() {
 
   const monthlyIncome = Math.round((calcAmount * 0.05) / 12);
   const yearlyIncome = Math.round(calcAmount * 0.05);
+  const yearlyGrowth = Math.round(calcAmount * 0.03);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -476,7 +478,7 @@ export default function Home() {
         /* RESPONSIVE */
         @media(max-width:1024px){
           .hero-inner{grid-template-columns:1fr;}
-          .hero-card{display:none;}
+          .hero-card{display:block;}
           .calc-wrap{grid-template-columns:1fr;}
           .guarantee-grid{grid-template-columns:1fr;}
           .forwhom-grid{grid-template-columns:1fr;}
@@ -537,15 +539,23 @@ export default function Home() {
           {/* Hero kalkulačka */}
           <div className="hero-card">
             <div className="hero-card-label">Orientační výpočet měsíčního příjmu</div>
-            <div className="hero-card-big">{monthlyIncome.toLocaleString("cs-CZ")} Kč</div>
-            <div className="hero-card-sub">měsíčně při investici {(calcAmount/1000000).toFixed(1).replace(".",",")} mil. Kč</div>
+            <div className="hero-card-label">Orientační výpočet při investici {(calcAmount/1000000).toFixed(1).replace(".",",")} mil. Kč</div>
             <input type="range" className="calc-slider" min={500000} max={10000000} step={100000} value={calcAmount} onChange={e=>setCalcAmount(Number(e.target.value))}/>
-            <div style={{display:"flex",justifyContent:"space-between",fontSize:"0.72rem",color:"var(--text2)",marginBottom:"1rem"}}>
+            <div style={{display:"flex",justifyContent:"space-between",fontSize:"0.72rem",color:"var(--text2)",marginBottom:"1.25rem"}}>
               <span>500 tis.</span><span>10 mil.</span>
             </div>
-            <hr className="hero-card-divider"/>
-            <div className="hero-card-row"><span className="hero-card-row-label">Roční příjem při garantované výši nájmu</span><span className="hero-card-row-value">{yearlyIncome.toLocaleString("cs-CZ")} Kč</span></div>
-            <div className="hero-card-row"><span className="hero-card-row-label">Výplata</span><span className="hero-card-row-value">Každý měsíc</span></div>
+            {/* Blok 1 – garantovaný příjem */}
+            <div style={{background:"var(--blue-light)",border:"1px solid rgba(54,109,255,0.15)",borderRadius:"12px",padding:"14px 16px",marginBottom:"10px"}}>
+              <div style={{fontSize:"0.7rem",fontWeight:700,color:"var(--blue)",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>Garantovaný měsíční příjem</div>
+              <div style={{fontSize:"1.9rem",fontWeight:800,color:"var(--blue)",letterSpacing:"-1px",lineHeight:1}}>{monthlyIncome.toLocaleString("cs-CZ")} Kč</div>
+              <div style={{fontSize:"0.72rem",color:"var(--text2)",marginTop:"3px"}}>vypláceno každý měsíc · {yearlyIncome.toLocaleString("cs-CZ")} Kč ročně</div>
+            </div>
+            {/* Blok 2 – možný růst hodnoty */}
+            <div style={{background:"#fefce8",border:"1px solid rgba(245,158,11,0.2)",borderRadius:"12px",padding:"14px 16px"}}>
+              <div style={{fontSize:"0.7rem",fontWeight:700,color:"#92400e",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>Možné kapitálové zhodnocení</div>
+              <div style={{fontSize:"1.9rem",fontWeight:800,color:"#d97706",letterSpacing:"-1px",lineHeight:1}}>+{yearlyGrowth.toLocaleString("cs-CZ")} Kč</div>
+              <div style={{fontSize:"0.72rem",color:"#92400e",marginTop:"3px"}}>ročně · konzervativní scénář 3 % p.a. · realizuje se při prodeji</div>
+            </div>
             <button className="hero-card-cta" onClick={() => scrollTo("kontakt")}>Chci konzultaci →</button>
             <div className="hero-card-note">Výpočet je orientační. Konkrétní podmínky jsou vždy sjednány individuálně smluvně.</div>
           </div>
@@ -639,24 +649,37 @@ export default function Home() {
 
           </div>
           <div className="calc-box">
+            {/* Přepínač */}
+            <div style={{display:"flex",marginBottom:"20px",background:"rgba(255,255,255,0.07)",borderRadius:"10px",padding:"3px"}}>
+              <button onClick={()=>setCalcMode("najem")} style={{flex:1,padding:"9px 10px",border:"none",borderRadius:"8px",fontFamily:"inherit",fontSize:"0.8rem",fontWeight:700,cursor:"pointer",transition:"all 0.2s",background:calcMode==="najem"?"white":"transparent",color:calcMode==="najem"?"#0f172a":"#94a3b8"}}>
+                Nájemní výnos
+              </button>
+              <button onClick={()=>setCalcMode("rust")} style={{flex:1,padding:"9px 10px",border:"none",borderRadius:"8px",fontFamily:"inherit",fontSize:"0.8rem",fontWeight:700,cursor:"pointer",transition:"all 0.2s",background:calcMode==="rust"?"white":"transparent",color:calcMode==="rust"?"#0f172a":"#94a3b8"}}>
+                + Růst hodnoty
+              </button>
+            </div>
+
             <div className="calc-label">Výše investice</div>
             <div className="calc-amount-display">{(calcAmount/1000000).toFixed(2).replace(".",",")} mil. Kč</div>
             <input type="range" className="calc-slider-dark" min={500000} max={10000000} step={100000} value={calcAmount} onChange={e=>setCalcAmount(Number(e.target.value))}/>
             <div className="calc-range-labels"><span>500 tis. Kč</span><span>10 mil. Kč</span></div>
-            <div className="calc-results">
-              <div className="calc-result-row">
-                <span className="calc-result-label">Měsíční příjem z nájmu</span>
-                <span className="calc-result-value big">{monthlyIncome.toLocaleString("cs-CZ")} Kč</span>
-              </div>
-              <div className="calc-result-row">
-                <span className="calc-result-label">Roční příjem při garantované výši nájmu</span>
-                <span className="calc-result-value">{yearlyIncome.toLocaleString("cs-CZ")} Kč</span>
-              </div>
-              <div className="calc-result-row">
-                <span className="calc-result-label">Výplata</span>
-                <span className="calc-result-value">Každý měsíc</span>
-              </div>
+
+            {/* Blok 1 – garantovaný příjem – vždy viditelný */}
+            <div style={{background:"rgba(54,109,255,0.15)",border:"1px solid rgba(54,109,255,0.3)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
+              <div style={{fontSize:"0.68rem",fontWeight:700,color:"#93c5fd",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Garantovaný měsíční příjem</div>
+              <div style={{fontSize:"2rem",fontWeight:800,color:"#366dff",letterSpacing:"-1px",lineHeight:1}}>{monthlyIncome.toLocaleString("cs-CZ")} Kč</div>
+              <div style={{fontSize:"0.73rem",color:"#64748b",marginTop:"4px"}}>vypláceno každý měsíc · {yearlyIncome.toLocaleString("cs-CZ")} Kč ročně</div>
             </div>
+
+            {/* Blok 2 – růst hodnoty – jen při přepnutí */}
+            {calcMode==="rust" && (
+              <div style={{background:"rgba(245,158,11,0.08)",border:"1px solid rgba(245,158,11,0.3)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
+                <div style={{fontSize:"0.68rem",fontWeight:700,color:"#fbbf24",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Možné kapitálové zhodnocení</div>
+                <div style={{fontSize:"2rem",fontWeight:800,color:"#fbbf24",letterSpacing:"-1px",lineHeight:1}}>+{yearlyGrowth.toLocaleString("cs-CZ")} Kč</div>
+                <div style={{fontSize:"0.73rem",color:"#78716c",marginTop:"4px"}}>ročně · konzervativní scénář 3 % p.a. · realizuje se až při prodeji</div>
+              </div>
+            )}
+
             <div className="calc-note">* Výpočet je orientační. Konkrétní podmínky jsou vždy sjednány individuálně smluvně.</div>
           </div>
         </div>
