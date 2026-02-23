@@ -442,8 +442,7 @@ export default function Home() {
         .faq-q{width:100%;text-align:left;padding:18px 22px;font-family:inherit;font-size:0.9rem;font-weight:700;color:var(--text);background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;}
         .faq-icon{width:26px;height:26px;background:var(--blue-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s,background 0.2s;}
         .faq-item.open .faq-icon{transform:rotate(45deg);background:var(--blue);color:white;}
-        .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;padding:0 22px;font-size:0.87rem;color:var(--text2);line-height:1.7;}
-        .faq-item.open .faq-a{max-height:400px;padding:0 22px 18px;}
+        .faq-a{font-size:0.87rem;color:var(--text2);line-height:1.7;padding:14px 22px 18px;border-top:1px solid var(--border);}
 
         /* FORM */
         .form-section{background:var(--bg);}
@@ -854,7 +853,7 @@ export default function Home() {
               <button className="faq-q" onClick={() => setOpenFaq(openFaq===i?null:i)}>
                 {faq.q}<div className="faq-icon"><IconPlus/></div>
               </button>
-              <div className="faq-a">{faq.a}</div>
+              {openFaq===i && <div className="faq-a">{faq.a}</div>}
             </div>
           ))}
         </div>
