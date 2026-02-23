@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 
 const projects = [
-  { name: "Projekt Vinohrady", location: "Praha 2 – Vinohrady", type: "Byt 2+kk", status: "Obsazený", statusColor: "green" },
+  { name: "Projekt Vinohrady", location: "Praha 2 – Vinohrady", type: "Byt 2+kk", status: "Obsazený", slug: "vinohrady", statusColor: "green" },
   { name: "Projekt Holešovice", location: "Praha 7 – Holešovice", type: "Byt 1+kk", status: "Připravený", statusColor: "blue" },
   { name: "Projekt Žižkov", location: "Praha 3 – Žižkov", type: "Byt 2+1", status: "Připravený", statusColor: "blue" },
   { name: "Projekt Smíchov", location: "Praha 5 – Smíchov", type: "Byt 3+kk", status: "Obsazený", statusColor: "green" },
@@ -642,7 +643,7 @@ export default function Home() {
                 <div className="project-meta-item"><IconPin/>{p.location}</div>
                 <div className="project-meta-item"><IconHome/>{p.type}</div>
               </div>
-              <div className="project-cta" onClick={() => setChatOpen(true)} style={{cursor:"pointer"}}>Detail projektu<IconArrow/></div>
+              <Link href={`/projekty/${p.slug || "vinohrady"}`} className="project-cta" style={{textDecoration:"none"}}>Detail projektu<IconArrow/></Link>
             </div>
           ))}
         </div>
