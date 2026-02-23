@@ -321,7 +321,7 @@ export default function Home() {
         .forwhom-section{background:white;}
         .forwhom-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1000px;}
         .forwhom-list{display:flex;flex-direction:column;gap:14px;margin-top:0.5rem;}
-        .forwhom-item{display:flex;align-items:flex-start;gap:12px;padding:16px 20px;background:var(--bg);border:1.5px solid var(--border);border-radius:13px;}
+        .forwhom-item{display:flex;align-items:flex-start;gap:12px;padding:16px 20px;background:var(--bg);border:1.5px solid var(--border);border-radius:13px;transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;cursor:default;} .forwhom-item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(54,109,255,0.13);border-color:rgba(54,109,255,0.25);background:white;}
         .forwhom-icon{width:30px;height:30px;background:#dcfce7;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
         .forwhom-text{font-size:0.9rem;color:var(--text);font-weight:500;line-height:1.5;}
         .forwhom-highlight{background:linear-gradient(135deg,var(--blue-light),#dbeafe);border-radius:20px;padding:36px;text-align:center;}
