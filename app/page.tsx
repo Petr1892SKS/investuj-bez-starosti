@@ -355,15 +355,24 @@ export default function Home() {
 
         /* STEPS */
         .steps-section{background:white;}
-        .steps-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1000px;}
-        .steps-sticky{position:sticky;top:120px;}
-        .steps-visual{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#eef2ff,#dbeafe);border-radius:24px;display:flex;align-items:center;justify-content:center;margin-top:2rem;}
-        .step-item{padding:26px 0;border-bottom:1px solid var(--border);display:flex;gap:18px;align-items:flex-start;}
-        .step-item:last-child{border-bottom:none;}
-        .step-num{width:38px;height:38px;border-radius:50%;background:var(--border);color:var(--text2);font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;}
-        .step-item.active .step-num{background:var(--blue);color:white;box-shadow:0 4px 14px rgba(54,109,255,0.4);}
-        .step-title{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:4px;}
-        .step-text{font-size:0.83rem;color:var(--text2);line-height:1.65;}
+        .steps-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1100px;}
+        .steps-sticky{position:sticky;top:100px;}
+        .steps-photo{width:100%;aspect-ratio:3/4;border-radius:24px;overflow:hidden;background:linear-gradient(160deg,#e0e7ff 0%,#dbeafe 100%);display:flex;align-items:center;justify-content:center;margin-top:2rem;}
+        .steps-photo-inner{text-align:center;padding:40px;}
+        .steps-photo-big{font-size:6rem;font-weight:800;color:var(--blue);opacity:0.12;line-height:1;letter-spacing:-4px;}
+        .steps-photo-label{font-size:0.85rem;color:var(--text2);font-weight:600;margin-top:8px;}
+        .steps-right{position:relative;padding-left:20px;}
+        .steps-line{position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:var(--border);}
+        .steps-line-fill{position:absolute;left:19px;top:20px;width:2px;background:var(--blue);transition:height 0.4s ease;}
+        .step-item{padding:0 0 40px 52px;position:relative;display:block;}
+        .step-item:last-child{padding-bottom:0;}
+        .step-num{position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;background:#f1f5f9;color:#94a3b8;font-weight:800;font-size:0.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.35s;border:2px solid var(--border);z-index:1;}
+        .step-item.active .step-num{background:var(--blue);color:white;box-shadow:0 4px 16px rgba(54,109,255,0.35);border-color:var(--blue);}
+        .step-content{padding-top:8px;}
+        .step-title{font-size:1.1rem;font-weight:800;color:#94a3b8;margin-bottom:8px;letter-spacing:-0.3px;transition:color 0.3s;}
+        .step-item.active .step-title{color:var(--text);}
+        .step-text{font-size:0.87rem;color:var(--text2);line-height:1.7;opacity:0.5;transition:opacity 0.3s;}
+        .step-item.active .step-text{opacity:1;}
 
         /* CALCULATOR FULL */
         .calc-section{background:linear-gradient(135deg,#0f172a,#1e3a8a);padding:90px 6%;}
@@ -487,6 +496,7 @@ export default function Home() {
           .navbar-links{display:none;}
           .steps-wrap{grid-template-columns:1fr;}
           .steps-sticky{position:relative;top:0;}
+          .steps-photo{aspect-ratio:16/7;margin-bottom:0;}
           .footer-grid{grid-template-columns:1fr 1fr;}
           .form-grid{grid-template-columns:1fr;}
           .stats-grid{grid-template-columns:repeat(2,1fr);}
@@ -689,21 +699,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* JAK TO FUNGUJE – zjednodušené */}
+      {/* JAK TO FUNGUJE */}
       <section id="kroky" className="section steps-section">
         <div className="steps-wrap">
           <div className="steps-sticky reveal">
             <div className="section-label">Jak to funguje</div>
             <h2 className="section-title">Čtyři kroky k pravidelnému příjmu</h2>
             <p className="section-sub">Jednoduchý proces. Žádná složitost. Vše vyřešíme s vámi.</p>
-            <div className="steps-visual">
-              <div style={{textAlign:"center"}}>
-                <div style={{fontSize:"4.5rem",fontWeight:800,color:"var(--blue)",opacity:0.15,lineHeight:1}}>0{activeStep+1}</div>
-                <div style={{fontSize:"0.85rem",color:"var(--text2)",fontWeight:600}}>z celkem 4 kroků</div>
+            <div className="steps-photo">
+              <div className="steps-photo-inner">
+                <div className="steps-photo-big">0{activeStep+1}</div>
+                <div className="steps-photo-label">z celkem 4 kroků</div>
               </div>
             </div>
           </div>
-          <div>
+          <div className="steps-right">
+            <div className="steps-line"/>
+            <div className="steps-line-fill" style={{height: `${(activeStep / 3) * 100}%`}}/>
             {[
               ["Vyberete projekt","Prozkoumáte dostupné projekty nebo nám sdělíte vaše investiční cíle."],
               ["Stanovíme podmínky","Probereme vše na konzultaci – jasně a bez skrytých informací."],
@@ -712,7 +724,10 @@ export default function Home() {
             ].map(([title,text],i) => (
               <div key={i} className={`step-item${activeStep===i?" active":""}`} data-step={i}>
                 <div className="step-num">{i+1}</div>
-                <div><div className="step-title">{title}</div><div className="step-text">{text}</div></div>
+                <div className="step-content">
+                  <div className="step-title">{title}</div>
+                  <div className="step-text">{text}</div>
+                </div>
               </div>
             ))}
           </div>
