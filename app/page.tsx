@@ -12,10 +12,12 @@ const projects = [
 ];
 
 const faqs = [
-  { q: "Co přesně znamená garantovaná výše měsíčního příjmu?", a: "Smluvně stanovíme přesnou výši měsíčního příjmu z nájmu, kterou budete dostávat. Víte dopředu, kolik každý měsíc přijde na účet – žádná překvapení, žádná nejistota." },
-  { q: "Musím se starat o nájemníky a opravy?", a: "Vůbec ne. O výběr nájemníků, komunikaci, technické záležitosti a veškerý provoz se stará náš tým. Vy jen přijímáte pravidelný příjem." },
-  { q: "Je to vhodné i pro začátečníky v investování?", a: "Ano. Produkt je navržen tak, aby byl přístupný i těm, kteří s investicemi do nemovitostí teprve začínají. Rádi vám vše vysvětlíme při nezávazné konzultaci." },
-  { q: "Jak začít?", a: "Stačí vyplnit konzultační formulář níže nebo nás kontaktovat přímo. Doporučíme vám vhodný projekt a provedeme vás celým procesem od A do Z." },
+  { q: "Co přesně znamená garantovaná výše měsíčního příjmu?", a: "Garantovaná výše nájemního příjmu je smluvně sjednána před převodem vlastnictví. Výplata probíhá pravidelně každý měsíc bez ohledu na aktuální obsazenost nemovitosti. Konkrétní podmínky jsou vždy upraveny individuální smlouvou." },
+  { q: "Co když je byt dočasně neobsazený?", a: "Obsazenost řešíme my. Investor pobírá sjednaný měsíční příjem podle smluvních podmínek. Veškerá správa nájemníků, výběr, komunikace i řešení provozu je součástí služby." },
+  { q: "Musím se starat o nájemníky, opravy nebo administrativu?", a: "Ne. Zajišťujeme kompletní správu nemovitosti včetně výběru nájemníků, smluv, vyúčtování, oprav i komunikace. Investor vlastní nemovitost, ale provoz řešíme my." },
+  { q: "Jak je řešeno financování nemovitosti?", a: "Pomůžeme vám nastavit optimální kombinaci vlastních zdrojů a bankovního financování. Cílem je nastavit strukturu investice tak, aby odpovídala vaší finanční situaci a investičním cílům." },
+  { q: "Je možné nemovitost v budoucnu prodat?", a: "Ano. Nemovitost je ve vašem osobním vlastnictví a můžete ji kdykoliv prodat podle podmínek smlouvy. Možné kapitálové zhodnocení se realizuje při prodeji." },
+  { q: "Je tato investice vhodná i pro začínající investory?", a: "Ano, pokud hledáte stabilní měsíční příjem a nechcete řešit provoz nemovitosti. Před každou investicí společně posoudíme, zda projekt odpovídá vaší situaci." },
 ];
 
 const testimonials = [
