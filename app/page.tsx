@@ -849,7 +849,7 @@ export default function Home() {
         </div>
         <div className="faq-list">
           {faqs.map((faq,i) => (
-            <div key={i} className={`faq-item reveal d${i+1}${openFaq===i?" open":""}`}>
+            <div key={i} className={`faq-item${openFaq===i?" open":""}`}>
               <button className="faq-q" onClick={() => setOpenFaq(openFaq===i?null:i)}>
                 {faq.q}<div className="faq-icon"><IconPlus/></div>
               </button>
