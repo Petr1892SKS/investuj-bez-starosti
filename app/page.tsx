@@ -205,7 +205,7 @@ export default function Home() {
 
     const stepObserver = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) setActiveStep(parseInt(e.target.getAttribute("data-step") || "0")); }),
-      { threshold: 0.6 }
+      { threshold: 0.75, rootMargin: "0px 0px -30% 0px" }
     );
     document.querySelectorAll(".step-item").forEach((el) => stepObserver.observe(el));
 
