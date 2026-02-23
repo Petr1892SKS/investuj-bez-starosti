@@ -215,6 +215,21 @@ export default function ProjectDetail() {
         .cta-note { font-size: 0.78rem; color: #64748b; margin-top: 14px; }
 
         /* RESPONSIVE */
+        /* FOR WHOM */
+        .forwhom-list { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+        .forwhom-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; background: white; border: 1.5px solid var(--border); border-radius: 13px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+        .forwhom-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(54,109,255,0.1); border-color: rgba(54,109,255,0.25); }
+        .forwhom-check { width: 28px; height: 28px; min-width: 28px; background: #dcfce7; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .forwhom-text { font-size: 0.88rem; font-weight: 500; color: var(--text); line-height: 1.55; padding-top: 3px; }
+
+        /* FAQ */
+        .faq-item { border: 1px solid var(--border); border-radius: 13px; background: white; margin-bottom: 8px; overflow: hidden; }
+        .faq-q { width: 100%; padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; gap: 16px; background: none; border: none; font-family: inherit; font-size: 0.9rem; font-weight: 700; color: var(--text); cursor: pointer; text-align: left; transition: background 0.2s; }
+        .faq-q:hover { background: var(--bg); }
+        .faq-icon { width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: var(--blue-light); color: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; transition: transform 0.25s; }
+        .faq-icon.open { transform: rotate(45deg); }
+        .faq-a { font-size: 0.86rem; color: var(--text2); line-height: 1.75; border-top: 1px solid var(--border); padding: 14px 22px 18px; }
+
         @media (max-width: 900px) {
           .hero-inner { grid-template-columns: 1fr; gap: 32px; }
           .params-grid { grid-template-columns: 1fr; }
