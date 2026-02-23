@@ -373,6 +373,9 @@ export default function Home() {
         .step-item.active .step-title{color:var(--text);}
         .step-text{font-size:0.87rem;color:var(--text2);line-height:1.7;opacity:0.5;transition:opacity 0.3s;}
         .step-item.active .step-text{opacity:1;}
+        .step-item:hover .step-num{background:var(--blue-light);border-color:rgba(54,109,255,0.4);color:var(--blue);}
+        .step-item:hover .step-title{color:var(--text);}
+        .step-item:hover .step-text{opacity:0.8;}
 
         /* CALCULATOR FULL */
         .calc-section{background:linear-gradient(135deg,#0f172a,#1e3a8a);padding:90px 6%;}
@@ -722,7 +725,7 @@ export default function Home() {
               ["Nabudete vlastnictví","Nemovitost přejde do vašeho vlastnictví. Vše administrativní vyřešíme s vámi."],
               ["Získáváte předem stanovený příjem","Od prvního dne se staráme o vše. Vy přijímáte pravidelný měsíční příjem."],
             ].map(([title,text],i) => (
-              <div key={i} className={`step-item${activeStep===i?" active":""}`} data-step={i}>
+              <div key={i} className={`step-item${activeStep===i?" active":""}`} data-step={i} onMouseEnter={() => setActiveStep(i)}>
                 <div className="step-num">{i+1}</div>
                 <div className="step-content">
                   <div className="step-title">{title}</div>
