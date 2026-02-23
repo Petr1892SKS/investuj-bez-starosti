@@ -104,7 +104,7 @@ export default function ProjectDetail() {
         body { font-family: "Plus Jakarta Sans", sans-serif; color: var(--text); background: white; }
 
         /* NAV */
-        .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; max-width: 100%; }
+        .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 16px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
         .nav-logo { font-weight: 800; font-size: 1rem; color: var(--text); text-decoration: none; }
         .nav-logo span { color: var(--blue); }
         .nav-back { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text2); font-weight: 600; text-decoration: none; transition: color 0.2s; }
@@ -230,6 +230,11 @@ export default function ProjectDetail() {
         .faq-icon.open { transform: rotate(45deg); }
         .faq-a { font-size: 0.86rem; color: var(--text2); line-height: 1.75; border-top: 1px solid var(--border); padding: 14px 22px 18px; }
 
+        @media (max-width: 600px) {
+          .nav-logo { display: none; }
+          .nav-back { font-size: 0.8rem; }
+          .nav-cta { padding: 8px 14px; font-size: 0.78rem; white-space: nowrap; }
+        }
         @media (max-width: 900px) {
           .hero-inner { grid-template-columns: 1fr; gap: 32px; }
           .params-grid { grid-template-columns: 1fr; }
