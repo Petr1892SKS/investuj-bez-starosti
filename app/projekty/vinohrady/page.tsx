@@ -8,7 +8,7 @@ import Link from "next/link";
 const project = {
   name: "Projekt Vinohrady",
   subtitle: "Byt 2+kk · Praha 2 – Vinohrady",
-  claim: "Stabilní nájemní výnos s kompletní správou bez starostí.",
+  claim: "Konkrétní nemovitost ve vašem vlastnictví. Předem sjednaný měsíční příjem. Správa bez vaší účasti.",
   status: "Obsazený", // "Obsazený" | "Připravený"
 
   // Investiční parametry
@@ -26,11 +26,11 @@ const project = {
 
   // Proč tento projekt – max 5 bodů
   reasons: [
-    { title: "Stabilní lokalita", text: "Vinohrady patří dlouhodobě k nejžádanějším pražským čtvrtím s nízkou prázdnotou." },
-    { title: "Ověřený nájemní trh", text: "Lokalita s trvale vysokou poptávkou po nájemním bydlení." },
-    { title: "Optimalizovaná dispozice", text: "Dispozice 2+kk odpovídá nejpoptávanějšímu segmentu nájemního trhu." },
-    { title: "Provozní historie", text: "Nemovitost pochází z existujícího portfolia s ověřenou provozní historií." },
-    { title: "Nízké náklady", text: "Po kompletní rekonstrukci bez investičních závazků v krátkém horizontu." },
+    { title: "Praha 2 – nízká prázdnota", text: "Vinohrady mají dlouhodobě jednu z nejnižších měr neobsazenosti v Praze. Poptávka po nájemním bydlení v lokalitě stabilně převyšuje nabídku." },
+    { title: "Dispozice 2+kk odpovídá trhu", text: "Segment 2+kk tvoří největší podíl poptávky na pražském nájemním trhu. Nájemní příjem pro tuto kategorii je dlouhodobě stabilní." },
+    { title: "Nemovitost z existujícího portfolia", text: "Projekt nepocházení z volného trhu. Nemovitost je součástí portfolia s ověřenou provozní historií a existujícím nájemcem." },
+    { title: "Po rekonstrukci – bez dalších investic", text: "Kompletní rekonstrukce je již provedena. Investor nevkládá žádné dodatečné prostředky do oprav ani přípravy na pronájem." },
+    { title: "All-in správa od prvního dne", text: "Výběr nájemce, servis, komunikace, účetnictví – vše zajišťujeme my. Investor přijímá měsíční příjem bez operativní zátěže." },
   ],
 
   // Galerie – nahraď src cestami k reálným fotkám v /public/
@@ -42,11 +42,41 @@ const project = {
     { src: "/images/vinohrady/dispozice.jpg", label: "Dispozice" },
     { src: "/images/vinohrady/lokalita.jpg", label: "Lokalita" },
   ],
+  // Pro koho je projekt vhodný
+  forWhom: [
+    "Pro investory, kteří dnes ukládají prostředky do fondů nebo dluhopisů a hledají alternativu s reálným aktivem.",
+    "Pro ty, kteří chtějí vlastnit konkrétní nemovitost – ne podíl ve fondu nebo certifikát.",
+    "Pro investory, kteří nechtějí řešit nájemníky, opravy ani správu.",
+    "Pro ty, kteří potřebují předvídatelný měsíční příjem s jasně sjednanou výší.",
+    "Pro investory preferující osobní přístup a přímou komunikaci bez zprostředkovatelů.",
+  ],
+
+  // FAQ
+  faq: [
+    { q: "Jak je garantován měsíční příjem?", a: "Výše nájemního příjmu je sjednána smluvně před nabytím vlastnictví. Jedná se o garantovanou částku, která se vyplácí měsíčně bez ohledu na aktuální stav obsazenosti." },
+    { q: "Co zahrnuje správa nemovitosti?", a: "Výběr a prověření nájemce, smluvní zajištění pronájmu, pravidelný servis, komunikaci s nájemcem, technickou údržbu a měsíční výplatu nájemného investorovi. Investor neřeší nic." },
+    { q: "Jaký je rozdíl mezi nájemním příjmem a kapitálovým zhodnocením?", a: "Nájemní příjem je garantovaná částka vyplácená měsíčně – je sjednána smluvně a investor ji dostává pravidelně. Kapitálové zhodnocení je modelový scénář budoucí hodnoty nemovitosti při případném prodeji. Není garantováno a nedá se předvídat s jistotou." },
+    { q: "Co se stane, když nájemník přestane platit?", a: "Investorovi je vyplácena garantovaná výše příjmu bez ohledu na platební morálku nájemníka. Vymáhání a řešení neplatičů je na naší straně." },
+    { q: "Jak probíhá nabytí vlastnictví?", a: "Nemovitost přechází do osobního vlastnictví investora standardní cestou přes katastr nemovitostí. Veškerou administraci zajišťujeme my." },
+  ],
 };
 // ============================================================
 
 function fmt(n: number) {
   return n.toLocaleString("cs-CZ");
+}
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="faq-item">
+      <button className="faq-q" onClick={() => setOpen(!open)}>
+        {q}
+        <span className={`faq-icon${open ? " open" : ""}`}>+</span>
+      </button>
+      {open && <div className="faq-a">{a}</div>}
+    </div>
+  );
 }
 
 export default function ProjectDetail() {
@@ -411,6 +441,37 @@ export default function ProjectDetail() {
           </div>
           <div className="yield-disclaimer">
             * Výpočty jsou orientační. Garantovaná výše příjmu je vždy sjednána individuálně smluvně. Modelový scénář kapitálového zhodnocení není příslibem ani zárukou budoucího výnosu.
+          </div>
+        </div>
+      </section>
+
+      {/* PRO KOHO */}
+      <section className="section" style={{background:"white"}}>
+        <div className="section-inner">
+          <div className="section-label">Cílová skupina</div>
+          <h2 className="section-title">Pro koho je projekt vhodný</h2>
+          <p className="section-sub">Tento model dává smysl investorům, kteří hledají konkrétní aktivum s předvídatelným příjmem.</p>
+          <div className="forwhom-list">
+            {project.forWhom.map((item, i) => (
+              <div key={i} className="forwhom-item">
+                <div className="forwhom-check">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </div>
+                <div className="forwhom-text">{item}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section" style={{background:"var(--bg)"}}>
+        <div className="section-inner">
+          <div className="section-label">Časté otázky</div>
+          <h2 className="section-title">Odpovědi na klíčové otázky</h2>
+          <p className="section-sub">Nejčastější otázky investorů před rozhodnutím.</p>
+          <div className="faq-list">
+            {project.faq.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
           </div>
         </div>
       </section>
