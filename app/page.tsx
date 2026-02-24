@@ -322,7 +322,7 @@ export default function Home() {
 
         /* FOR WHOM */
         .forwhom-section{background:white;}
-        .forwhom-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1000px;}
+        .forwhom-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1080px;margin:0 auto;}
         .forwhom-list{display:flex;flex-direction:column;gap:14px;margin-top:0.5rem;}
         .forwhom-item{display:flex;align-items:flex-start;gap:12px;padding:16px 20px;background:var(--bg);border:1.5px solid var(--border);border-radius:13px;transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;cursor:default;} .forwhom-item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(54,109,255,0.13);border-color:rgba(54,109,255,0.25);background:white;}
         .forwhom-icon{width:30px;height:30px;background:#dcfce7;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -358,7 +358,7 @@ export default function Home() {
 
         /* STEPS */
         .steps-section{background:white;}
-        .steps-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1100px;}
+        .steps-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1080px;margin:0 auto;}
         .steps-sticky{position:sticky;top:100px;}
         .steps-photo{width:100%;aspect-ratio:3/4;border-radius:24px;overflow:hidden;background:linear-gradient(160deg,#e0e7ff 0%,#dbeafe 100%);display:flex;align-items:center;justify-content:center;margin-top:2rem;}
         .steps-photo-inner{text-align:center;padding:40px;}
@@ -381,9 +381,9 @@ export default function Home() {
         .step-item:hover .step-text{opacity:0.8;}
 
         /* CALCULATOR FULL */
-        .calc-section{background:linear-gradient(135deg,#0f172a,#1e3a8a);padding:90px 6%;}
+        .calc-section{background:linear-gradient(135deg,#0f172a,#1e3a8a);padding:90px 24px;}
         .calc-section .section-label{color:#93c5fd;}
-        .calc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1000px;}
+        .calc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1080px;margin:0 auto;}
         .calc-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:36px;}
         .calc-label{font-size:0.82rem;font-weight:600;color:#94a3b8;margin-bottom:10px;}
         .calc-amount-display{font-size:2.2rem;font-weight:800;color:white;margin-bottom:16px;letter-spacing:-1px;}
