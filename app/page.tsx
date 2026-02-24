@@ -763,28 +763,30 @@ export default function Home() {
 
       {/* TÝM */}
       <section id="tym" className="section team-section">
-        <div className="section-header reveal" style={{textAlign:"center"}}>
-          <div className="section-label">Za projektem stojí</div>
-          <h2 className="section-title">Tým s historií a portfoliem</h2>
-        </div>
-        <div className="team-intro reveal">
-          <div className="team-intro-text">
-            Nejsme nová platforma. Stojí za námi reálné portfolio nemovitostí nakoupených jako celek, s existujícími nájemníky a provozní historií. Odprodáváme část tohoto portfolia investorům s garancí správy a příjmu. Každý projekt má za sebou tým lidí, kteří za výsledky ručí osobně.
+        <div className="section-inner">
+          <div className="section-header reveal" style={{textAlign:"center"}}>
+            <div className="section-label">Za projektem stojí</div>
+            <h2 className="section-title">Tým s historií a portfoliem</h2>
           </div>
-        </div>
-        <div className="team-grid">
-          {team.map((member, i) => (
-            <div key={i} className={`team-card reveal d${i+1}`}>
-              <div className="team-avatar">{member.name.charAt(0)}</div>
-              <div className="team-name">{member.name}</div>
-              <div className="team-role">{member.role}</div>
-              <div className="team-desc">{member.desc}</div>
+          <div className="team-intro reveal">
+            <div className="team-intro-text">
+              Nejsme nová platforma. Stojí za námi reálné portfolio nemovitostí nakoupených jako celek, s existujícími nájemníky a provozní historií. Odprodáváme část tohoto portfolia investorům s garancí správy a příjmu. Každý projekt má za sebou tým lidí, kteří za výsledky ručí osobně.
             </div>
-          ))}
-        </div>
-        <div className="mini-cta reveal">
-          <div><div className="mini-cta-title">Chcete nás poznat osobně?</div><div className="mini-cta-sub">Rádi se setkáme a probereme vaše investiční cíle.</div></div>
-          <button className="btn-primary" onClick={() => scrollTo("kontakt")}>Domluvit schůzku</button>
+          </div>
+          <div className="team-grid">
+            {team.map((member, i) => (
+              <div key={i} className={`team-card reveal d${i+1}`}>
+                <div className="team-avatar">{member.name.charAt(0)}</div>
+                <div className="team-name">{member.name}</div>
+                <div className="team-role">{member.role}</div>
+                <div className="team-desc">{member.desc}</div>
+              </div>
+            ))}
+          </div>
+          <div className="mini-cta reveal">
+            <div><div className="mini-cta-title">Chcete nás poznat osobně?</div><div className="mini-cta-sub">Rádi se setkáme a probereme vaše investiční cíle.</div></div>
+            <button className="btn-primary" onClick={() => scrollTo("kontakt")}>Domluvit schůzku</button>
+          </div>
         </div>
       </section>
 
