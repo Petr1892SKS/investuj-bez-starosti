@@ -305,7 +305,7 @@ export default function Home() {
         /* STATS */
         .stats-section{background:white;padding:56px 6%;border-bottom:1px solid var(--border);}
         .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;max-width:860px;margin:0 auto;text-align:center;}
-        .stat-num{font-size:2.6rem;font-weight:800;color:var(--blue);letter-spacing:-1.5px;line-height:1;}
+        .stat-num{font-size:2.2rem;font-weight:800;color:var(--blue);letter-spacing:-1.5px;line-height:1;white-space:nowrap;}
         .stat-label{font-size:0.8rem;color:var(--text2);margin-top:6px;font-weight:500;}
 
         /* SECTIONS */
@@ -583,7 +583,7 @@ export default function Home() {
           <div><div className="stat-num">{investors}+</div><div className="stat-label">investorů</div></div>
           <div><div className="stat-num">{properties}+</div><div className="stat-label">nemovitostí ve správě</div></div>
           <div><div className="stat-num">{years}+</div><div className="stat-label">let zkušeností</div></div>
-          <div><div className="stat-num">{portfolio} mil. Kč</div><div className="stat-label">hodnota portfolia</div></div>
+          <div><div className="stat-num">{portfolio}M Kč</div><div className="stat-label">hodnota portfolia</div></div>
         </div>
       </div>
 
