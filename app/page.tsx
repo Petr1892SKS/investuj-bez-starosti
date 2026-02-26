@@ -32,6 +32,19 @@ const team = [
   { name: "Michal Dvořák", role: "Investiční poradce", desc: "Pomáhá investorům najít správné řešení. Přes 150 spokojených klientů." },
 ];
 
+const reels = [
+  {
+    title: "Reel: Jak přemýšlím o realitách",
+    embedUrl: "https://www.instagram.com/reel/DVL1JL0iAqS/embed",
+    postUrl: "https://www.instagram.com/reel/DVL1JL0iAqS/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+  },
+  {
+    title: "Reel: Další pohled na realitní byznys",
+    embedUrl: "https://www.instagram.com/reel/DVAlZrgCPe5/embed",
+    postUrl: "https://www.instagram.com/reel/DVAlZrgCPe5/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+  },
+];
+
 
 const chatMessages = [
   { from: "investor", text: "Dobrý den, zajímá mě investice do nemovitosti. Jak to u vás funguje?", delay: 400 },
@@ -146,6 +159,366 @@ function ChatModal({ onClose, onCTA }: { onClose: () => void; onCTA: () => void 
   );
 }
 
+function HeroSkyline() {
+  return (
+    <div style={{position:"absolute",bottom:0,left:0,right:0,
+      height:"340px",pointerEvents:"none",zIndex:1,overflow:"hidden"}}>
+      <style>{`
+        @keyframes houseRise {
+          from { opacity:0; transform:translateY(40px); }
+          to   { opacity:1; transform:translateY(0); }
+        }
+        @keyframes winLight {
+          0%,100% { opacity:0.7; }
+          50%     { opacity:0.2; }
+        }
+        @keyframes floatDot {
+          0%,100% { transform:translateY(0); opacity:0.5; }
+          50%     { transform:translateY(-12px); opacity:0.9; }
+        }
+        .hs-far   { animation: houseRise 2s ease-out both; }
+        .hs-mid   { animation: houseRise 1.6s ease-out both; }
+        .hs-front { animation: houseRise 1.1s ease-out both; }
+      `}</style>
+      <svg viewBox="0 0 1400 340" preserveAspectRatio="xMidYMax meet"
+           style={{width:"100%",height:"100%"}}>
+        <defs>
+          <linearGradient id="hg1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#c8d8ff"/>
+            <stop offset="100%" stopColor="#e8eeff"/>
+          </linearGradient>
+          <linearGradient id="hg2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#b5c8ff"/>
+            <stop offset="100%" stopColor="#d8e4ff"/>
+          </linearGradient>
+          <linearGradient id="hg3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#dce8ff"/>
+            <stop offset="100%" stopColor="#f0f5ff"/>
+          </linearGradient>
+          <linearGradient id="roof1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#a0b8f0"/>
+            <stop offset="100%" stopColor="#c0d0ff"/>
+          </linearGradient>
+        </defs>
+
+        {/* ===== FAR BACKGROUND – malé domky ===== */}
+        <g className="hs-far" opacity="0.3">
+          {/* domek 1 */}
+          <rect x="10"  y="240" width="50" height="100" fill="url(#hg3)"/>
+          <polygon points="10,240 35,215 60,240" fill="url(#roof1)" opacity="0.6"/>
+          <rect x="25"  y="260" width="10" height="10" fill="#366dff" opacity="0.3" rx="1"/>
+          <rect x="40"  y="260" width="10" height="10" fill="#366dff" opacity="0.15" rx="1"/>
+          <rect x="25"  y="278" width="10" height="10" fill="#366dff" opacity="0.15" rx="1"/>
+          <rect x="40"  y="278" width="10" height="10" fill="#366dff" opacity="0.3" rx="1"/>
+          <rect x="29"  y="295" width="12" height="45" fill="#a0b8f0" opacity="0.5" rx="2"/>
+
+          {/* domek 2 */}
+          <rect x="70"  y="225" width="55" height="115" fill="url(#hg3)"/>
+          <polygon points="70,225 97,198 125,225" fill="url(#roof1)" opacity="0.6"/>
+          <rect x="80"  y="245" width="12" height="12" fill="#366dff" opacity="0.25" rx="1"/>
+          <rect x="100" y="245" width="12" height="12" fill="#366dff" opacity="0.1"  rx="1"/>
+          <rect x="80"  y="265" width="12" height="12" fill="#366dff" opacity="0.1"  rx="1"/>
+          <rect x="100" y="265" width="12" height="12" fill="#366dff" opacity="0.25" rx="1"/>
+          <rect x="85"  y="282" width="14" height="58" fill="#a0b8f0" opacity="0.5" rx="2"/>
+
+          {/* věžák vlevo */}
+          <rect x="135" y="180" width="40" height="160" fill="url(#hg3)"/>
+          <rect x="153" y="172" width="4"  height="10"  fill="#93b0f8" opacity="0.7"/>
+          {[0,1,2,3,4].map(r => [0,1].map(c => (
+            <rect key={`ff1-${r}-${c}`} x={141+c*18} y={190+r*22}
+              width="9" height="11" fill="#366dff" opacity="0.2" rx="1"/>
+          )))}
+
+          <rect x="185" y="205" width="45" height="135" fill="url(#hg3)"/>
+          <polygon points="185,205 207,182 230,205" fill="url(#roof1)" opacity="0.5"/>
+          <rect x="195" y="220" width="11" height="11" fill="#366dff" opacity="0.2" rx="1"/>
+          <rect x="212" y="220" width="11" height="11" fill="#366dff" opacity="0.1" rx="1"/>
+          <rect x="195" y="238" width="11" height="11" fill="#366dff" opacity="0.1" rx="1"/>
+          <rect x="212" y="238" width="11" height="11" fill="#366dff" opacity="0.2" rx="1"/>
+
+          {/* right side far */}
+          <rect x="1165" y="195" width="40" height="145" fill="url(#hg3)"/>
+          <rect x="1183" y="187" width="4"  height="10"  fill="#93b0f8" opacity="0.7"/>
+          {[0,1,2,3].map(r => [0,1].map(c => (
+            <rect key={`ff2-${r}-${c}`} x={1171+c*18} y={205+r*22}
+              width="9" height="11" fill="#366dff" opacity="0.2" rx="1"/>
+          )))}
+          <rect x="1215" y="215" width="50" height="125" fill="url(#hg3)"/>
+          <polygon points="1215,215 1240,190 1265,215" fill="url(#roof1)" opacity="0.5"/>
+          <rect x="1225" y="232" width="12" height="12" fill="#366dff" opacity="0.2" rx="1"/>
+          <rect x="1243" y="232" width="12" height="12" fill="#366dff" opacity="0.1" rx="1"/>
+
+          <rect x="1275" y="200" width="45" height="140" fill="url(#hg3)"/>
+          <polygon points="1275,200 1297,174 1320,200" fill="url(#roof1)" opacity="0.5"/>
+          <rect x="1320" y="220" width="55" height="120" fill="url(#hg3)"/>
+          <rect x="1338" y="212" width="4"  height="10"  fill="#93b0f8" opacity="0.7"/>
+          <rect x="1375" y="230" width="25" height="110" fill="url(#hg3)"/>
+        </g>
+
+        {/* ===== MID LAYER ===== */}
+        <g className="hs-mid" opacity="0.55">
+          {/* věžák vlevo tall */}
+          <rect x="0"   y="140" width="58" height="200" fill="url(#hg2)"/>
+          <rect x="27"  y="128" width="5"  height="14"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5].map(r => [0,1,2].map(c => (
+            <rect key={`ml1-${r}-${c}`} x={6+c*17} y={150+r*22}
+              width="10" height="13" fill="#366dff"
+              opacity={((r+c)%2===0)?0.22:0.09} rx="1"/>
+          )))}
+
+          {/* řadový dům */}
+          <rect x="55"  y="165" width="62" height="175" fill="url(#hg1)"/>
+          <polygon points="55,165 86,138 117,165" fill="url(#roof1)" opacity="0.7"/>
+          {[0,1,2,3].map(r => [0,1,2].map(c => (
+            <rect key={`ml2-${r}-${c}`} x={62+c*17} y={175+r*24}
+              width="11" height="14" fill="#366dff"
+              opacity={((r*c)%3===0)?0.25:0.1} rx="1"/>
+          )))}
+          <rect x="77"  y="282" width="14" height="58" fill="#93b0f8" opacity="0.6" rx="2"/>
+
+          <rect x="112" y="150" width="52" height="190" fill="url(#hg2)"/>
+          <rect x="136" y="138" width="5"  height="14"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5].map(r => [0,1].map(c => (
+            <rect key={`ml3-${r}-${c}`} x={119+c*19} y={162+r*22}
+              width="12" height="14" fill="#366dff"
+              opacity={r===2&&c===0?0.05:0.18} rx="1"
+              style={r===1&&c===1?{animation:"winLight 3s 1s infinite"}:{}}/>
+          )))}
+
+          <rect x="160" y="170" width="55" height="170" fill="url(#hg1)"/>
+          <polygon points="160,170 187,144 215,170" fill="url(#roof1)" opacity="0.7"/>
+          {[0,1,2,3].map(r => [0,1,2].map(c => (
+            <rect key={`ml4-${r}-${c}`} x={167+c*16} y={180+r*24}
+              width="10" height="13" fill="#366dff"
+              opacity={0.15} rx="1"/>
+          )))}
+          <rect x="178" y="285" width="14" height="55" fill="#93b0f8" opacity="0.6" rx="2"/>
+
+          <rect x="210" y="158" width="48" height="182" fill="url(#hg2)"/>
+          <rect x="233" y="146" width="4"  height="14"  fill="#7a9ef5"/>
+          {[0,1,2,3,4].map(r => [0,1].map(c => (
+            <rect key={`ml5-${r}-${c}`} x={217+c*19} y={168+r*24}
+              width="12" height="15" fill="#366dff"
+              opacity={0.18} rx="1"
+              style={r===3&&c===0?{animation:"winLight 4s 0.5s infinite"}:{}}/>
+          )))}
+
+          <rect x="254" y="175" width="52" height="165" fill="url(#hg1)"/>
+          <polygon points="254,175 280,150 306,175" fill="url(#roof1)" opacity="0.65"/>
+          <rect x="280" y="290" width="14" height="50" fill="#93b0f8" opacity="0.6" rx="2"/>
+
+          {/* right mid */}
+          <rect x="1090" y="162" width="56" height="178" fill="url(#hg2)"/>
+          <rect x="1116" y="150" width="5"  height="14"  fill="#7a9ef5"/>
+          {[0,1,2,3,4].map(r => [0,1,2].map(c => (
+            <rect key={`mr1-${r}-${c}`} x={1097+c*17} y={172+r*22}
+              width="11" height="13" fill="#366dff" opacity={0.18} rx="1"/>
+          )))}
+
+          <rect x="1142" y="145" width="60" height="195" fill="url(#hg1)"/>
+          <polygon points="1142,145 1172,118 1202,145" fill="url(#roof1)" opacity="0.7"/>
+          {[0,1,2,3,4].map(r => [0,1,2].map(c => (
+            <rect key={`mr2-${r}-${c}`} x={1149+c*17} y={158+r*24}
+              width="11" height="14" fill="#366dff"
+              opacity={((r+c)%2===0)?0.22:0.09} rx="1"
+              style={r===2&&c===1?{animation:"winLight 3.5s 0.8s infinite"}:{}}/>
+          )))}
+          <rect x="1165" y="290" width="14" height="50" fill="#93b0f8" opacity="0.6" rx="2"/>
+
+          <rect x="1198" y="155" width="54" height="185" fill="url(#hg2)"/>
+          <rect x="1223" y="143" width="5"  height="14"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5].map(r => [0,1].map(c => (
+            <rect key={`mr3-${r}-${c}`} x={1205+c*20} y={167+r*22}
+              width="13" height="14" fill="#366dff" opacity={0.18} rx="1"/>
+          )))}
+
+          <rect x="1248" y="168" width="58" height="172" fill="url(#hg1)"/>
+          <polygon points="1248,168 1277,142 1306,168" fill="url(#roof1)" opacity="0.7"/>
+          <rect x="1272" y="286" width="14" height="54" fill="#93b0f8" opacity="0.6" rx="2"/>
+
+          <rect x="1302" y="152" width="52" height="188" fill="url(#hg2)"/>
+          <rect x="1326" y="140" width="5"  height="14"  fill="#7a9ef5"/>
+          {[0,1,2,3,4].map(r => [0,1].map(c => (
+            <rect key={`mr4-${r}-${c}`} x={1309+c*20} y={163+r*24}
+              width="12" height="15" fill="#366dff" opacity={0.18} rx="1"
+              style={r===1&&c===0?{animation:"winLight 4.5s 1.2s infinite"}:{}}/>
+          )))}
+          <rect x="1350" y="165" width="50" height="175" fill="url(#hg1)"/>
+          <polygon points="1350,165 1375,140 1400,165" fill="url(#roof1)" opacity="0.65"/>
+        </g>
+
+        {/* ===== FRONT LAYER – nejdetailnější ===== */}
+        <g className="hs-front">
+          {/* VLEVO */}
+          {/* velký věžák */}
+          <rect x="-8"  y="85"  width="72" height="255" fill="url(#hg1)"/>
+          <rect x="27"  y="72"  width="6"  height="15"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5,6,7].map(r => [0,1,2].map(c => (
+            <rect key={`fl1-${r}-${c}`} x={0+c*20} y={97+r*22}
+              width="13" height="15" fill="#366dff"
+              opacity={((r+c)%3===0)?0.06:((r+c)%2===0)?0.22:0.14}
+              rx="1"
+              style={(r===3&&c===1)||(r===6&&c===2)?{animation:"winLight 3s "+((r+c)*0.3)+"s infinite"}:{}}/>
+          )))}
+
+          {/* řadový dům s vikýřem */}
+          <rect x="60"  y="100" width="68" height="240" fill="url(#hg2)"/>
+          <polygon points="60,100 94,70 128,100" fill="url(#roof1)" opacity="0.8"/>
+          {/* vikýř */}
+          <rect x="80"  y="78"  width="28" height="24"  fill="url(#hg1)" opacity="0.9"/>
+          <polygon points="80,78 94,64 108,78" fill="url(#roof1)" opacity="0.7"/>
+          <rect x="86"  y="82"  width="16" height="12"  fill="#366dff" opacity="0.35" rx="1"/>
+          {[0,1,2,3,4,5].map(r => [0,1,2].map(c => (
+            <rect key={`fl2-${r}-${c}`} x={67+c*18} y={114+r*25}
+              width="12" height="15" fill="#366dff"
+              opacity={r===2&&c===0?0.06:0.2} rx="1"
+              style={r===4&&c===1?{animation:"winLight 4s 0.4s infinite"}:{}}/>
+          )))}
+          <rect x="87"  y="298" width="16" height="42"  fill="#93b0f8" opacity="0.7" rx="3"/>
+
+          <rect x="124" y="88"  width="58" height="252" fill="url(#hg1)"/>
+          <rect x="151" y="75"  width="6"  height="15"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5,6].map(r => [0,1].map(c => (
+            <rect key={`fl3-${r}-${c}`} x={131+c*22} y={100+r*24}
+              width="14" height="16" fill="#366dff"
+              opacity={r===1&&c===0?0.06:0.2} rx="1"
+              style={r===5&&c===0?{animation:"winLight 3.8s 0.9s infinite"}:{}}/>
+          )))}
+
+          <rect x="178" y="105" width="62" height="235" fill="url(#hg2)"/>
+          <polygon points="178,105 209,75 240,105" fill="url(#roof1)" opacity="0.8"/>
+          <rect x="202" y="81"  width="30" height="26"  fill="url(#hg1)" opacity="0.9"/>
+          <polygon points="202,81 217,65 232,81" fill="url(#roof1)" opacity="0.7"/>
+          <rect x="208" y="85"  width="18" height="13"  fill="#366dff" opacity="0.3" rx="1"/>
+          {[0,1,2,3,4,5].map(r => [0,1,2].map(c => (
+            <rect key={`fl4-${r}-${c}`} x={185+c*18} y={118+r*25}
+              width="12" height="15" fill="#366dff"
+              opacity={0.18} rx="1"
+              style={r===2&&c===2?{animation:"winLight 5s 1.1s infinite"}:{}}/>
+          )))}
+          <rect x="206" y="298" width="16" height="42"  fill="#93b0f8" opacity="0.7" rx="3"/>
+
+          <rect x="236" y="92"  width="55" height="248" fill="url(#hg1)"/>
+          <rect x="261" y="79"  width="6"  height="15"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5,6].map(r => [0,1].map(c => (
+            <rect key={`fl5-${r}-${c}`} x={243+c*22} y={103+r*24}
+              width="14" height="16" fill="#366dff"
+              opacity={0.18} rx="1"/>
+          )))}
+
+          <rect x="287" y="108" width="60" height="232" fill="url(#hg2)"/>
+          <polygon points="287,108 317,78 347,108" fill="url(#roof1)" opacity="0.8"/>
+          {[0,1,2,3,4].map(r => [0,1,2].map(c => (
+            <rect key={`fl6-${r}-${c}`} x={294+c*18} y={122+r*26}
+              width="12" height="16" fill="#366dff"
+              opacity={r===3&&c===1?0.06:0.18} rx="1"
+              style={r===0&&c===2?{animation:"winLight 3.2s 0.6s infinite"}:{}}/>
+          )))}
+          <rect x="314" y="298" width="16" height="42"  fill="#93b0f8" opacity="0.7" rx="3"/>
+
+          <rect x="343" y="95"  width="52" height="245" fill="url(#hg1)"/>
+          <rect x="367" y="82"  width="5"  height="15"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5,6].map(r => [0,1].map(c => (
+            <rect key={`fl7-${r}-${c}`} x={350+c*22} y={106+r*24}
+              width="14" height="16" fill="#366dff"
+              opacity={0.16} rx="1"/>
+          )))}
+
+          {/* VPRAVO */}
+          <rect x="990"  y="90"  width="65" height="250" fill="url(#hg2)"/>
+          <rect x="1020" y="77"  width="6"  height="15"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5,6].map(r => [0,1,2].map(c => (
+            <rect key={`fr1-${r}-${c}`} x={997+c*19} y={102+r*23}
+              width="12" height="15" fill="#366dff"
+              opacity={((r+c)%2===0)?0.22:0.11} rx="1"
+              style={r===4&&c===0?{animation:"winLight 3.6s 0.7s infinite"}:{}}/>
+          )))}
+
+          <rect x="1050" y="100" width="68" height="240" fill="url(#hg1)"/>
+          <polygon points="1050,100 1084,70 1118,100" fill="url(#roof1)" opacity="0.8"/>
+          <rect x="1072" y="78"  width="28" height="24"  fill="url(#hg1)" opacity="0.9"/>
+          <polygon points="1072,78 1086,64 1100,78" fill="url(#roof1)" opacity="0.7"/>
+          <rect x="1078" y="82"  width="16" height="12"  fill="#366dff" opacity="0.35" rx="1"/>
+          {[0,1,2,3,4,5].map(r => [0,1,2].map(c => (
+            <rect key={`fr2-${r}-${c}`} x={1057+c*18} y={114+r*25}
+              width="12" height="15" fill="#366dff"
+              opacity={0.19} rx="1"
+              style={r===3&&c===1?{animation:"winLight 4.2s 0.3s infinite"}:{}}/>
+          )))}
+          <rect x="1079" y="298" width="16" height="42"  fill="#93b0f8" opacity="0.7" rx="3"/>
+
+          <rect x="1114" y="88"  width="58" height="252" fill="url(#hg2)"/>
+          <rect x="1141" y="75"  width="6"  height="15"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5,6].map(r => [0,1].map(c => (
+            <rect key={`fr3-${r}-${c}`} x={1121+c*22} y={100+r*24}
+              width="14" height="16" fill="#366dff"
+              opacity={0.19} rx="1"/>
+          )))}
+
+          <rect x="1168" y="102" width="62" height="238" fill="url(#hg1)"/>
+          <polygon points="1168,102 1199,72 1230,102" fill="url(#roof1)" opacity="0.8"/>
+          <rect x="1192" y="78"  width="30" height="26"  fill="url(#hg1)" opacity="0.9"/>
+          <polygon points="1192,78 1207,62 1222,78" fill="url(#roof1)" opacity="0.7"/>
+          <rect x="1198" y="82"  width="18" height="13"  fill="#366dff" opacity="0.3" rx="1"/>
+          {[0,1,2,3,4,5].map(r => [0,1,2].map(c => (
+            <rect key={`fr4-${r}-${c}`} x={1175+c*18} y={116+r*25}
+              width="12" height="15" fill="#366dff"
+              opacity={0.18} rx="1"
+              style={r===1&&c===2?{animation:"winLight 3.9s 1.4s infinite"}:{}}/>
+          )))}
+          <rect x="1196" y="298" width="16" height="42"  fill="#93b0f8" opacity="0.7" rx="3"/>
+
+          <rect x="1226" y="90"  width="56" height="250" fill="url(#hg2)"/>
+          <rect x="1252" y="77"  width="6"  height="15"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5,6].map(r => [0,1].map(c => (
+            <rect key={`fr5-${r}-${c}`} x={1233+c*22} y={102+r*24}
+              width="14" height="16" fill="#366dff"
+              opacity={0.17} rx="1"/>
+          )))}
+
+          <rect x="1278" y="105" width="60" height="235" fill="url(#hg1)"/>
+          <polygon points="1278,105 1308,75 1338,105" fill="url(#roof1)" opacity="0.8"/>
+          {[0,1,2,3,4].map(r => [0,1,2].map(c => (
+            <rect key={`fr6-${r}-${c}`} x={1285+c*18} y={119+r*26}
+              width="12" height="16" fill="#366dff"
+              opacity={0.18} rx="1"
+              style={r===2&&c===0?{animation:"winLight 4.8s 0.5s infinite"}:{}}/>
+          )))}
+          <rect x="1305" y="298" width="16" height="42"  fill="#93b0f8" opacity="0.7" rx="3"/>
+
+          <rect x="1334" y="92"  width="66" height="248" fill="url(#hg2)"/>
+          <rect x="1364" y="79"  width="6"  height="15"  fill="#7a9ef5"/>
+          {[0,1,2,3,4,5,6,7].map(r => [0,1,2].map(c => (
+            <rect key={`fr7-${r}-${c}`} x={1341+c*19} y={104+r*22}
+              width="12" height="14" fill="#366dff"
+              opacity={((r*c)%2===0)?0.22:0.1} rx="1"
+              style={r===5&&c===2?{animation:"winLight 3.3s 0.8s infinite"}:{}}/>
+          )))}
+        </g>
+
+        {/* Ground */}
+        <rect x="0" y="336" width="1400" height="4" fill="#b8ccff" opacity="0.5"/>
+
+        {/* Floating particles */}
+        {([
+          {cx:400,cy:200,r:2,  d:"0s",  dur:"4s"},
+          {cx:530,cy:165,r:1.5,d:"0.6s",dur:"4.5s"},
+          {cx:640,cy:205,r:2,  d:"1.2s",dur:"3.8s"},
+          {cx:700,cy:175,r:1.5,d:"0.3s",dur:"4.2s"},
+          {cx:760,cy:200,r:2,  d:"0.9s",dur:"4.8s"},
+          {cx:870,cy:168,r:1.5,d:"0.5s",dur:"3.9s"},
+          {cx:470,cy:225,r:1,  d:"1.7s",dur:"5s"},
+          {cx:620,cy:215,r:1,  d:"1.4s",dur:"4.6s"},
+          {cx:820,cy:185,r:1,  d:"0.8s",dur:"4.3s"},
+        ] as {cx:number;cy:number;r:number;d:string;dur:string}[]).map((p,i) => (
+          <circle key={i} cx={p.cx} cy={p.cy} r={p.r} fill="#366dff" opacity="0.45"
+            style={{animation:`floatDot ${p.dur} ease-in-out infinite`,animationDelay:p.d}}/>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
 const IconPin = () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>;
 const IconHome = () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>;
 const IconArrow = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>;
@@ -189,6 +562,7 @@ export default function Home() {
   const [calcAmount, setCalcAmount] = useState(3000000);
   const [calcMode, setCalcMode] = useState<"najem"|"rust">("najem");
   const statsRef = useRef<HTMLDivElement>(null);
+  const reelsRef = useRef<HTMLDivElement>(null);
 
   const investors = useCounter(247, 1800, statsTriggered);
   const properties = useCounter(300, 1800, statsTriggered);
@@ -223,6 +597,10 @@ export default function Home() {
   }, []);
 
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const scrollReels = (dir: "left" | "right") => {
+    if (!reelsRef.current) return;
+    reelsRef.current.scrollBy({ left: dir === "left" ? -360 : 360, behavior: "smooth" });
+  };
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -273,7 +651,11 @@ export default function Home() {
         .hero-shape{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.3;pointer-events:none;}
         .hero-shape-1{width:700px;height:700px;background:radial-gradient(circle,#366dff44,transparent);top:-150px;right:-150px;}
         .hero-shape-2{width:500px;height:500px;background:radial-gradient(circle,#f59e0b22,transparent);bottom:-50px;left:5%;}
-        .hero-inner{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;max-width:1200px;width:100%;position:relative;z-index:2;}
+        .hero-three-wrap{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+        .hero-three-canvas{position:absolute;inset:0;opacity:0.44;}
+        .hero::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 70% 45%,rgba(54,109,255,0.08),transparent 52%);}
+        .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(247,247,251,0.98) 0%,rgba(247,247,251,0.84) 42%,rgba(247,247,251,0.48) 100%);}
+        .hero-inner{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;max-width:1200px;width:100%;position:relative;z-index:3;}
         .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--blue);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:7px 16px;border-radius:50px;margin-bottom:1.5rem;border:1px solid rgba(54,109,255,0.2);box-shadow:0 2px 8px rgba(54,109,255,0.1);}
         .hero-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:blink 2s infinite;}
         @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
@@ -347,6 +729,24 @@ export default function Home() {
         .project-meta-item{display:flex;align-items:center;gap:5px;}
         .project-cta{display:flex;align-items:center;gap:5px;color:var(--blue);font-size:0.83rem;font-weight:700;transition:gap 0.2s;}
         .project-card:hover .project-cta{gap:9px;}
+
+        /* REELS */
+        .reels-section{background:#f3f4f6;}
+        .reels-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:1.8rem;}
+        .reels-title{font-size:clamp(1.8rem,3.2vw,3rem);font-weight:800;line-height:1.15;letter-spacing:-1px;color:#0f1a4d;}
+        .reels-sub{font-size:1.05rem;color:#334155;line-height:1.7;max-width:700px;margin-top:0.8rem;}
+        .reels-nav{display:flex;gap:10px;flex-shrink:0;}
+        .reels-nav-btn{width:56px;height:56px;border-radius:50%;border:1px solid #c9d2e3;background:white;color:#0f1a4d;font-size:1.6rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+        .reels-nav-btn:hover{border-color:#366dff;color:#366dff;transform:translateY(-1px);}
+        .reels-track{display:flex;justify-content:center;gap:22px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;}
+        .reels-track::-webkit-scrollbar{height:8px;}
+        .reels-track::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px;}
+        .reel-card{background:#0f172a;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(15,23,42,0.18);scroll-snap-align:start;min-height:520px;display:flex;flex-direction:column;flex:0 0 min(320px, 88vw);}
+        .reel-embed{width:100%;aspect-ratio:9/16;border:0;background:#0b1220;}
+        .reel-footer{padding:10px 12px;background:#0f172a;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+        .reel-name{color:#cbd5e1;font-size:0.82rem;font-weight:600;}
+        .reel-open{background:#366dff;color:white;border:none;border-radius:999px;padding:8px 12px;font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+        .reel-open:hover{background:#1a4fd6;}
 
         /* WHY */
         .why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;}
@@ -499,6 +899,11 @@ export default function Home() {
         }
         @media(max-width:900px){
           .navbar-links{display:none;}
+          .hero-three-canvas{opacity:0.3;}
+          .hero::after{background:linear-gradient(180deg,rgba(247,247,251,0.96) 0%,rgba(247,247,251,0.72) 55%,rgba(247,247,251,0.52) 100%);}
+          .reels-head{flex-direction:column;}
+          .reels-nav{align-self:flex-end;}
+          .reels-track{justify-content:flex-start;}
           .steps-wrap{grid-template-columns:1fr;}
           .steps-sticky{position:relative;top:0;}
           .steps-photo{aspect-ratio:16/7;margin-bottom:0;}
@@ -528,6 +933,7 @@ export default function Home() {
 
       {/* HERO – nová silná message */}
       <section id="hero" className="hero">
+        <HeroSkyline />
         <div className="hero-shape hero-shape-1"/>
         <div className="hero-shape hero-shape-2"/>
         <div className="hero-inner">
@@ -553,7 +959,6 @@ export default function Home() {
           </div>
           {/* Hero kalkulačka */}
           <div className="hero-card">
-            <div className="hero-card-label">Orientační výpočet měsíčního příjmu</div>
             <div className="hero-card-label">Orientační výpočet při investici {(calcAmount/1000000).toFixed(1).replace(".",",")} mil. Kč</div>
             <input type="range" className="calc-slider" min={500000} max={10000000} step={100000} value={calcAmount} onChange={e=>setCalcAmount(Number(e.target.value))}/>
             <div style={{display:"flex",justifyContent:"space-between",fontSize:"0.72rem",color:"var(--text2)",marginBottom:"1.25rem"}}>
@@ -654,6 +1059,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* REELS */}
+      <section className="section reels-section">
+        <div className="reels-head reveal">
+          <div>
+            <h2 className="reels-title">Podívejte se, jak přemýšlíme o realitách</h2>
+            <p className="reels-sub">Krátká videa, kde ukazujeme přístup k investicím, správě a rozhodování v praxi.</p>
+          </div>
+          <div className="reels-nav">
+            <button className="reels-nav-btn" onClick={() => scrollReels("left")} aria-label="Předchozí">‹</button>
+            <button className="reels-nav-btn" onClick={() => scrollReels("right")} aria-label="Další">›</button>
+          </div>
+        </div>
+        <div className="reels-track reveal d1" ref={reelsRef}>
+          {reels.map((reel, i) => (
+            <div key={i} className="reel-card">
+              <iframe
+                className="reel-embed"
+                src={reel.embedUrl}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                title={reel.title}
+              />
+              <div className="reel-footer">
+                <div className="reel-name">Instagram Reel</div>
+                <button className="reel-open" onClick={() => window.open(reel.postUrl, "_blank", "noopener,noreferrer")}>
+                  Otevřít
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* KALKULAČKA */}
       <section className="calc-section">
         <div className="calc-wrap reveal">
@@ -680,10 +1119,10 @@ export default function Home() {
             <div className="calc-range-labels"><span>500 tis. Kč</span><span>10 mil. Kč</span></div>
 
             {/* Blok 1 – garantovaný příjem – vždy viditelný */}
-            <div style={{background:"rgba(54,109,255,0.15)",border:"1px solid rgba(54,109,255,0.3)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
-              <div style={{fontSize:"0.68rem",fontWeight:700,color:"#93c5fd",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Garantovaný měsíční příjem</div>
-              <div style={{fontSize:"2rem",fontWeight:800,color:"#366dff",letterSpacing:"-1px",lineHeight:1}}>{monthlyIncome.toLocaleString("cs-CZ")} Kč</div>
-              <div style={{fontSize:"0.73rem",color:"#64748b",marginTop:"4px"}}>vypláceno každý měsíc · {yearlyIncome.toLocaleString("cs-CZ")} Kč ročně</div>
+            <div style={{background:"rgba(54,109,255,0.24)",border:"1px solid rgba(147,197,253,0.42)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
+              <div style={{fontSize:"0.68rem",fontWeight:700,color:"#dbeafe",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Garantovaný měsíční příjem</div>
+              <div style={{fontSize:"2rem",fontWeight:800,color:"#60a5fa",letterSpacing:"-1px",lineHeight:1}}>{monthlyIncome.toLocaleString("cs-CZ")} Kč</div>
+              <div style={{fontSize:"0.73rem",color:"#cbd5e1",marginTop:"4px"}}>vypláceno každý měsíc · {yearlyIncome.toLocaleString("cs-CZ")} Kč ročně</div>
             </div>
 
             {/* Blok 2 – růst hodnoty – jen při přepnutí */}
