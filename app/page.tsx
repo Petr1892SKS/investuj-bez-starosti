@@ -903,7 +903,6 @@ export default function Home() {
         <div className="hero-shape hero-shape-2"/>
         <div className="hero-inner">
           <div>
-            <div className="hero-eyebrow"><div className="hero-dot"/>Investiční platforma</div>
             <h1>Investujte do nemovitostí.<br/><span className="accent">Bez starostí.</span></h1>
             <div className="hero-points">
               <div className="hero-point"><div className="hero-point-dot"/>Vlastníte konkrétní byt.</div>
