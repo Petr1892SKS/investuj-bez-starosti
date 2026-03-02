@@ -32,18 +32,6 @@ const team = [
   { name: "Michal Dvořák", role: "Investiční poradce", desc: "Pomáhá investorům najít správné řešení. Přes 150 spokojených klientů." },
 ];
 
-const reels = [
-  {
-    title: "Reel: Jak přemýšlím o realitách",
-    embedUrl: "https://www.instagram.com/reel/DVL1JL0iAqS/embed",
-    postUrl: "https://www.instagram.com/reel/DVL1JL0iAqS/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-  },
-  {
-    title: "Reel: Další pohled na realitní byznys",
-    embedUrl: "https://www.instagram.com/reel/DVAlZrgCPe5/embed",
-    postUrl: "https://www.instagram.com/reel/DVAlZrgCPe5/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-  },
-];
 
 
 const chatMessages = [
@@ -562,7 +550,7 @@ export default function Home() {
   const [calcAmount, setCalcAmount] = useState(3000000);
   const [calcMode, setCalcMode] = useState<"najem"|"rust">("najem");
   const statsRef = useRef<HTMLDivElement>(null);
-  const reelsRef = useRef<HTMLDivElement>(null);
+
 
   const investors = useCounter(247, 1800, statsTriggered);
   const properties = useCounter(300, 1800, statsTriggered);
@@ -597,10 +585,7 @@ export default function Home() {
   }, []);
 
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  const scrollReels = (dir: "left" | "right") => {
-    if (!reelsRef.current) return;
-    reelsRef.current.scrollBy({ left: dir === "left" ? -360 : 360, behavior: "smooth" });
-  };
+
 
   const validate = () => {
     const errors: Record<string, string> = {};
@@ -730,23 +715,6 @@ export default function Home() {
         .project-cta{display:flex;align-items:center;gap:5px;color:var(--blue);font-size:0.83rem;font-weight:700;transition:gap 0.2s;}
         .project-card:hover .project-cta{gap:9px;}
 
-        /* REELS */
-        .reels-section{background:#f3f4f6;}
-        .reels-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:1.8rem;}
-        .reels-title{font-size:clamp(1.8rem,3.2vw,3rem);font-weight:800;line-height:1.15;letter-spacing:-1px;color:#0f1a4d;}
-        .reels-sub{font-size:1.05rem;color:#334155;line-height:1.7;max-width:700px;margin-top:0.8rem;}
-        .reels-nav{display:flex;gap:10px;flex-shrink:0;}
-        .reels-nav-btn{width:56px;height:56px;border-radius:50%;border:1px solid #c9d2e3;background:white;color:#0f1a4d;font-size:1.6rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
-        .reels-nav-btn:hover{border-color:#366dff;color:#366dff;transform:translateY(-1px);}
-        .reels-track{display:flex;justify-content:center;gap:22px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;}
-        .reels-track::-webkit-scrollbar{height:8px;}
-        .reels-track::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px;}
-        .reel-card{background:#0f172a;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(15,23,42,0.18);scroll-snap-align:start;min-height:520px;display:flex;flex-direction:column;flex:0 0 min(320px, 88vw);}
-        .reel-embed{width:100%;aspect-ratio:9/16;border:0;background:#0b1220;}
-        .reel-footer{padding:10px 12px;background:#0f172a;display:flex;justify-content:space-between;align-items:center;gap:10px;}
-        .reel-name{color:#cbd5e1;font-size:0.82rem;font-weight:600;}
-        .reel-open{background:#366dff;color:white;border:none;border-radius:999px;padding:8px 12px;font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap;}
-        .reel-open:hover{background:#1a4fd6;}
 
         /* WHY */
         .why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;}
@@ -901,9 +869,6 @@ export default function Home() {
           .navbar-links{display:none;}
           .hero-three-canvas{opacity:0.3;}
           .hero::after{background:linear-gradient(180deg,rgba(247,247,251,0.96) 0%,rgba(247,247,251,0.72) 55%,rgba(247,247,251,0.52) 100%);}
-          .reels-head{flex-direction:column;}
-          .reels-nav{align-self:flex-end;}
-          .reels-track{justify-content:flex-start;}
           .steps-wrap{grid-template-columns:1fr;}
           .steps-sticky{position:relative;top:0;}
           .steps-photo{aspect-ratio:16/7;margin-bottom:0;}
@@ -1059,39 +1024,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* REELS */}
-      <section className="section reels-section">
-        <div className="reels-head reveal">
-          <div>
-            <h2 className="reels-title">Podívejte se, jak přemýšlíme o realitách</h2>
-            <p className="reels-sub">Krátká videa, kde ukazujeme přístup k investicím, správě a rozhodování v praxi.</p>
-          </div>
-          <div className="reels-nav">
-            <button className="reels-nav-btn" onClick={() => scrollReels("left")} aria-label="Předchozí">‹</button>
-            <button className="reels-nav-btn" onClick={() => scrollReels("right")} aria-label="Další">›</button>
-          </div>
-        </div>
-        <div className="reels-track reveal d1" ref={reelsRef}>
-          {reels.map((reel, i) => (
-            <div key={i} className="reel-card">
-              <iframe
-                className="reel-embed"
-                src={reel.embedUrl}
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-                title={reel.title}
-              />
-              <div className="reel-footer">
-                <div className="reel-name">Instagram Reel</div>
-                <button className="reel-open" onClick={() => window.open(reel.postUrl, "_blank", "noopener,noreferrer")}>
-                  Otevřít
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* KALKULAČKA */}
       <section className="calc-section">
@@ -1186,13 +1118,13 @@ export default function Home() {
         </div>
         <div className="why-grid">
           {[
-            [<IconShield/>,"Garantovaná výše měsíčního příjmu","Smluvně stanovená výše příjmu z nájmu odpovídající 5 % ročně. Víte přesně, kolik dostanete – bez překvapení."],
-            [<IconSettings/>,"All-in správa bez operativy","Nájemníci, opravy, provoz – vše řešíme za vás. Vy se staráte jen o to, co vás baví."],
-            [<IconUsers/>,"Prověřený systém výběru nájemníků","Nájemníky vybíráme systematicky a zodpovědně. Váš byt je v dobrých rukou."],
-            [<IconTool/>,"Servisní a technický tým","Technické záležitosti zařídíme. Máme vlastní tým, který se stará o vše potřebné."],
-          ].map(([icon,title,text],i) => (
+            [IconShield,"Garantovaná výše měsíčního příjmu","Smluvně stanovená výše příjmu z nájmu odpovídající 5 % ročně. Víte přesně, kolik dostanete – bez překvapení."],
+            [IconSettings,"All-in správa bez operativy","Nájemníci, opravy, provoz – vše řešíme za vás. Vy se staráte jen o to, co vás baví."],
+            [IconUsers,"Prověřený systém výběru nájemníků","Nájemníky vybíráme systematicky a zodpovědně. Váš byt je v dobrých rukou."],
+            [IconTool,"Servisní a technický tým","Technické záležitosti zařídíme. Máme vlastní tým, který se stará o vše potřebné."],
+          ].map(([IconCmp,title,text],i) => (
             <div key={i} className={`why-card reveal d${i+1}`}>
-              <div className="why-icon">{icon as React.ReactNode}</div>
+              <div className="why-icon">{<IconCmp /> as React.ReactNode}</div>
               <div className="why-title">{title as string}</div>
               <div className="why-text">{text as string}</div>
             </div>
@@ -1238,12 +1170,12 @@ export default function Home() {
             <p className="section-sub">Vlastníte nemovitost, dostáváte smluvně stanovenou výši měsíčního příjmu z nájmu – a my se staráme o vše ostatní.</p>
             <div className="guarantee-bullets">
               {[
-                [<IconShield/>,"Správu řešíme za vás","Kompletní provoz nemovitosti je v našich rukou."],
-                [<IconUsers/>,"Nájemníky vybíráme systémově","Propracovaný proces výběru nájemníků chrání vaši investici."],
-                [<IconTool/>,"Technické věci zařídíme","Náš technický tým se postará o vše bez vašeho zapojení."],
-              ].map(([icon,title,text],i) => (
+                [IconShield,"Správu řešíme za vás","Kompletní provoz nemovitosti je v našich rukou."],
+                [IconUsers,"Nájemníky vybíráme systémově","Propracovaný proces výběru nájemníků chrání vaši investici."],
+                [IconTool,"Technické věci zařídíme","Náš technický tým se postará o vše bez vašeho zapojení."],
+              ].map(([IconCmp,title,text],i) => (
                 <div key={i} className="g-bullet">
-                  <div className="g-bullet-icon">{icon as React.ReactNode}</div>
+                  <div className="g-bullet-icon">{<IconCmp /> as React.ReactNode}</div>
                   <div><div className="g-bullet-title">{title as string}</div><div className="g-bullet-text">{text as string}</div></div>
                 </div>
               ))}
@@ -1272,7 +1204,7 @@ export default function Home() {
         <div className="reveal">
           <div className="t-card">
             <div className="t-stars">{"★".repeat(testimonials[testimonialIdx].stars)}</div>
-            <div className="t-text">„{testimonials[testimonialIdx].text}"</div>
+            <div className="t-text">„{testimonials[testimonialIdx].text}“</div>
             <div className="t-author">{testimonials[testimonialIdx].name}</div>
             <div className="t-role">{testimonials[testimonialIdx].role}</div>
           </div>
