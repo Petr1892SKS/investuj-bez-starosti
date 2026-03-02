@@ -157,8 +157,8 @@ function HeroSkyline() {
           to   { opacity:1; transform:translateY(0); }
         }
         @keyframes winLight {
-          0%,100% { opacity:0.7; }
-          50%     { opacity:0.2; }
+          0%,100% { opacity:0.18; fill:#366dff; }
+          45%,55% { opacity:0.9;  fill:#f59e0b; }
         }
         @keyframes floatDot {
           0%,100% { transform:translateY(0); opacity:0.5; }
