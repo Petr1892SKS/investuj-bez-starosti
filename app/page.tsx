@@ -16,7 +16,7 @@ const faqs = [
   { q: "Co když je byt dočasně neobsazený?", a: "Obsazenost řešíme my. Investor pobírá sjednaný měsíční příjem podle smluvních podmínek. Veškerá správa nájemníků, výběr, komunikace i řešení provozu je součástí služby." },
   { q: "Musím se starat o nájemníky, opravy nebo administrativu?", a: "Ne. Zajišťujeme kompletní správu nemovitosti včetně výběru nájemníků, smluv, vyúčtování, oprav i komunikace. Investor vlastní nemovitost, ale provoz řešíme my." },
   { q: "Jak je řešeno financování nemovitosti?", a: "Pomůžeme vám nastavit optimální kombinaci vlastních zdrojů a bankovního financování. Cílem je nastavit strukturu investice tak, aby odpovídala vaší finanční situaci a investičním cílům." },
-  { q: "Je možné nemovitost v budoucnu prodat?", a: "Ano. Nemovitost je ve vašem osobním vlastnictví a můžete ji kdykoliv prodat podle podmínek smlouvy. Možné kapitálové zhodnocení se realizuje při prodeji." },
+  { q: "Je možné nemovitost v budoucnu prodat?", a: "Ano. Nemovitost je ve vašem vlastnictví a můžete ji kdykoliv prodat podle podmínek smlouvy. Možné kapitálové zhodnocení se realizuje při prodeji." },
   { q: "Je tato investice vhodná i pro začínající investory?", a: "Ano, pokud hledáte stabilní měsíční příjem a nechcete řešit provoz nemovitosti. Před každou investicí společně posoudíme, zda projekt odpovídá vaší situaci." },
 ];
 
@@ -559,7 +559,7 @@ export default function Home() {
 
   const monthlyIncome = Math.round((calcAmount * 0.05) / 12);
   const yearlyIncome = Math.round(calcAmount * 0.05);
-  const yearlyGrowth = Math.round(calcAmount * 0.03);
+  const yearlyGrowth = Math.round(calcAmount * 0.07);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -623,7 +623,7 @@ export default function Home() {
         .navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,247,251,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 6%;height:68px;display:flex;align-items:center;justify-content:space-between;}
         .navbar-logo{font-size:1.05rem;font-weight:800;color:var(--text);cursor:pointer;}
         .navbar-logo span{color:var(--blue);}
-        .navbar-links{display:flex;gap:2rem;list-style:none;}
+        .navbar-links{display:flex;gap:3rem;list-style:none;}
         .navbar-links a{color:var(--text2);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
         .navbar-links a:hover{color:var(--blue);}
         .btn-primary{background:var(--blue);color:#fff;border:none;border-radius:50px;padding:10px 22px;font-size:0.875rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
@@ -753,7 +753,7 @@ export default function Home() {
         .calc-section .section-label{color:#93c5fd;}
         .calc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1080px;margin:0 auto;}
         .calc-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:36px;}
-        .calc-label{font-size:0.82rem;font-weight:600;color:#94a3b8;margin-bottom:10px;}
+        .calc-label{font-size:0.82rem;font-weight:600;color:white;margin-bottom:10px;}
         .calc-amount-display{font-size:2.2rem;font-weight:800;color:white;margin-bottom:16px;letter-spacing:-1px;}
         .calc-slider-dark{width:100%;height:6px;border-radius:3px;background:rgba(255,255,255,0.15);outline:none;cursor:pointer;-webkit-appearance:none;margin-bottom:8px;}
         .calc-slider-dark::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 2px 8px rgba(54,109,255,0.5);}
@@ -763,7 +763,7 @@ export default function Home() {
         .calc-result-label{font-size:0.82rem;color:#94a3b8;}
         .calc-result-value{font-size:1.1rem;font-weight:800;color:white;}
         .calc-result-value.big{font-size:1.5rem;color:var(--blue);}
-        .calc-note{font-size:0.72rem;color:#475569;margin-top:12px;line-height:1.5;}
+        .calc-note{font-size:0.72rem;color:rgba(255,255,255,0.6);margin-top:12px;line-height:1.5;}
 
         /* TEAM */
         .team-section{background:var(--bg);}
@@ -788,7 +788,7 @@ export default function Home() {
         .guarantee-card{background:linear-gradient(135deg,var(--blue),#1a4fd6);border-radius:22px;padding:44px;text-align:center;}
         .guarantee-card-num{font-size:4.5rem;font-weight:800;color:white;letter-spacing:-3px;line-height:1;margin-bottom:8px;}
         .guarantee-card-label{font-size:0.95rem;color:rgba(255,255,255,0.85);font-weight:500;margin-bottom:6px;}
-        .guarantee-card-sub{font-size:0.8rem;color:rgba(255,255,255,0.55);line-height:1.6;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.2);}
+        .guarantee-card-sub{font-size:0.8rem;color:rgba(255,255,255,0.85);line-height:1.6;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.2);}
 
         /* TESTIMONIALS */
         .testimonials-section{background:var(--bg);}
@@ -910,7 +910,7 @@ export default function Home() {
               <div className="hero-point"><div className="hero-point-dot"/>O správu se staráme my.</div>
             </div>
             <div className="hero-badges">
-              {["All-in správa","Garantovaná výše příjmu","Reálné vlastnictví"].map(label => (
+              {["All-in správa","Garantovaná výše příjmu","Přímé vlastnictví"].map(label => (
                 <div key={label} className="hero-badge">
                   <div className="badge-check"><IconCheck/></div>{label}
                 </div>
@@ -936,9 +936,9 @@ export default function Home() {
             </div>
             {/* Blok 2 – možný růst hodnoty */}
             <div style={{background:"#fefce8",border:"1px solid rgba(245,158,11,0.2)",borderRadius:"12px",padding:"14px 16px"}}>
-              <div style={{fontSize:"0.7rem",fontWeight:700,color:"#92400e",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>Možné kapitálové zhodnocení</div>
+              <div style={{fontSize:"0.7rem",fontWeight:700,color:"#92400e",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>Předpokládané kapitálové zhodnocení</div>
               <div style={{fontSize:"1.9rem",fontWeight:800,color:"#d97706",letterSpacing:"-1px",lineHeight:1}}>+{yearlyGrowth.toLocaleString("cs-CZ")} Kč</div>
-              <div style={{fontSize:"0.72rem",color:"#92400e",marginTop:"3px"}}>ročně · konzervativní scénář 3 % p.a. · realizuje se při prodeji</div>
+              <div style={{fontSize:"0.72rem",color:"#92400e",marginTop:"3px"}}>ročně · předpokládaný scénář 7 % p.a. · realizuje se při prodeji</div>
             </div>
             <button className="hero-card-cta" onClick={() => scrollTo("kontakt")}>Chci konzultaci →</button>
             <div className="hero-card-note">Výpočet je orientační. Konkrétní podmínky jsou vždy sjednány individuálně smluvně.</div>
@@ -962,11 +962,11 @@ export default function Home() {
           <div className="reveal">
             <div className="section-label">Pro koho</div>
             <h2 className="section-title">Pro koho je tato investice vhodná?</h2>
-            <p className="section-sub">Tento model dává smysl investorům, kteří chtějí jistotu, přehlednost a reálné vlastnictví.</p>
+            <p className="section-sub">Tento model dává smysl investorům, kteří chtějí jistotu, přehlednost a přímé vlastnictví.</p>
             <div className="forwhom-list" style={{marginTop:"1.5rem"}}>
               {[
                 "Pro investory, kteří dnes kupují fondy nebo dluhopisy a chtějí vlastnit konkrétní nemovitost.",
-                "Pro ty, kteří chtějí reálné aktivum – ne jen podíl ve fondu.",
+                "Pro ty, kteří chtějí přímé aktivum – ne jen podíl ve fondu.",
                 "Pro investory, kteří nechtějí řešit nájemníky, opravy ani provoz.",
                 "Pro ty, kteří ocení předem stanovenou výši měsíčního příjmu.",
                 "Pro investory, kteří preferují menší, přehledné projekty a osobní přístup.",
@@ -1030,7 +1030,7 @@ export default function Home() {
           <div>
             <div className="section-label">Kalkulačka příjmu</div>
             <h2 className="section-title" style={{color:"white"}}>Orientační výpočet měsíčního příjmu</h2>
-            <p className="section-sub">Zadejte výši investice a uvidíte orientační výši měsíčního příjmu odpovídající garantované výši nájmu.</p>
+            <p className="section-sub" style={{color:"rgba(255,255,255,0.8)"}}>Zadejte výši investice a uvidíte orientační výši měsíčního příjmu odpovídající garantované výši nájmu.</p>
 
           </div>
           <div className="calc-box">
@@ -1059,9 +1059,9 @@ export default function Home() {
             {/* Blok 2 – růst hodnoty – jen při přepnutí */}
             {calcMode==="rust" && (
               <div style={{background:"rgba(245,158,11,0.08)",border:"1px solid rgba(245,158,11,0.3)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
-                <div style={{fontSize:"0.68rem",fontWeight:700,color:"#fbbf24",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Možné kapitálové zhodnocení</div>
+                <div style={{fontSize:"0.68rem",fontWeight:700,color:"#fbbf24",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Předpokládané kapitálové zhodnocení</div>
                 <div style={{fontSize:"2rem",fontWeight:800,color:"#fbbf24",letterSpacing:"-1px",lineHeight:1}}>+{yearlyGrowth.toLocaleString("cs-CZ")} Kč</div>
-                <div style={{fontSize:"0.73rem",color:"#78716c",marginTop:"4px"}}>ročně · konzervativní scénář 3 % p.a. · realizuje se až při prodeji</div>
+                <div style={{fontSize:"0.73rem",color:"#78716c",marginTop:"4px"}}>ročně · předpokládaný scénář 7 % p.a. · realizuje se až při prodeji</div>
               </div>
             )}
 
