@@ -16,7 +16,7 @@ const project = {
   monthlyIncome: 20000,
   yearlyIncome: 240000,
   yieldPercent: 5,
-  growthPercent: 3,
+  growthPercent: 7,
   ownershipType: "Osobní vlastnictví",
   condition: "Po rekonstrukci",
   holdingPeriod: "5–10 let",
@@ -289,7 +289,7 @@ export default function ProjectDetail() {
             <div className="growth-block">
               <div className="growth-tag">Možné kapitálové zhodnocení</div>
               <div className="growth-amount">+{fmt(growthAmount)} Kč</div>
-              <div className="growth-sub">ročně · konzervativní scénář {project.growthPercent} % p.a. · realizuje se při prodeji</div>
+              <div className="growth-sub">ročně · předpokládaný scénář {project.growthPercent} % p.a. · realizuje se při prodeji</div>
             </div>
 
             <div className="hero-card-price">
@@ -366,7 +366,7 @@ export default function ProjectDetail() {
             <div className="param-cell">
               <span className="param-label">Možné kapitálové zhodnocení</span>
               <span className="param-value gold">+{fmt(growthAmount)} Kč / rok</span>
-              <span className="param-note">{project.growthPercent} % p.a. – konzervativní scénář, není garantováno</span>
+              <span className="param-note">{project.growthPercent} % p.a. – předpokládaný scénář, není garantováno</span>
             </div>
             <div className="param-cell">
               <span className="param-label">Předpokládaná délka držení</span>
@@ -455,7 +455,7 @@ export default function ProjectDetail() {
             <div className="yield-card gold">
               <div className="yield-tag gold">Možné kapitálové zhodnocení</div>
               <div className="yield-amount gold">+{fmt(growthAmount)} Kč</div>
-              <div className="yield-desc gold" style={{marginTop:"6px"}}>ročně · konzervativní scénář {project.growthPercent} % p.a.</div>
+              <div className="yield-desc gold" style={{marginTop:"6px"}}>ročně · předpokládaný scénář {project.growthPercent} % p.a.</div>
               <div className="yield-desc gold" style={{marginTop:"12px"}}>Modelový příklad. Není garantováno. Realizuje se pouze při prodeji nemovitosti. Skutečný výsledek závisí na vývoji trhu.</div>
             </div>
           </div>
