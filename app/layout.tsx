@@ -25,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="cs">
       <head>
+        <meta name="facebook-domain-verification" content="3rr9c27l2z4r7aqgtfzgmgyd35zuua" />
         {/* Google Tag Manager */}
         <Script id="gtm-head" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
