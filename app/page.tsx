@@ -3,12 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 const projects = [
-  { name: "Projekt Vinohrady", location: "Praha 2 – Vinohrady", type: "Byt 2+kk", status: "Obsazený", slug: "vinohrady", statusColor: "green" },
-  { name: "Projekt Holešovice", location: "Praha 7 – Holešovice", type: "Byt 1+kk", status: "Připravený", statusColor: "blue" },
-  { name: "Projekt Žižkov", location: "Praha 3 – Žižkov", type: "Byt 2+1", status: "Připravený", statusColor: "blue" },
-  { name: "Projekt Smíchov", location: "Praha 5 – Smíchov", type: "Byt 3+kk", status: "Obsazený", statusColor: "green" },
-  { name: "Projekt Nusle", location: "Praha 4 – Nusle", type: "Byt 2+kk", status: "Připravený", statusColor: "blue" },
-  { name: "Projekt Dejvice", location: "Praha 6 – Dejvice", type: "Byt 1+kk", status: "Obsazený", statusColor: "green" },
+  { name: "Projekt Alšova – Bílina", location: "Bílina – Alšova", type: "Byt 2+kk", status: "Obsazený", slug: "alsova-bilina", statusColor: "green" },
 ];
 
 const faqs = [
@@ -508,7 +503,7 @@ function HeroSkyline() {
 }
 
 const IconPin = () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>;
-const IconHome = () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>;
+
 const IconArrow = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>;
 const IconShield = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>;
 const IconSettings = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>;
@@ -700,7 +695,8 @@ export default function Home() {
 
         /* PROJECTS */
         .projects-section{background:var(--bg);}
-        .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px;}
+        .projects-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
+        .projects-grid .project-card{width:100%;max-width:360px;}
         .project-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:26px;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;position:relative;overflow:hidden;}
         .project-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),#6b8eff);transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
         .project-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover);border-color:rgba(54,109,255,0.25);}
@@ -1011,7 +1007,6 @@ export default function Home() {
               </div>
               <div className="project-meta">
                 <div className="project-meta-item"><IconPin/>{p.location}</div>
-                <div className="project-meta-item"><IconHome/>{p.type}</div>
               </div>
               <Link href={`/projekty/${p.slug || "vinohrady"}`} className="project-cta" style={{textDecoration:"none"}}>Detail projektu<IconArrow/></Link>
             </div>
@@ -1098,7 +1093,7 @@ export default function Home() {
               ["Získáváte předem stanovený příjem","Od prvního dne se staráme o vše. Vy přijímáte pravidelný měsíční příjem."],
             ].map(([title,text],i) => (
               <div key={i} className={`step-item${activeStep===i?" active":""}`} data-step={i} onMouseEnter={() => setActiveStep(i)}>
-                <div className="step-num">{i+1}</div>
+                <div className="step-num">{i+1}</div>jak na ten 
                 <div className="step-content">
                   <div className="step-title">{title}</div>
                   <div className="step-text">{text}</div>
