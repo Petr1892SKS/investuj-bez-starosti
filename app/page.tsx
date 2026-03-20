@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 const projects = [
-  { name: "Projekt Alšova – Bílina", location: "Bílina – Alšova", type: "Byt 2+kk", status: "Obsazený", slug: "alsova-bilina", statusColor: "green" },
+  { name: "Projekt Alšova – Bílina", location: "Bílina – Alšova", type: "Byt 3+1", price: "2 990 000 Kč", status: "Volný", slug: "alsova-bilina", statusColor: "blue" },
 ];
 
 const faqs = [
@@ -1007,6 +1007,8 @@ export default function Home() {
               </div>
               <div className="project-meta">
                 <div className="project-meta-item"><IconPin/>{p.location}</div>
+                {p.type && <div className="project-meta-item">{p.type}</div>}
+                {p.price && <div className="project-meta-item" style={{fontWeight:600,color:"var(--text)"}}>{p.price}</div>}
               </div>
               <Link href={`/projekty/${p.slug || "vinohrady"}`} className="project-cta" style={{textDecoration:"none"}}>Detail projektu<IconArrow/></Link>
             </div>
