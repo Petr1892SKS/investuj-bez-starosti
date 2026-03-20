@@ -1256,7 +1256,7 @@ export default function Home() {
                   <div className="fg"><label className="f-label">Telefon</label><input className="f-input" type="tel" value={formState.phone} onChange={e=>setFormState(s=>({...s,phone:e.target.value}))} placeholder="+420 777 000 000"/>{formErrors.phone&&<span className="f-error">{formErrors.phone}</span>}</div>
                   <div className="fg full"><label className="f-label">Zájem</label><select className="f-select" value={formState.interest} onChange={e=>setFormState(s=>({...s,interest:e.target.value}))}><option value="">Vyberte...</option><option value="1">1 investiční byt</option><option value="vice">Více bytů</option><option value="portfolio">Chci poradit s portfoliem</option><option value="jine">Jiné</option></select>{formErrors.interest&&<span className="f-error">{formErrors.interest}</span>}</div>
                   <div className="fg full"><label className="f-label">Zpráva (volitelné)</label><textarea className="f-textarea" value={formState.message} onChange={e=>setFormState(s=>({...s,message:e.target.value}))} placeholder="Napište nám cokoli..."/></div>
-                  <div className="fg full"><div className="f-check"><input type="checkbox" id="gdpr" checked={formState.gdpr} onChange={e=>setFormState(s=>({...s,gdpr:e.target.checked}))}/><label className="f-check-label" htmlFor="gdpr">Souhlasím se zpracováním osobních údajů v souladu s <a href="#" style={{color:"var(--blue)"}}>GDPR</a>.</label></div>{formErrors.gdpr&&<span className="f-error">{formErrors.gdpr}</span>}</div>
+                  <div className="fg full"><div className="f-check"><input type="checkbox" id="gdpr" checked={formState.gdpr} onChange={e=>setFormState(s=>({...s,gdpr:e.target.checked}))}/><label className="f-check-label" htmlFor="gdpr">Souhlasím se zpracováním osobních údajů v souladu s <Link href="/pravni-dokumenty" style={{color:"var(--blue)"}}>GDPR</Link>.</label></div>{formErrors.gdpr&&<span className="f-error">{formErrors.gdpr}</span>}</div>
                 </div>
                 <button type="submit" className="f-submit" disabled={formLoading}>{formLoading?"Odesílám...":"Odeslat a získat konzultaci →"}</button>
               </form>
@@ -1288,8 +1288,8 @@ export default function Home() {
             <div className="footer-links">
               <a href="mailto:info@investujbezstarosti.cz">info@investujbezstarosti.cz</a>
               <a href="tel:+420000000000">+420 000 000 000</a>
-              <a href="#">GDPR</a>
-              <a href="#">Všeobecné podmínky</a>
+              <Link href="/pravni-dokumenty">GDPR</Link>
+              <Link href="/pravni-dokumenty">Všeobecné podmínky</Link>
             </div>
           </div>
         </div>
