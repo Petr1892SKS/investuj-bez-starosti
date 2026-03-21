@@ -7,14 +7,14 @@ import Link from "next/link";
 // ============================================================
 const project = {
   name: "Projekt Alšova – Bílina",
-  subtitle: "Byt 2+kk · Bílina – Alšova",
+  subtitle: "Byt 3+1 · Bílina – Alšova",
   claim: "Konkrétní nemovitost ve vašem vlastnictví. Předem sjednaný měsíční příjem. Správa bez vaší účasti.",
-  status: "Obsazený", // "Obsazený" | "Připravený"
+  status: "Volný", // "Volný" | "Obsazený" | "Připravený"
 
   // Investiční parametry
-  price: 4800000,
-  monthlyIncome: 20000,
-  yearlyIncome: 240000,
+  price: 2990000,
+  monthlyIncome: 12458,
+  yearlyIncome: 149500,
   yieldPercent: 5,
   growthPercent: 7,
   ownershipType: "Osobní vlastnictví",
@@ -27,7 +27,7 @@ const project = {
   // Proč tento projekt – max 5 bodů
   reasons: [
     { title: "Stabilní lokalita s nízkou prázdnotou", text: "Bílina – Alšova má dlouhodobě stabilní poptávku po nájemním bydlení. Poptávka po nájemním bydlení v lokalitě stabilně převyšuje nabídku." },
-    { title: "Dispozice 2+kk odpovídá trhu", text: "Segment 2+kk tvoří největší podíl poptávky na nájemním trhu. Nájemní příjem pro tuto kategorii je dlouhodobě stabilní." },
+    { title: "Dispozice 3+1 odpovídá trhu", text: "Segment 3+1 je dlouhodobě stabilně poptávaný na nájemním trhu. Nájemní příjem pro tuto kategorii je stabilní a předvídatelný." },
     { title: "Nemovitost z existujícího portfolia", text: "Projekt nepochází z volného trhu. Nemovitost je součástí portfolia s ověřenou provozní historií a existujícím nájemcem." },
     { title: "Po rekonstrukci – bez dalších investic", text: "Kompletní rekonstrukce je již provedena. Investor nevkládá žádné dodatečné prostředky do oprav ani přípravy na pronájem." },
     { title: "All-in správa od prvního dne", text: "Výběr nájemce, servis, komunikace, účetnictví – vše zajišťujeme my. Investor přijímá měsíční příjem bez operativní zátěže." },
@@ -270,7 +270,7 @@ export default function ProjectDetail() {
         <div className="hero-inner">
           <div>
             <div className="hero-badge">
-              <span className="status-dot"/>
+              <span className="status-dot" style={{background: project.status === "Volný" ? "#366dff" : project.status === "Obsazený" ? "#16a34a" : "#f59e0b"}}/>
               {project.status}
             </div>
             <h1 className="hero-title">{project.name}</h1>
