@@ -17,10 +17,10 @@ const project = {
   yearlyIncome: 149500,
   yieldPercent: 5,
   growthPercent: 7,
-  ownershipType: "Osobní vlastnictví",
+  ownershipType: "Družstevní",
   condition: "Po rekonstrukci",
   holdingPeriod: "5–10 let",
-  area: 52,
+  area: 80,
   floor: "3. patro / 6",
   yearBuilt: 1935,
 
