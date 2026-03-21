@@ -4,6 +4,7 @@ import Link from "next/link";
 
 const projects = [
   { name: "Projekt Alšova – Bílina", location: "Bílina – Alšova", type: "Byt 3+1", price: "2 990 000 Kč", status: "Volný", slug: "alsova-bilina", statusColor: "blue" },
+  { name: "Projekt Alšova – Bílina", location: "Bílina – Alšova", type: "Byt 2+1", price: "2 290 000 Kč", status: "Volný", slug: "alsova-bilina-2-1", statusColor: "blue" },
 ];
 
 const faqs = [
