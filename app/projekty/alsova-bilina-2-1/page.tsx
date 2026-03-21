@@ -20,7 +20,7 @@ const project = {
   ownershipType: "Družstevní",
   condition: "Po rekonstrukci",
   holdingPeriod: "5–10 let",
-  area: 80,
+  area: 46,
   floor: "3. patro / 6",
   yearBuilt: 1935,
 
