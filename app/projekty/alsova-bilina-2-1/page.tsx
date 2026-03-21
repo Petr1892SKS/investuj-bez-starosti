@@ -34,8 +34,14 @@ const project = {
   ],
 
   gallery: [
-    // Sem přidej fotky po nahrání do /public/images/alsova-bilina-2-1/
-  ] as { src: string; label: string }[],
+    { src: "/images/alsova-bilina-2-1/IMG_6863.jpeg", label: "Fotografie 1" },
+    { src: "/images/alsova-bilina-2-1/IMG_6864.jpeg", label: "Fotografie 2" },
+    { src: "/images/alsova-bilina-2-1/IMG_6865.jpeg", label: "Fotografie 3" },
+    { src: "/images/alsova-bilina-2-1/IMG_6886.jpeg", label: "Fotografie 4" },
+    { src: "/images/alsova-bilina-2-1/IMG_8661.jpeg", label: "Fotografie 5" },
+    { src: "/images/alsova-bilina-budova/IMG_4974.jpeg", label: "Budova" },
+    { src: "/images/alsova-bilina-budova/IMG_4975.jpeg", label: "Budova 2" },
+  ],
 
   // Pro koho je projekt vhodný
   forWhom: [
