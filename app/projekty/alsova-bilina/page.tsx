@@ -37,6 +37,8 @@ const project = {
     { src: "/images/alsova-bilina-3-1/IMG_6892.jpeg", label: "Fotografie 1" },
     { src: "/images/alsova-bilina-3-1/IMG_6893.jpeg", label: "Fotografie 2" },
     { src: "/images/alsova-bilina-3-1/IMG_6894.jpeg", label: "Fotografie 3" },
+    { src: "/images/alsova-bilina-3-1/IMG_4974.jpeg", label: "Fotografie 4" },
+    { src: "/images/alsova-bilina-3-1/IMG_4975.jpeg", label: "Fotografie 5" },
   ],
 
   // Pro koho je projekt vhodný
