@@ -1008,7 +1008,7 @@ export default function Home() {
               <div className="project-meta">
                 <div className="project-meta-item"><IconPin/>{p.location}</div>
                 {p.type && <div className="project-meta-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>{p.type}</div>}
-                {p.price && <div className="project-meta-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span style={{fontWeight:600,color:"var(--text)"}}>{p.price}</span></div>}
+                {p.price && <div className="project-meta-item"><span style={{fontWeight:700,fontSize:"11px",color:"#366dff",background:"#eef2ff",borderRadius:"4px",padding:"1px 4px",lineHeight:"1.4"}}>CZK</span><span style={{fontWeight:600,color:"var(--text)"}}>{p.price}</span></div>}
               </div>
               <Link href={`/projekty/${p.slug || "vinohrady"}`} className="project-cta" style={{textDecoration:"none"}}>Detail projektu<IconArrow/></Link>
             </div>
