@@ -33,14 +33,14 @@ const project = {
     { title: "All-in správa od prvního dne", text: "Výběr nájemce, servis, komunikace, účetnictví – vše zajišťujeme my. Investor přijímá měsíční příjem bez operativní zátěže." },
   ],
 
-  // Galerie – nahraď src cestami k reálným fotkám v /public/images/alsova-bilina/
+  // Galerie – nahraď src cestami k reálným fotkám v /public/images/alsova-bilina-3-1/
   gallery: [
-    { src: "/images/alsova-bilina/obyvaci.jpg", label: "Obývací prostor" },
-    { src: "/images/alsova-bilina/loznice.jpg", label: "Ložnice" },
-    { src: "/images/alsova-bilina/kuchyn.jpg", label: "Kuchyňský kout" },
-    { src: "/images/alsova-bilina/koupelna.jpg", label: "Koupelna" },
-    { src: "/images/alsova-bilina/dispozice.jpg", label: "Dispozice" },
-    { src: "/images/alsova-bilina/lokalita.jpg", label: "Lokalita" },
+    { src: "/images/alsova-bilina-3-1/obyvaci.jpg", label: "Obývací prostor" },
+    { src: "/images/alsova-bilina-3-1/loznice.jpg", label: "Ložnice" },
+    { src: "/images/alsova-bilina-3-1/kuchyn.jpg", label: "Kuchyňský kout" },
+    { src: "/images/alsova-bilina-3-1/koupelna.jpg", label: "Koupelna" },
+    { src: "/images/alsova-bilina-3-1/dispozice.jpg", label: "Dispozice" },
+    { src: "/images/alsova-bilina-3-1/lokalita.jpg", label: "Lokalita" },
   ],
 
   // Pro koho je projekt vhodný
