@@ -1001,7 +1001,7 @@ export default function Home() {
         </div>
         <div className="projects-grid">
           {projects.map((p, i) => (
-            <div key={i} className={`project-card reveal d${(i%3)+1}`}>
+            <Link key={i} href={`/projekty/${p.slug || "vinohrady"}`} className={`project-card reveal d${(i%3)+1}`} style={{textDecoration:"none",display:"block"}}>
               <div className="project-card-header">
                 <div className="project-name">{p.name}</div>
                 <div className={`project-status status-${p.statusColor}`}>{p.status}</div>
@@ -1011,8 +1011,8 @@ export default function Home() {
                 {p.type && <div className="project-meta-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>{p.type}</div>}
                 {p.price && <div className="project-meta-item"><span style={{fontWeight:700,fontSize:"11px",color:"#366dff",background:"#eef2ff",borderRadius:"4px",padding:"1px 4px",lineHeight:"1.4"}}>CZK</span><span style={{fontWeight:600,color:"var(--text)"}}>{p.price}</span></div>}
               </div>
-              <Link href={`/projekty/${p.slug || "vinohrady"}`} className="project-cta" style={{textDecoration:"none"}}>Detail projektu<IconArrow/></Link>
-            </div>
+              <div className="project-cta">Detail projektu<IconArrow/></div>
+            </Link>
           ))}
         </div>
         <div className="mini-cta reveal">
