@@ -914,7 +914,7 @@ export default function Home() {
               ))}
             </div>
             <div className="hero-ctas">
-              <button className="btn-primary" onClick={() => scrollTo("projekty")}>Zjistit dostupné projekty</button>
+              <button className="btn-primary" onClick={() => scrollTo("projekty")}>Zjistit dostupné byty</button>
               <button className="btn-secondary" onClick={() => scrollTo("kontakt")}>Nezávazná konzultace</button>
             </div>
           </div>
