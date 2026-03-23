@@ -616,7 +616,7 @@ export default function Home() {
         .ibz-root{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
 
         /* NAVBAR */
-        .navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,247,251,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 6%;height:68px;display:flex;align-items:center;justify-content:space-between;}
+        .navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,247,251,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 6%;height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
         .navbar-logo{font-size:1.05rem;font-weight:800;color:var(--text);cursor:pointer;}
         .navbar-logo span{color:var(--blue);}
         .navbar-links{display:flex;gap:3rem;list-style:none;}
@@ -935,7 +935,7 @@ export default function Home() {
             <div style={{background:"#fefce8",border:"1px solid rgba(245,158,11,0.2)",borderRadius:"12px",padding:"14px 16px"}}>
               <div style={{fontSize:"0.7rem",fontWeight:700,color:"#92400e",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>Předpokládané kapitálové zhodnocení</div>
               <div style={{fontSize:"1.9rem",fontWeight:800,color:"#d97706",letterSpacing:"-1px",lineHeight:1}}>+{yearlyGrowth.toLocaleString("cs-CZ")} Kč</div>
-              <div style={{fontSize:"0.72rem",color:"#92400e",marginTop:"3px"}}>ročně · předpokládaný scénář 7 % p.a. · realizuje se při prodeji</div>
+              <div style={{fontSize:"0.72rem",color:"#92400e",marginTop:"3px"}}>ročně · předpokládaný scénář 7 % p.a.</div>
             </div>
             <button className="hero-card-cta" onClick={() => scrollTo("kontakt")}>Chci konzultaci →</button>
             <div className="hero-card-note">Výpočet je orientační. Konkrétní podmínky jsou vždy sjednány individuálně smluvně.</div>
@@ -963,7 +963,7 @@ export default function Home() {
             <div className="forwhom-list" style={{marginTop:"1.5rem"}}>
               {[
                 "Pro investory, kteří dnes kupují fondy nebo dluhopisy a chtějí vlastnit konkrétní nemovitost.",
-                "Pro ty, kteří chtějí přímé aktivum – ne jen podíl ve fondu.",
+                "Pro ty, kteří chtějí využít finanční páku – vlastní kapitál doplní bankovní financování.",
                 "Pro investory, kteří nechtějí řešit nájemníky, opravy ani provoz.",
                 "Pro ty, kteří ocení předem stanovenou výši měsíčního příjmu.",
                 "Pro investory, kteří preferují menší, přehledné projekty a osobní přístup.",
@@ -996,7 +996,7 @@ export default function Home() {
       <section id="projekty" className="section projects-section">
         <div className="section-header reveal">
           <div className="section-label">Projekty</div>
-          <h2 className="section-title">Aktuální investiční projekty</h2>
+          <h2 className="section-title">Aktuální investiční byty v nabídce</h2>
           <p className="section-sub">Vyberte si projekt. Pokud si nejste jistí, rádi poradíme nebo sestavíme portfolio.</p>
         </div>
         <div className="projects-grid">
