@@ -3,8 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 const projects = [
-  { name: "Projekt Alšova – Bílina", location: "Bílina – Alšova", type: "Byt 3+1", price: "2 990 000 Kč", status: "Volný", slug: "alsova-bilina", statusColor: "blue" },
-  { name: "Projekt Alšova – Bílina", location: "Bílina – Alšova", type: "Byt 2+1", price: "2 290 000 Kč", status: "Volný", slug: "alsova-bilina-2-1", statusColor: "blue" },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1", price: "2 990 000 Kč", status: "Volný", slug: "alsova-bilina", statusColor: "blue" },
+  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1", price: "2 290 000 Kč", status: "Volný", slug: "alsova-bilina-2-1", statusColor: "blue" },
 ];
 
 const faqs = [
@@ -997,7 +997,7 @@ export default function Home() {
         <div className="section-header reveal">
           <div className="section-label">Projekty</div>
           <h2 className="section-title">Aktuální investiční byty v nabídce</h2>
-          <p className="section-sub">Vyberte si projekt. Pokud si nejste jistí, rádi poradíme nebo sestavíme portfolio.</p>
+          <p className="section-sub">Vyberte si byt. Pokud si nejste jistí, rádi poradíme nebo sestavíme portfolio.</p>
         </div>
         <div className="projects-grid">
           {projects.map((p, i) => (
