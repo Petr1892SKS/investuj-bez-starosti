@@ -544,6 +544,7 @@ export default function Home() {
   const [activeStep, setActiveStep] = useState(0);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [statsTriggered, setStatsTriggered] = useState(false);
+  const [statsCarouselIdx, setStatsCarouselIdx] = useState(0);
   const [calcAmount, setCalcAmount] = useState(3000000);
   const [calcMode, setCalcMode] = useState<"najem"|"rust">("najem");
   const statsRef = useRef<HTMLDivElement>(null);
@@ -578,7 +579,8 @@ export default function Home() {
     if (statsRef.current) statsObserver.observe(statsRef.current);
 
     const interval = setInterval(() => setTestimonialIdx((i) => (i + 1) % testimonials.length), 4500);
-    return () => { observer.disconnect(); stepObserver.disconnect(); statsObserver.disconnect(); clearInterval(interval); };
+    const statsInterval = setInterval(() => setStatsCarouselIdx((i) => (i + 1) % 4), 2000);
+    return () => { observer.disconnect(); stepObserver.disconnect(); statsObserver.disconnect(); clearInterval(interval); clearInterval(statsInterval); };
   }, []);
 
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -671,6 +673,19 @@ export default function Home() {
         .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;max-width:860px;margin:0 auto;text-align:center;}
         .stat-num{font-size:2.2rem;font-weight:800;color:var(--blue);letter-spacing:-1.5px;line-height:1;white-space:nowrap;}
         .stat-label{font-size:0.8rem;color:var(--text2);margin-top:6px;font-weight:500;}
+        .stats-carousel{display:none;}
+        @keyframes statFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+        @media(max-width:600px){
+          .stats-section{padding:14px 6%;}
+          .stats-grid{display:none;}
+          .stats-carousel{display:flex;align-items:center;justify-content:center;gap:12px;padding:4px 0;}
+          .stats-carousel-item{text-align:center;animation:statFadeIn 0.4s ease;}
+          .stats-carousel-num{font-size:1.5rem;font-weight:800;color:var(--blue);letter-spacing:-1px;line-height:1;white-space:nowrap;}
+          .stats-carousel-label{font-size:0.7rem;color:var(--text2);font-weight:500;margin-top:2px;}
+          .stats-carousel-dots{display:flex;gap:5px;align-items:center;}
+          .stats-carousel-dot{width:5px;height:5px;border-radius:50%;background:var(--border);transition:background 0.3s,transform 0.3s;}
+          .stats-carousel-dot.active{background:var(--blue);transform:scale(1.3);}
+        }
 
         /* SECTIONS */
         .section{padding:90px 6%;}
@@ -953,6 +968,28 @@ export default function Home() {
           <div><div className="stat-num">{properties}+</div><div className="stat-label">nemovitostí ve správě</div></div>
           <div><div className="stat-num">{years}+</div><div className="stat-label">let zkušeností</div></div>
           <div><div className="stat-num">{portfolio}M Kč</div><div className="stat-label">hodnota portfolia</div></div>
+        </div>
+        <div className="stats-carousel">
+          {(() => {
+            const items = [
+              { num: `${investors}+`, label: "investorů" },
+              { num: `${properties}+`, label: "nemovitostí ve správě" },
+              { num: `${years}+`, label: "let zkušeností" },
+              { num: `${portfolio}M Kč`, label: "hodnota portfolia" },
+            ];
+            const item = items[statsCarouselIdx];
+            return (
+              <>
+                <div className="stats-carousel-item" key={statsCarouselIdx}>
+                  <div className="stats-carousel-num">{item.num}</div>
+                  <div className="stats-carousel-label">{item.label}</div>
+                </div>
+                <div className="stats-carousel-dots">
+                  {items.map((_, i) => <span key={i} className={`stats-carousel-dot${i===statsCarouselIdx?" active":""}`}/>)}
+                </div>
+              </>
+            );
+          })()}
         </div>
       </div>
 
