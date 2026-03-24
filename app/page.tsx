@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const projects = [
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1", price: "2 990 000 Kč", status: "Volný", slug: "alsova-bilina", statusColor: "blue" },
-  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1", price: "2 290 000 Kč", status: "Volný", slug: "alsova-bilina-2-1", statusColor: "blue" },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1", price: "2 990 000 Kč", status: "Volný", slug: "alsova-bilina", statusColor: "blue", thumb: "/images/alsova-bilina-3-1/IMG_6892.jpeg" },
+  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1", price: "2 290 000 Kč", status: "Volný", slug: "alsova-bilina-2-1", statusColor: "blue", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg" },
 ];
 
 const faqs = [
@@ -698,7 +699,9 @@ export default function Home() {
         .projects-section{background:var(--bg);}
         .projects-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
         .projects-grid .project-card{width:100%;max-width:360px;}
-        .project-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:26px;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;position:relative;overflow:hidden;}
+        .project-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:0;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;position:relative;overflow:hidden;}
+        .project-card-thumb{width:100%;height:180px;object-fit:cover;display:block;}
+        .project-card-body{padding:22px 26px 26px;}
         .project-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),#6b8eff);transform:scaleX(0);transition:transform 0.3s;transform-origin:left;}
         .project-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover);border-color:rgba(54,109,255,0.25);}
         .project-card:hover::after{transform:scaleX(1);}
@@ -1002,16 +1005,19 @@ export default function Home() {
         <div className="projects-grid">
           {projects.map((p, i) => (
             <Link key={i} href={`/projekty/${p.slug || "vinohrady"}`} className={`project-card reveal d${(i%3)+1}`} style={{textDecoration:"none",display:"block"}}>
-              <div className="project-card-header">
-                <div className="project-name">{p.name}</div>
-                <div className={`project-status status-${p.statusColor}`}>{p.status}</div>
+              {p.thumb && <Image src={p.thumb} alt={p.name} width={360} height={180} className="project-card-thumb" style={{objectFit:"cover",width:"100%",height:"180px"}}/>}
+              <div className="project-card-body">
+                <div className="project-card-header">
+                  <div className="project-name">{p.name}</div>
+                  <div className={`project-status status-${p.statusColor}`}>{p.status}</div>
+                </div>
+                <div className="project-meta">
+                  <div className="project-meta-item"><IconPin/>{p.location}</div>
+                  {p.type && <div className="project-meta-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>{p.type}</div>}
+                  {p.price && <div className="project-meta-item"><span style={{fontWeight:700,fontSize:"11px",color:"#366dff",background:"#eef2ff",borderRadius:"4px",padding:"1px 4px",lineHeight:"1.4"}}>CZK</span><span style={{fontWeight:600,color:"var(--text)"}}>{p.price}</span></div>}
+                </div>
+                <div className="project-cta">Detail projektu<IconArrow/></div>
               </div>
-              <div className="project-meta">
-                <div className="project-meta-item"><IconPin/>{p.location}</div>
-                {p.type && <div className="project-meta-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#366dff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>{p.type}</div>}
-                {p.price && <div className="project-meta-item"><span style={{fontWeight:700,fontSize:"11px",color:"#366dff",background:"#eef2ff",borderRadius:"4px",padding:"1px 4px",lineHeight:"1.4"}}>CZK</span><span style={{fontWeight:600,color:"var(--text)"}}>{p.price}</span></div>}
-              </div>
-              <div className="project-cta">Detail projektu<IconArrow/></div>
             </Link>
           ))}
         </div>
