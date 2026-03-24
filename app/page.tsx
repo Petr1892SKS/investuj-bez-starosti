@@ -968,14 +968,14 @@ export default function Home() {
         <div className="stats-ticker">
           <div className="stats-ticker-track">
             {[
-              { num: `${investors}+`, label: "investorů" },
-              { num: `${properties}+`, label: "nemovitostí ve správě" },
-              { num: `${years}+`, label: "let zkušeností" },
-              { num: `${portfolio}M Kč`, label: "hodnota portfolia" },
-              { num: `${investors}+`, label: "investorů" },
-              { num: `${properties}+`, label: "nemovitostí ve správě" },
-              { num: `${years}+`, label: "let zkušeností" },
-              { num: `${portfolio}M Kč`, label: "hodnota portfolia" },
+              { num: "247+", label: "investorů" },
+              { num: "300+", label: "nemovitostí ve správě" },
+              { num: "8+", label: "let zkušeností" },
+              { num: "350M Kč", label: "hodnota portfolia" },
+              { num: "247+", label: "investorů" },
+              { num: "300+", label: "nemovitostí ve správě" },
+              { num: "8+", label: "let zkušeností" },
+              { num: "350M Kč", label: "hodnota portfolia" },
             ].map((item, i) => (
               <div key={i} className="stats-ticker-item">
                 <div className="stats-ticker-num">{item.num}</div>
