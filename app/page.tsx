@@ -1007,7 +1007,7 @@ export default function Home() {
                   <div style={{height:"4px",background:"#e2e8f0",borderRadius:"2px",overflow:"hidden"}}>
                     <div style={{height:"100%",width:`${((p.totalUnits-p.availableUnits)/p.totalUnits)*100}%`,background:"#366dff",borderRadius:"2px"}}/>
                   </div>
-                  <div style={{fontSize:"0.72rem",color:"var(--text2)",marginTop:"4px"}}>{p.totalUnits-p.availableUnits} z {p.totalUnits} bytů rezervováno</div>
+                  <div style={{fontSize:"0.72rem",color:"var(--text2)",marginTop:"4px"}}>{p.totalUnits-p.availableUnits} z {p.totalUnits} bytů rezervovány</div>
                 </div>
                 <div className="project-meta">
                   <div className="project-meta-item"><IconPin/>{p.location}</div>
