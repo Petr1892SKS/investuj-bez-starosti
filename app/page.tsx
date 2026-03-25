@@ -1178,7 +1178,7 @@ export default function Home() {
           </div>
           <div className="team-intro reveal">
             <div className="team-intro-text">
-              Nejsme nová platforma. Stojí za námi reálné portfolio nemovitostí nakoupených jako celek, s existujícími nájemníky a provozní historií. Odprodáváme část tohoto portfolia investorům s garancí správy a příjmu. Každý projekt má za sebou tým lidí, kteří za výsledky ručí osobně.
+              Nejsme nová platforma. Stojí za námi <strong>reálné portfolio nemovitostí</strong> nakoupených jako celek, s existujícími nájemníky a provozní historií. Odprodáváme část tohoto portfolia investorům <strong>s garancí správy a příjmu</strong>. Každý projekt má za sebou tým lidí, kteří <strong>za výsledky ručí osobně</strong>.
             </div>
           </div>
           <div className="team-grid">
