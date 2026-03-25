@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 const projects = [
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1", price: "2 990 000 Kč", status: "Volný", slug: "alsova-bilina", statusColor: "blue", thumb: "/images/alsova-bilina-3-1/IMG_6892.jpeg" },
-  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1", price: "2 290 000 Kč", status: "Volný", slug: "alsova-bilina-2-1", statusColor: "blue", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg" },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1/IMG_6892.jpeg", totalUnits: 8, availableUnits: 4 },
+  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 2 },
 ];
 
 const faqs = [
@@ -1001,7 +1001,13 @@ export default function Home() {
               <div className="project-card-body">
                 <div className="project-card-header">
                   <div className="project-name">{p.name}</div>
-                  <div className={`project-status status-${p.statusColor}`}>{p.status}</div>
+                  <div className="project-status status-blue">{p.availableUnits} z {p.totalUnits} volných</div>
+                </div>
+                <div style={{margin:"10px 0 12px"}}>
+                  <div style={{height:"4px",background:"#e2e8f0",borderRadius:"2px",overflow:"hidden"}}>
+                    <div style={{height:"100%",width:`${((p.totalUnits-p.availableUnits)/p.totalUnits)*100}%`,background:"#366dff",borderRadius:"2px"}}/>
+                  </div>
+                  <div style={{fontSize:"0.72rem",color:"var(--text2)",marginTop:"4px"}}>{p.totalUnits-p.availableUnits} z {p.totalUnits} bytů rezervováno</div>
                 </div>
                 <div className="project-meta">
                   <div className="project-meta-item"><IconPin/>{p.location}</div>
