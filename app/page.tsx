@@ -1150,7 +1150,7 @@ export default function Home() {
         </div>
         <div className="why-grid">
           {[
-            [IconShield,"Garantovaná výše měsíčního příjmu","Smluvně stanovená výše příjmu z nájmu odpovídající 5 % ročně. Víte přesně, kolik dostanete – bez překvapení."],
+            [IconShield,"Garantovaná výše měsíčního příjmu","Smluvně stanovená výše příjmu z nájmu odpovídající 5–6 % ročně dle konkrétního bytu. Víte přesně, kolik dostanete – bez překvapení."],
             [IconSettings,"All-in správa bez operativy","Nájemníci, opravy, provoz – vše řešíme za vás. Vy se staráte jen o to, co vás baví."],
             [IconUsers,"Prověřený systém výběru nájemníků","Nájemníky vybíráme systematicky a zodpovědně. Váš byt je v dobrých rukou."],
             [IconTool,"Servisní a technický tým","Technické záležitosti zařídíme. Máme vlastní tým, který se stará o vše potřebné."],
@@ -1218,10 +1218,11 @@ export default function Home() {
           </div>
           <div className="reveal d2">
             <div className="guarantee-card">
-              <div className="guarantee-card-num">5 %</div>
+              <div className="guarantee-card-num">5–6 %</div>
               <div className="guarantee-card-label">garantovaná výše ročního příjmu z nájmu</div>
-              <div style={{fontSize:"0.85rem",color:"rgba(255,255,255,0.7)",marginTop:"0.5rem"}}>(odpovídající garantované výši měsíčního příjmu)</div>
+              <div style={{fontSize:"0.85rem",color:"rgba(255,255,255,0.7)",marginTop:"0.5rem"}}>(dle konkrétního bytu)</div>
               <div className="guarantee-card-sub">Fixní měsíční příjem. Předem stanovená částka. Žádná překvapení.</div>
+              <div style={{fontSize:"0.85rem",color:"rgba(255,255,255,0.7)",marginTop:"0.75rem"}}>Předpokládané kapitálové zhodnocení bytu 5–6 % p.a.</div>
             </div>
           </div>
         </div>
