@@ -1001,7 +1001,7 @@ export default function Home() {
               <div className="project-card-body">
                 <div className="project-card-header">
                   <div className="project-name">{p.name}</div>
-                  <div className="project-status status-blue">{p.availableUnits} z {p.totalUnits} volných</div>
+                  <div className="project-status status-blue">{p.availableUnits} z {p.totalUnits} volné</div>
                 </div>
                 <div style={{margin:"10px 0 12px"}}>
                   <div style={{height:"4px",background:"#e2e8f0",borderRadius:"2px",overflow:"hidden"}}>
