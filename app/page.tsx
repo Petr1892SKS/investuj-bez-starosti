@@ -1131,7 +1131,7 @@ export default function Home() {
               ["Získáváte předem stanovený příjem","Od prvního dne se staráme o vše. Vy přijímáte pravidelný měsíční příjem."],
             ].map(([title,text],i) => (
               <div key={i} className={`step-item${activeStep===i?" active":""}`} data-step={i} onMouseEnter={() => setActiveStep(i)}>
-                <div className="step-num">{i+1}</div>jak na ten 
+                <div className="step-num">{i+1}</div>
                 <div className="step-content">
                   <div className="step-title">{title}</div>
                   <div className="step-text">{text}</div>
