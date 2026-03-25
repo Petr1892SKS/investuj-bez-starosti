@@ -24,9 +24,7 @@ const testimonials = [
 ];
 
 const team = [
-  { name: "Jan Novák", role: "Zakladatel & CEO", desc: "15 let zkušeností v realitním investování. Vybudoval portfolio přes 200 nemovitostí." },
-  { name: "Petra Svobodová", role: "Ředitelka správy", desc: "Expertka na správu nemovitostí. Garantuje hladký provoz každého projektu." },
-  { name: "Michal Dvořák", role: "Investiční poradce", desc: "Pomáhá investorům najít správné řešení. Přes 150 spokojených klientů." },
+  { name: "František Petrouš", role: "Zakladatel", desc: "V oblasti investičních nemovitostí se pohybuje od roku 2014. Vlastní osobní portfolio 81 nemovitostí v hodnotě 285 mil. Kč, převážně bytových jednotek.", photo: "/images/team/frantisek-petrous.jpg" },
 ];
 
 
@@ -1186,7 +1184,10 @@ export default function Home() {
           <div className="team-grid">
             {team.map((member, i) => (
               <div key={i} className={`team-card reveal d${i+1}`}>
-                <div className="team-avatar">{member.name.charAt(0)}</div>
+                {member.photo
+                  ? <Image src={member.photo} alt={member.name} width={68} height={68} style={{width:68,height:68,borderRadius:"50%",objectFit:"cover",margin:"0 auto 1rem",display:"block"}}/>
+                  : <div className="team-avatar">{member.name.charAt(0)}</div>
+                }
                 <div className="team-name">{member.name}</div>
                 <div className="team-role">{member.role}</div>
                 <div className="team-desc">{member.desc}</div>
