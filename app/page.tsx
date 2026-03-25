@@ -805,7 +805,7 @@ export default function Home() {
         .testimonials-section{background:var(--bg);}
         .t-card{background:white;border:1.5px solid var(--border);border-radius:20px;padding:40px;max-width:680px;margin:0 auto;}
         .t-stars{color:var(--gold);font-size:1rem;letter-spacing:2px;margin-bottom:1.25rem;}
-        .t-text{font-size:1rem;color:var(--text);line-height:1.75;font-style:italic;margin-bottom:1.5rem;}
+        .t-text{font-size:1rem;color:var(--text);line-height:1.75;font-style:italic;margin-bottom:1.5rem;min-height:5.25rem;}
         .t-author{font-weight:700;color:var(--text);font-size:0.9rem;}
         .t-role{font-size:0.8rem;color:var(--text2);margin-top:2px;}
         .t-dots{display:flex;justify-content:center;gap:8px;margin-top:1.5rem;}
@@ -893,6 +893,7 @@ export default function Home() {
           .hero-ctas{flex-direction:column;}
           .footer-grid{grid-template-columns:1fr;}
           .form-wrap{padding:26px 18px;}
+          .t-text{min-height:8.75rem;}
         }
       `}</style>
 
