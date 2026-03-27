@@ -796,7 +796,7 @@ export default function Home() {
         .team-carousel{display:none;}
         .team-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;}
         .team-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
-        .team-avatar{width:56px;height:56px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin:0 auto 0.875rem;font-size:1.4rem;}
+        .team-avatar{width:44px;height:44px;border-radius:12px;background:#f3f0ff;display:flex;align-items:center;justify-content:center;margin:0 auto 0.875rem;font-size:1.1rem;}
         .team-role{font-size:0.72rem;font-weight:700;color:var(--blue);margin-bottom:0.625rem;text-transform:uppercase;letter-spacing:0.05em;}
         .team-desc{font-size:0.80rem;color:var(--text2);line-height:1.6;}
         @media(max-width:768px){
