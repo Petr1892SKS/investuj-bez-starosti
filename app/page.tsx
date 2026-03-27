@@ -3,6 +3,15 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+const TEAM_ICONS: Record<string, React.ReactNode> = {
+  wrench: <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>,
+  hammer: <><path d="M9.06 11.9l8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.07"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></>,
+  message: <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>,
+  key: <><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 0 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r="1" fill="#7c3aed" stroke="none"/></>,
+  folder: <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>,
+  sparkles: <><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></>,
+};
+
 const projects = [
   { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 2 },
   { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 4, availableUnits: 2 },
@@ -26,12 +35,12 @@ const testimonials = [
 
 const team = [
   { name: "Ing. František Petrouš", role: "Spoluzakladatel", desc: "V oblasti investičních nemovitostí se pohybuje od roku 2014. Vlastní osobní portfolio 81 nemovitostí v hodnotě 285 mil. Kč, převážně bytových jednotek.", photo: "/images/team/frantisek-petrous.jpg", icon: "" },
-  { name: "", role: "Technik", desc: "Místní člověk s bydlištěm kousek od domu. Od roku 2016 zajišťuje rekonstrukce bytů, řídí řemeslníky a drží vše v chodu. Disponuje klíči od všech jednotek.", photo: "", icon: "⚙️" },
-  { name: "", role: "Řemeslníci", desc: "Tři zkušení pracovníci — dva zedníci se zkušenostmi ve vodoinštalaci, odpadech a obkladech, a samostatný elektrikář. Zlaté české ručičky s letitou praxí.", photo: "", icon: "🔨" },
-  { name: "", role: "Asistentka pro nájemníky", desc: "Pečuje o nájemníky od nastěhování až po vystěhování. Nemovitosti v Bílině spravuje přes 30 let — ještě od dob, kdy patřily místní Sklárně.", photo: "", icon: "💬" },
-  { name: "", role: "Realitní makléřka", desc: "Dvacet let v oboru, hluboká znalost lokality. Provádí výběr nájemníků — prověřuje exekuce, příjmy a má cit pro lidi, kteří dobře platí a zodpovědně bydlí.", photo: "", icon: "🔑" },
-  { name: "", role: "Administrativní správkyně", desc: "Řídí provozní agendu z kanceláře s profesionálním softwarem. Zkušená, pečlivá a motivovaná — přináší přesnost a chuť do práce.", photo: "", icon: "📁" },
-  { name: "", role: "Uklizečka", desc: "Spolehlivá a se smyslem pro detail. Bydlí v jednom z bytů v domě — stará se o něj jako o vlastní.", photo: "", icon: "🧹" },
+  { name: "", role: "Technik", desc: "Místní člověk s bydlištěm kousek od domu. Od roku 2016 zajišťuje rekonstrukce bytů, řídí řemeslníky a drží vše v chodu. Disponuje klíči od všech jednotek.", photo: "", icon: "wrench" },
+  { name: "", role: "Řemeslníci", desc: "Tři zkušení pracovníci — dva zedníci se zkušenostmi ve vodoinštalaci, odpadech a obkladech, a samostatný elektrikář. Zlaté české ručičky s letitou praxí.", photo: "", icon: "hammer" },
+  { name: "", role: "Asistentka pro nájemníky", desc: "Pečuje o nájemníky od nastěhování až po vystěhování. Nemovitosti v Bílině spravuje přes 30 let — ještě od dob, kdy patřily místní Sklárně.", photo: "", icon: "message" },
+  { name: "", role: "Realitní makléřka", desc: "Dvacet let v oboru, hluboká znalost lokality. Provádí výběr nájemníků — prověřuje exekuce, příjmy a má cit pro lidi, kteří dobře platí a zodpovědně bydlí.", photo: "", icon: "key" },
+  { name: "", role: "Administrativní správkyně", desc: "Řídí provozní agendu z kanceláře s profesionálním softwarem. Zkušená, pečlivá a motivovaná — přináší přesnost a chuť do práce.", photo: "", icon: "folder" },
+  { name: "", role: "Uklizečka", desc: "Spolehlivá a se smyslem pro detail. Bydlí v jednom z bytů v domě — stará se o něj jako o vlastní.", photo: "", icon: "sparkles" },
 ];
 
 
@@ -796,7 +805,7 @@ export default function Home() {
         .team-carousel{display:none;}
         .team-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;}
         .team-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
-        .team-avatar{width:44px;height:44px;border-radius:12px;background:#f3f0ff;display:flex;align-items:center;justify-content:center;margin:0 auto 0.875rem;font-size:1.1rem;}
+        .team-avatar{width:44px;height:44px;border-radius:12px;background:#f3f0ff;display:flex;align-items:center;justify-content:center;margin:0 auto 0.875rem;}
         .team-role{font-size:0.72rem;font-weight:700;color:var(--blue);margin-bottom:0.625rem;text-transform:uppercase;letter-spacing:0.05em;}
         .team-desc{font-size:0.80rem;color:var(--text2);line-height:1.6;}
         @media(max-width:768px){
@@ -1210,24 +1219,21 @@ export default function Home() {
               <div className="team-featured-desc">{team[0].desc}</div>
             </div>
           </div>
-          <div className="team-grid">
-            {team.slice(1).map((member, i) => (
-              <div key={i} className={`team-card reveal d${i+1}`}>
-                <div className="team-avatar">{member.icon}</div>
-                <div className="team-role">{member.role}</div>
-                <div className="team-desc">{member.desc}</div>
-              </div>
-            ))}
-          </div>
-          <div className="team-carousel">
-            {team.slice(1).map((member, i) => (
-              <div key={i} className="team-card">
-                <div className="team-avatar">{member.icon}</div>
-                <div className="team-role">{member.role}</div>
-                <div className="team-desc">{member.desc}</div>
-              </div>
-            ))}
-          </div>
+          {(["team-grid", "team-carousel"] as const).map(cls => (
+            <div key={cls} className={cls}>
+              {team.slice(1).map((member, i) => (
+                <div key={i} className={`team-card${cls === "team-grid" ? ` reveal d${i+1}` : ""}`}>
+                  <div className="team-avatar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      {TEAM_ICONS[member.icon]}
+                    </svg>
+                  </div>
+                  <div className="team-role">{member.role}</div>
+                  <div className="team-desc">{member.desc}</div>
+                </div>
+              ))}
+            </div>
+          ))}
           <div className="mini-cta reveal">
             <div><div className="mini-cta-title">Chcete nás poznat osobně?</div><div className="mini-cta-sub">Rádi se setkáme a probereme vaše investiční cíle.</div></div>
             <button className="btn-primary" onClick={() => scrollTo("kontakt")}>Domluvit schůzku</button>
