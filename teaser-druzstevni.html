@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investiční teaser – investujbezstarosti.cz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif;
+      background: #fff;
+      color: #0f172a;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 14mm 16mm;
+      margin: 0 auto;
+      page-break-after: always;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @page { size: A4; margin: 0; }
+
+    @media print {
+      body { background: white; }
+      .page { margin: 0; width: 100%; }
+      .page:last-child { page-break-after: avoid; }
+    }
+
+    @media screen {
+      body { background: #e2e8f0; }
+      .page { margin: 20px auto; box-shadow: 0 4px 32px rgba(0,0,0,0.15); }
+    }
+
+    /* HEADER */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10mm;
+      border-bottom: 2px solid #366dff;
+      margin-bottom: 10mm;
+    }
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: #366dff; }
+    .page-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #366dff;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      margin-top: auto;
+      padding-top: 6mm;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-footer-text { font-size: 0.65rem; color: #94a3b8; }
+
+    /* PAGE 1 – ÚVOD */
+    .p1-hero-label {
+      display: inline-block;
+      background: #eef2ff;
+      color: #366dff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 50px;
+      margin-bottom: 6mm;
+    }
+    .p1-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 5mm;
+    }
+    .p1-title span { color: #366dff; }
+    .p1-sub {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.7;
+      max-width: 130mm;
+      margin-bottom: 9mm;
+    }
+
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm;
+      margin-bottom: 9mm;
+    }
+    .adv-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 5mm 5mm;
+    }
+    .adv-icon {
+      font-size: 1.3rem;
+      margin-bottom: 2mm;
+    }
+    .adv-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 1.5mm;
+    }
+    .adv-text {
+      font-size: 0.72rem;
+      color: #64748b;
+      line-height: 1.55;
+    }
+
+    .blue-box {
+      background: linear-gradient(135deg, #366dff, #1a4fd6);
+      border-radius: 10px;
+      padding: 6mm 8mm;
+      display: flex;
+      align-items: center;
+      gap: 6mm;
+      color: white;
+    }
+    .blue-box-num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .blue-box-text { font-size: 0.8rem; opacity: 0.9; line-height: 1.5; }
+    .blue-box-note { font-size: 0.68rem; opacity: 0.65; margin-top: 2mm; }
+
+    /* PAGE 2–4 – BYT */
+    .apt-badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: #366dff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 50px;
+      margin-bottom: 4mm;
+    }
+    .apt-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin-bottom: 1.5mm;
+    }
+    .apt-location {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 7mm;
+    }
+
+    .apt-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3mm;
+      margin-bottom: 7mm;
+    }
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 4mm;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #366dff;
+      line-height: 1;
+      margin-bottom: 1.5mm;
+    }
+    .stat-label {
+      font-size: 0.62rem;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    .apt-img-placeholder {
+      background: linear-gradient(135deg, #dbeafe, #eef2ff);
+      border-radius: 10px;
+      height: 48mm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #366dff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 7mm;
+      border: 1.5px dashed #93c5fd;
+    }
+
+    .apt-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5mm;
+      margin-bottom: 7mm;
+    }
+    .feat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 2.5mm;
+      font-size: 0.75rem;
+      color: #0f172a;
+      line-height: 1.5;
+    }
+    .feat-dot {
+      width: 6px;
+      height: 6px;
+      background: #366dff;
+      border-radius: 50%;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .income-box {
+      background: linear-gradient(135deg, #366dff, #1a4fd6);
+      border-radius: 10px;
+      padding: 5mm 7mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    .income-label { font-size: 0.78rem; opacity: 0.85; margin-bottom: 1mm; }
+    .income-num { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
+    .income-note { font-size: 0.65rem; opacity: 0.65; margin-top: 1.5mm; }
+    .income-divider { width: 1px; background: rgba(255,255,255,0.25); align-self: stretch; }
+
+    .legal-note {
+      font-size: 0.6rem;
+      color: #94a3b8;
+      margin-top: 3mm;
+      line-height: 1.5;
+    }
+
+    /* PAGE 5 – DALŠÍ ETAPA + TÝM */
+    .next-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #d97706;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 50px;
+      margin-bottom: 4mm;
+    }
+    .next-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin-bottom: 1.5mm;
+    }
+    .next-sub {
+      font-size: 0.85rem;
+      color: #475569;
+      line-height: 1.65;
+      margin-bottom: 7mm;
+      max-width: 140mm;
+    }
+
+    .next-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3.5mm;
+      margin-bottom: 9mm;
+    }
+    .next-info-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 4.5mm;
+    }
+    .next-info-label {
+      font-size: 0.62rem;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5mm;
+    }
+    .next-info-value {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: #e2e8f0;
+      margin: 7mm 0;
+    }
+
+    .team-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 6mm;
+    }
+    .team-avatar {
+      width: 18mm;
+      height: 18mm;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #dbeafe, #eef2ff);
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #366dff;
+    }
+    .team-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .team-name { font-size: 1rem; font-weight: 800; color: #0f172a; margin-bottom: 1mm; }
+    .team-role {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #366dff;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5mm;
+    }
+    .team-desc { font-size: 0.78rem; color: #475569; line-height: 1.65; }
+
+    .team-stats {
+      display: flex;
+      gap: 5mm;
+      margin-top: 4mm;
+    }
+    .team-stat {
+      text-align: center;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 3mm 5mm;
+    }
+    .team-stat-num { font-size: 1.1rem; font-weight: 800; color: #366dff; }
+    .team-stat-label { font-size: 0.62rem; color: #64748b; margin-top: 0.5mm; }
+
+    .cta-box {
+      background: #0f172a;
+      border-radius: 10px;
+      padding: 6mm 8mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 7mm;
+      color: white;
+    }
+    .cta-box-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 1mm; }
+    .cta-box-sub { font-size: 0.75rem; color: rgba(255,255,255,0.65); }
+    .cta-box-contact { text-align: right; }
+    .cta-box-phone { font-size: 1rem; font-weight: 700; color: #366dff; }
+    .cta-box-email { font-size: 0.75rem; color: rgba(255,255,255,0.55); margin-top: 1mm; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     STRÁNKA 1 – DRUŽSTEVNÍ VÝHODA
+═══════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="logo">investuj<span>bezstarosti</span>.cz</div>
+    <div class="page-label">Investiční teaser · 2026</div>
+  </div>
+
+  <div class="p1-hero-label">Unikátní projekt na českém trhu</div>
+  <h1 class="p1-title">Investiční byty<br>v <span>družstevním vlastnictví.</span></h1>
+  <p class="p1-sub">
+    Projekt bez obdoby na českém trhu — byty v družstevním vlastnictví
+    s veškerými výhodami vlastnictví nemovitosti a navíc s výhodami,
+    které osobní vlastnictví nenabízí.
+  </p>
+
+  <div style="background:#0f172a;border-radius:12px;padding:6mm 7mm;margin-bottom:4mm;color:white;">
+    <div style="font-size:0.62rem;font-weight:700;color:#f59e0b;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:2.5mm;">Klíčová výhoda · diskrétní vlastnictví</div>
+    <div style="font-size:1rem;font-weight:800;line-height:1.35;margin-bottom:2mm;">Družstevní vlastnictví se nezobrazuje<br>jako přímé vlastnictví v katastru nemovitostí.</div>
+    <div style="font-size:0.78rem;color:rgba(255,255,255,0.7);line-height:1.6;">U bank, které pro své interní hodnocení bonity počítají nemovitosti výhradně z údajů katastru — v souladu s doporučením ČNB platným od 1. 4. 2026 — se tento byt do jejich počtu nemovitostí <strong style="color:white;">nemusí započítat</strong>. Vhodné také pro nájemníky obecních bytů nebo pro ty, kteří preferují soukromí v majetkových záležitostech.</div>
+  </div>
+
+  <div class="advantages-grid" style="margin-bottom:4mm;">
+    <div class="adv-card">
+      <div class="adv-icon">🏦</div>
+      <div class="adv-title">Lze financovat hypotékou</div>
+      <div class="adv-text">Družstevní byt lze zastavit a financovat hypotékou stejně jako byt v osobním vlastnictví. Družstvo s takovým zajištěním souhlasí.</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">🔄</div>
+      <div class="adv-title">Lze převést kdykoli do OV</div>
+      <div class="adv-text">Kdykoli se rozhodnete, byt lze převést do osobního vlastnictví — rozhodnutí je na vás.</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">💰</div>
+      <div class="adv-title">Lze pronajímat</div>
+      <div class="adv-text">Pronájem je možný. Garantovaný příjem z nájmu běží od prvního dne.</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">📋</div>
+      <div class="adv-title">Smluvně garantovaný příjem</div>
+      <div class="adv-text">Výše měsíčního příjmu je stanovena smluvně před převodem. Žádná překvapení.</div>
+    </div>
+  </div>
+
+  <div class="blue-box">
+    <div style="text-align:center;flex:1;">
+      <div class="blue-box-num">5–6 %</div>
+      <div class="blue-box-text" style="margin-top:2mm;"><strong>garantovaná výše příjmu z nájmu</strong></div>
+      <div class="blue-box-note">smluvně stanovená · dle konkrétního bytu</div>
+    </div>
+    <div style="width:1px;background:rgba(255,255,255,0.25);align-self:stretch;margin:0 4mm;"></div>
+    <div style="text-align:center;flex:1;">
+      <div class="blue-box-num">7 %</div>
+      <div class="blue-box-text" style="margin-top:2mm;"><strong>předpokládané kapitálové zhodnocení</strong></div>
+      <div class="blue-box-note">odhad p.a. · není garantováno</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">investujbezstarosti.cz · Důvěrný dokument · Nepředávejte třetím stranám</div>
+    <div class="page-footer-text">1 / 5</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     STRÁNKA 2 – BYT 53,1 m²
+═══════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="logo">investuj<span>bezstarosti</span>.cz</div>
+    <div class="page-label">Nabídka investičního bytu</div>
+  </div>
+
+  <div class="apt-badge">Projekt Alšova · Bílina</div>
+  <h2 class="apt-title">Investiční byt 2+1 · 53,1 m²</h2>
+  <div class="apt-location">📍 Alšova ulice, Bílina · 1. patro</div>
+
+  <img src="public/images/alsova-bilina-2-1/IMG_6863.jpeg" alt="Byt 2+1 Alšova" style="width:100%;height:48mm;object-fit:cover;border-radius:10px;margin-bottom:7mm;">
+
+  <div class="apt-stats">
+    <div class="stat-box">
+      <div class="stat-num">53,1 m²</div>
+      <div class="stat-label">užitná plocha</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">2 290 000</div>
+      <div class="stat-label">cena v Kč</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">10 279 Kč</div>
+      <div class="stat-label">garantovaný nájem/měsíc</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">5,39 %</div>
+      <div class="stat-label">garantovaný výnos p.a.</div>
+    </div>
+  </div>
+
+  <div class="apt-features">
+    <div class="feat-item"><div class="feat-dot"></div>Dispozice 2+1, byt po rekonstrukci</div>
+    <div class="feat-item"><div class="feat-dot"></div>Garantovaná výše nájmu, okamžitý příjem</div>
+    <div class="feat-item"><div class="feat-dot"></div>Přímé vlastnictví</div>
+    <div class="feat-item"><div class="feat-dot"></div>Správa zajištěna smluvně</div>
+    <div class="feat-item"><div class="feat-dot"></div>Bez nutnosti dalších investic</div>
+    <div class="feat-item"><div class="feat-dot"></div>Administrativu vyřídíme za vás</div>
+  </div>
+
+  <div class="income-box">
+    <div>
+      <div class="income-label">Garantovaná výše příjmu z nájmu</div>
+      <div class="income-num">10 279 Kč / měsíc</div>
+      <div class="income-note">smluvně stanovená výše</div>
+    </div>
+    <div class="income-divider"></div>
+    <div style="text-align:right;">
+      <div class="income-label">Kupní cena</div>
+      <div class="income-num">2 290 000 Kč</div>
+      <div class="income-note">včetně veškerých poplatků</div>
+    </div>
+  </div>
+  <div class="legal-note">* Garantovaná výše příjmu z nájmu je smluvně sjednána před převodem vlastnictví. Předpokládané kapitálové zhodnocení nemovitosti 7 % p.a. není garantováno a je nad rámec garantovaného příjmu z nájmu.</div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">investujbezstarosti.cz · Důvěrný dokument</div>
+    <div class="page-footer-text">2 / 5</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     STRÁNKA 3 – BYT 82,3 m² (bez zádveří)
+═══════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="logo">investuj<span>bezstarosti</span>.cz</div>
+    <div class="page-label">Nabídka investičního bytu</div>
+  </div>
+
+  <div class="apt-badge">Projekt Alšova · Bílina</div>
+  <h2 class="apt-title">Investiční byt 3+1 · 82,3 m²</h2>
+  <div class="apt-location">📍 Alšova ulice, Bílina · 4. patro · bez zádveří</div>
+
+  <img src="public/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg" alt="Byt 3+1 Alšova 82m²" style="width:100%;height:48mm;object-fit:cover;border-radius:10px;margin-bottom:7mm;">
+
+  <div class="apt-stats">
+    <div class="stat-box">
+      <div class="stat-num">82,3 m²</div>
+      <div class="stat-label">užitná plocha</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">2 850 000</div>
+      <div class="stat-label">cena v Kč</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">12 974 Kč</div>
+      <div class="stat-label">garantovaný nájem/měsíc</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">5,46 %</div>
+      <div class="stat-label">garantovaný výnos p.a.</div>
+    </div>
+  </div>
+
+  <div class="apt-features">
+    <div class="feat-item"><div class="feat-dot"></div>Dispozice 3+1, prostorný rodinný byt</div>
+    <div class="feat-item"><div class="feat-dot"></div>Garantovaná výše nájmu, okamžitý příjem</div>
+    <div class="feat-item"><div class="feat-dot"></div>Přímé vlastnictví</div>
+    <div class="feat-item"><div class="feat-dot"></div>Správa zajištěna smluvně</div>
+    <div class="feat-item"><div class="feat-dot"></div>Po rekonstrukci, bez nutnosti investic</div>
+    <div class="feat-item"><div class="feat-dot"></div>Administrativu vyřídíme za vás</div>
+  </div>
+
+  <div class="income-box">
+    <div>
+      <div class="income-label">Garantovaná výše příjmu z nájmu</div>
+      <div class="income-num">12 974 Kč / měsíc</div>
+      <div class="income-note">smluvně stanovená výše</div>
+    </div>
+    <div class="income-divider"></div>
+    <div style="text-align:right;">
+      <div class="income-label">Kupní cena</div>
+      <div class="income-num">2 850 000 Kč</div>
+      <div class="income-note">včetně veškerých poplatků</div>
+    </div>
+  </div>
+  <div class="legal-note">* Garantovaná výše příjmu z nájmu je smluvně sjednána před převodem vlastnictví. Předpokládané kapitálové zhodnocení nemovitosti 7 % p.a. není garantováno a je nad rámec garantovaného příjmu z nájmu.</div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">investujbezstarosti.cz · Důvěrný dokument</div>
+    <div class="page-footer-text">3 / 5</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     STRÁNKA 4 – BYT 87,2 m² (se zádveřím)
+═══════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="logo">investuj<span>bezstarosti</span>.cz</div>
+    <div class="page-label">Nabídka investičního bytu</div>
+  </div>
+
+  <div class="apt-badge">Projekt Alšova · Bílina</div>
+  <h2 class="apt-title">Investiční byt 3+1 · 87,2 m²</h2>
+  <div class="apt-location">📍 Alšova ulice, Bílina · 3. patro · se zádveřím</div>
+
+  <img src="public/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg" alt="Byt 3+1 Alšova 87m²" style="width:100%;height:48mm;object-fit:cover;border-radius:10px;margin-bottom:7mm;">
+
+  <div class="apt-stats">
+    <div class="stat-box">
+      <div class="stat-num">87,2 m²</div>
+      <div class="stat-label">užitná plocha</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">2 990 000</div>
+      <div class="stat-label">cena v Kč</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">13 370 Kč</div>
+      <div class="stat-label">garantovaný nájem/měsíc</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">5,37 %</div>
+      <div class="stat-label">garantovaný výnos p.a.</div>
+    </div>
+  </div>
+
+  <div class="apt-features">
+    <div class="feat-item"><div class="feat-dot"></div>Dispozice 3+1, prostorný rodinný byt</div>
+    <div class="feat-item"><div class="feat-dot"></div>Garantovaná výše nájmu, okamžitý příjem</div>
+    <div class="feat-item"><div class="feat-dot"></div>Přímé vlastnictví</div>
+    <div class="feat-item"><div class="feat-dot"></div>Správa zajištěna smluvně</div>
+    <div class="feat-item"><div class="feat-dot"></div>Po rekonstrukci, bez nutnosti investic</div>
+    <div class="feat-item"><div class="feat-dot"></div>Administrativu vyřídíme za vás</div>
+  </div>
+
+  <div class="income-box">
+    <div>
+      <div class="income-label">Garantovaná výše příjmu z nájmu</div>
+      <div class="income-num">13 370 Kč / měsíc</div>
+      <div class="income-note">smluvně stanovená výše</div>
+    </div>
+    <div class="income-divider"></div>
+    <div style="text-align:right;">
+      <div class="income-label">Kupní cena</div>
+      <div class="income-num">2 990 000 Kč</div>
+      <div class="income-note">včetně veškerých poplatků</div>
+    </div>
+  </div>
+  <div class="legal-note">* Garantovaná výše příjmu z nájmu je smluvně sjednána před převodem vlastnictví. Předpokládané kapitálové zhodnocení nemovitosti 7 % p.a. není garantováno a je nad rámec garantovaného příjmu z nájmu.</div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">investujbezstarosti.cz · Důvěrný dokument</div>
+    <div class="page-footer-text">4 / 5</div>
+  </div>
+</div>
+
+
+
+<!-- ═══════════════════════════════════════════════════
+     STRÁNKA 5 – DRUHÁ ETAPA + TÝM
+═══════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div class="logo">investuj<span>bezstarosti</span>.cz</div>
+    <div class="page-label">Připravujeme · Druhá etapa</div>
+  </div>
+
+  <div class="next-badge">Brzy spouštíme</div>
+  <h2 class="next-title">Nevybrali jste si?<br>Chystáme druhou etapu.</h2>
+  <p class="next-sub">
+    Pokud vám žádný z bytů projektu Alšova nevyhovoval, brzy spustíme druhou etapu
+    na adrese <strong>Osecká 73, 75, 77 – Duchcov</strong>. Zanechte nám kontakt a budete první,
+    kdo dostane nabídku.
+  </p>
+
+  <div class="next-info-grid">
+    <div class="next-info-card">
+      <div class="next-info-label">Adresa</div>
+      <div class="next-info-value">Osecká 73, 75, 77</div>
+    </div>
+    <div class="next-info-card">
+      <div class="next-info-label">Město</div>
+      <div class="next-info-value">Duchcov</div>
+    </div>
+    <div class="next-info-card">
+      <div class="next-info-label">Fáze</div>
+      <div class="next-info-value">Finalizace · Jaro 2026</div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <div style="font-size:0.7rem;font-weight:700;color:#366dff;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4mm;">Kdo za projektem stojí</div>
+
+  <div class="team-row" style="margin-bottom:5mm;">
+    <div class="team-avatar">
+      <img src="public/images/team/frantisek-petrous.jpg" alt="Ing. František Petrouš" onerror="this.parentElement.innerHTML='FP'">
+    </div>
+    <div style="flex:1;">
+      <div class="team-name">Ing. František Petrouš</div>
+      <div class="team-role">Spoluzakladatel</div>
+      <div class="team-desc">
+        V oblasti investičních nemovitostí se pohybuje od roku 2014. Vlastní osobní portfolio
+        81 nemovitostí v hodnotě 285 mil. Kč, převážně bytových jednotek.
+        Za projektem stojí reálná provozní zkušenost, ne teorie.
+      </div>
+      <div class="team-stats">
+        <div class="team-stat">
+          <div class="team-stat-num">81</div>
+          <div class="team-stat-label">nemovitostí v portfoliu</div>
+        </div>
+        <div class="team-stat">
+          <div class="team-stat-num">285 mil.</div>
+          <div class="team-stat-label">hodnota portfolia</div>
+        </div>
+        <div class="team-stat">
+          <div class="team-stat-num">od 2014</div>
+          <div class="team-stat-label">v oboru</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="team-row">
+    <div class="team-avatar">MV</div>
+    <div style="flex:1;">
+      <div class="team-name">Martin Vohralík</div>
+      <div class="team-role">doplnit roli</div>
+      <div class="team-desc">doplnit bio</div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <div>
+      <div class="cta-box-title">Máte zájem nebo otázky?</div>
+      <div class="cta-box-sub">Ozvěte se nám – konzultace je nezávazná a zdarma.</div>
+    </div>
+    <div class="cta-box-contact">
+      <div class="cta-box-phone">+420 725 027 957</div>
+      <div class="cta-box-email">investujbezstarosti.cz</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-text">investujbezstarosti.cz · Důvěrný dokument · Nepředávejte třetím stranám</div>
+    <div class="page-footer-text">5 / 5</div>
+  </div>
+</div>
+
+</body>
+</html>
