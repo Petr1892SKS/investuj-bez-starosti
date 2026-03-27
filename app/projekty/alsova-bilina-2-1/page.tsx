@@ -34,11 +34,13 @@ const project = {
   ],
 
   gallery: [
-    { src: "/images/alsova-bilina-2-1/IMG_6863.jpeg", label: "Fotografie 1" },
-    { src: "/images/alsova-bilina-2-1/IMG_6864.jpeg", label: "Fotografie 2" },
-    { src: "/images/alsova-bilina-2-1/IMG_6865.jpeg", label: "Fotografie 3" },
-    { src: "/images/alsova-bilina-2-1/IMG_6886.jpeg", label: "Fotografie 4" },
-    { src: "/images/alsova-bilina-2-1/IMG_8661.jpeg", label: "Fotografie 5" },
+    { src: "/images/alsova-bilina-2-1/IMG_6860.jpeg", label: "Fotografie 1" },
+    { src: "/images/alsova-bilina-2-1/IMG_6861.jpeg", label: "Fotografie 2" },
+    { src: "/images/alsova-bilina-2-1/IMG_6862.jpeg", label: "Fotografie 3" },
+    { src: "/images/alsova-bilina-2-1/IMG_6863.jpeg", label: "Fotografie 4" },
+    { src: "/images/alsova-bilina-2-1/IMG_6864.jpeg", label: "Fotografie 5" },
+    { src: "/images/alsova-bilina-2-1/IMG_6865.jpeg", label: "Fotografie 6" },
+    { src: "/images/alsova-bilina-2-1/IMG_8661.jpeg", label: "Fotografie 7" },
     { src: "/images/alsova-bilina-budova/IMG_4974.jpeg", label: "Budova" },
     { src: "/images/alsova-bilina-budova/IMG_4975.jpeg", label: "Budova 2" },
   ],
