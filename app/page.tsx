@@ -35,7 +35,7 @@ const chatMessages = [
   { from: "investor", text: "Dobrý den, zajímá mě investice do nemovitosti. Jak to u vás funguje?", delay: 400 },
   { from: "agent", text: "Dobrý den! Těší nás váš zájem. U nás funguje model jednoduše: koupíte konkrétní byt, který přechází do vašeho vlastnictví. My se postaráme o veškerou správu a vy dostáváte předem stanovenou výši měsíčního příjmu.", delay: 1200 },
   { from: "investor", text: "A kolik přibližně mohu každý měsíc dostávat?", delay: 2400 },
-  { from: "agent", text: "Záleží na výši investice. Například při investici 3 mil. Kč odpovídá garantovaná výše příjmu přibližně 12 500 Kč měsíčně. Přesné podmínky vždy sjednáváme individuálně smluvně.", delay: 3400 },
+  { from: "agent", text: "Záleží na výši investice a konkrétním bytu. Například při investici 3 mil. Kč se garantovaná výše příjmu pohybuje přibližně 12 500 – 15 000 Kč měsíčně. Přesné podmínky vždy sjednáváme individuálně smluvně.", delay: 3400 },
   { from: "investor", text: "Musím se starat o nájemníky nebo opravy?", delay: 4800 },
   { from: "agent", text: "Vůbec ne. O výběr nájemníků, komunikaci i technické věci se stará náš tým. Vy jen přijímáte pravidelný příjem – bez operativy.", delay: 5800 },
   { from: "investor", text: "To zní dobře. Jak mohu začít?", delay: 7200 },
@@ -554,8 +554,10 @@ export default function Home() {
   const years = useCounter(8, 1200, statsTriggered);
   const portfolio = useCounter(350, 1800, statsTriggered);
 
-  const monthlyIncome = Math.round((calcAmount * 0.05) / 12);
-  const yearlyIncome = Math.round(calcAmount * 0.05);
+  const monthlyIncomeMin = Math.round((calcAmount * 0.05) / 12);
+  const monthlyIncomeMax = Math.round((calcAmount * 0.06) / 12);
+  const yearlyIncomeMin = Math.round(calcAmount * 0.05);
+  const yearlyIncomeMax = Math.round(calcAmount * 0.06);
   const yearlyGrowth = Math.round(calcAmount * 0.07);
 
   useEffect(() => {
@@ -943,8 +945,8 @@ export default function Home() {
             {/* Blok 1 – garantovaný příjem */}
             <div style={{background:"var(--blue-light)",border:"1px solid rgba(54,109,255,0.15)",borderRadius:"12px",padding:"14px 16px",marginBottom:"10px"}}>
               <div style={{fontSize:"0.7rem",fontWeight:700,color:"var(--blue)",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>Garantovaný měsíční příjem</div>
-              <div style={{fontSize:"1.9rem",fontWeight:800,color:"var(--blue)",letterSpacing:"-1px",lineHeight:1}}>{monthlyIncome.toLocaleString("cs-CZ")} Kč</div>
-              <div style={{fontSize:"0.72rem",color:"var(--text2)",marginTop:"3px"}}>vypláceno každý měsíc · {yearlyIncome.toLocaleString("cs-CZ")} Kč ročně</div>
+              <div style={{fontSize:"1.9rem",fontWeight:800,color:"var(--blue)",letterSpacing:"-1px",lineHeight:1}}>{monthlyIncomeMin.toLocaleString("cs-CZ")} – {monthlyIncomeMax.toLocaleString("cs-CZ")} Kč</div>
+              <div style={{fontSize:"0.72rem",color:"var(--text2)",marginTop:"3px"}}>vypláceno každý měsíc · {yearlyIncomeMin.toLocaleString("cs-CZ")} – {yearlyIncomeMax.toLocaleString("cs-CZ")} Kč ročně</div>
             </div>
             {/* Blok 2 – možný růst hodnoty */}
             <div style={{background:"#fefce8",border:"1px solid rgba(245,158,11,0.2)",borderRadius:"12px",padding:"14px 16px"}}>
@@ -1092,8 +1094,8 @@ export default function Home() {
             {/* Blok 1 – garantovaný příjem – vždy viditelný */}
             <div style={{background:"rgba(54,109,255,0.24)",border:"1px solid rgba(147,197,253,0.42)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
               <div style={{fontSize:"0.68rem",fontWeight:700,color:"#dbeafe",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Garantovaný měsíční příjem</div>
-              <div style={{fontSize:"2rem",fontWeight:800,color:"#60a5fa",letterSpacing:"-1px",lineHeight:1}}>{monthlyIncome.toLocaleString("cs-CZ")} Kč</div>
-              <div style={{fontSize:"0.73rem",color:"#cbd5e1",marginTop:"4px"}}>vypláceno každý měsíc · {yearlyIncome.toLocaleString("cs-CZ")} Kč ročně</div>
+              <div style={{fontSize:"2rem",fontWeight:800,color:"#60a5fa",letterSpacing:"-1px",lineHeight:1}}>{monthlyIncomeMin.toLocaleString("cs-CZ")} – {monthlyIncomeMax.toLocaleString("cs-CZ")} Kč</div>
+              <div style={{fontSize:"0.73rem",color:"#cbd5e1",marginTop:"4px"}}>vypláceno každý měsíc · {yearlyIncomeMin.toLocaleString("cs-CZ")} – {yearlyIncomeMax.toLocaleString("cs-CZ")} Kč ročně</div>
             </div>
 
             {/* Blok 2 – růst hodnoty – jen při přepnutí */}
