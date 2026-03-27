@@ -25,7 +25,8 @@ const testimonials = [
 ];
 
 const team = [
-  { name: "František Petrouš", role: "Spoluzakladatel", desc: "V oblasti investičních nemovitostí se pohybuje od roku 2014. Vlastní osobní portfolio 81 nemovitostí v hodnotě 285 mil. Kč, převážně bytových jednotek.", photo: "/images/team/frantisek-petrous.jpg" },
+  { name: "Ing. František Petrouš", role: "Spoluzakladatel", desc: "V oblasti investičních nemovitostí se pohybuje od roku 2014. Vlastní osobní portfolio 81 nemovitostí v hodnotě 285 mil. Kč, převážně bytových jednotek.", photo: "/images/team/frantisek-petrous.jpg" },
+  { name: "Tým správy", role: "Provozní péče o investiční byty", desc: "Zahrnuje technika, řemeslníky na rekonstrukce, asistentku pro nájemníky, realitní makléřku, administrativní správkyni a uklizečku. O tuto i další nemovitosti se starají od roku 2016.", photo: "" },
 ];
 
 
