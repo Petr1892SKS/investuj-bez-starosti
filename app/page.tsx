@@ -809,11 +809,16 @@ export default function Home() {
         .team-role{font-size:0.72rem;font-weight:700;color:var(--blue);margin-bottom:0.625rem;text-transform:uppercase;letter-spacing:0.05em;}
         .team-desc{font-size:0.80rem;color:var(--text2);line-height:1.6;}
         @media(max-width:768px){
-          .team-featured{flex-direction:column;text-align:center;gap:16px;}
+          .team-featured{flex-direction:row;gap:16px;padding:20px;}
+          .team-featured-name{font-size:1rem;}
+          .team-featured-desc{font-size:0.82rem;}
           .team-grid{display:none;}
-          .team-carousel{display:flex;overflow-x:auto;gap:16px;padding-bottom:12px;scrollbar-width:none;-ms-overflow-style:none;}
+          .team-carousel{display:flex;overflow-x:auto;gap:12px;padding-bottom:8px;scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x mandatory;}
           .team-carousel::-webkit-scrollbar{display:none;}
-          .team-carousel .team-card{min-width:240px;flex-shrink:0;}
+          .team-carousel .team-card{min-width:160px;max-width:160px;flex-shrink:0;padding:16px 14px;scroll-snap-align:start;}
+          .team-carousel .team-avatar{width:36px;height:36px;border-radius:10px;margin-bottom:10px;}
+          .team-carousel .team-role{font-size:0.65rem;margin-bottom:6px;}
+          .team-carousel .team-desc{font-size:0.72rem;line-height:1.5;}
         }
 
         /* GUARANTEE */
