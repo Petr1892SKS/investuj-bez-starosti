@@ -26,12 +26,12 @@ const testimonials = [
 
 const team = [
   { name: "Ing. František Petrouš", role: "Spoluzakladatel", desc: "V oblasti investičních nemovitostí se pohybuje od roku 2014. Vlastní osobní portfolio 81 nemovitostí v hodnotě 285 mil. Kč, převážně bytových jednotek.", photo: "/images/team/frantisek-petrous.jpg", icon: "" },
-  { name: "", role: "Technik", desc: "Místní člověk s bydlištěm kousek od domu. Od roku 2016 zajišťuje rekonstrukce bytů, řídí řemeslníky a drží vše v chodu. Disponuje klíči od všech jednotek.", photo: "", icon: "🔧" },
-  { name: "", role: "Řemeslníci", desc: "Tři zkušení pracovníci — dva zedníci se zkušenostmi ve vodoinštalaci, odpadech a obkladech, a samostatný elektrikář. Zlaté české ručičky s letitou praxí.", photo: "", icon: "🛠️" },
-  { name: "", role: "Asistentka pro nájemníky", desc: "Pečuje o nájemníky od nastěhování až po vystěhování. Nemovitosti v Bílině spravuje přes 30 let — ještě od dob, kdy patřily místní Sklárně.", photo: "", icon: "🤝" },
-  { name: "", role: "Realitní makléřka", desc: "Dvacet let v oboru, hluboká znalost lokality. Provádí výběr nájemníků — prověřuje exekuce, příjmy a má cit pro lidi, kteří dobře platí a zodpovědně bydlí.", photo: "", icon: "🏠" },
-  { name: "", role: "Administrativní správkyně", desc: "Řídí provozní agendu z kanceláře s profesionálním softwarem. Zkušená, pečlivá a motivovaná — přináší přesnost a chuť do práce.", photo: "", icon: "📋" },
-  { name: "", role: "Uklizečka", desc: "Spolehlivá a se smyslem pro detail. Bydlí v jednom z bytů v domě — stará se o něj jako o vlastní.", photo: "", icon: "✨" },
+  { name: "", role: "Technik", desc: "Místní člověk s bydlištěm kousek od domu. Od roku 2016 zajišťuje rekonstrukce bytů, řídí řemeslníky a drží vše v chodu. Disponuje klíči od všech jednotek.", photo: "", icon: "⚙️" },
+  { name: "", role: "Řemeslníci", desc: "Tři zkušení pracovníci — dva zedníci se zkušenostmi ve vodoinštalaci, odpadech a obkladech, a samostatný elektrikář. Zlaté české ručičky s letitou praxí.", photo: "", icon: "🔨" },
+  { name: "", role: "Asistentka pro nájemníky", desc: "Pečuje o nájemníky od nastěhování až po vystěhování. Nemovitosti v Bílině spravuje přes 30 let — ještě od dob, kdy patřily místní Sklárně.", photo: "", icon: "💬" },
+  { name: "", role: "Realitní makléřka", desc: "Dvacet let v oboru, hluboká znalost lokality. Provádí výběr nájemníků — prověřuje exekuce, příjmy a má cit pro lidi, kteří dobře platí a zodpovědně bydlí.", photo: "", icon: "🔑" },
+  { name: "", role: "Administrativní správkyně", desc: "Řídí provozní agendu z kanceláře s profesionálním softwarem. Zkušená, pečlivá a motivovaná — přináší přesnost a chuť do práce.", photo: "", icon: "📁" },
+  { name: "", role: "Uklizečka", desc: "Spolehlivá a se smyslem pro detail. Bydlí v jednom z bytů v domě — stará se o něj jako o vlastní.", photo: "", icon: "🧹" },
 ];
 
 
@@ -787,13 +787,25 @@ export default function Home() {
         .team-section{background:var(--bg);}
         .team-intro{background:white;border:1.5px solid var(--border);border-radius:20px;padding:36px;margin-bottom:2rem;}
         .team-intro-text{font-size:1rem;color:var(--text2);line-height:1.75;}
+        .team-featured{background:white;border:2px solid var(--blue);border-radius:var(--radius);padding:28px 32px;display:flex;align-items:center;gap:24px;margin-bottom:24px;}
+        .team-featured-text{flex:1;}
+        .team-featured-name{font-size:1.15rem;font-weight:800;color:var(--text);margin-bottom:4px;}
+        .team-featured-role{font-size:0.72rem;font-weight:700;color:var(--blue);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.06em;}
+        .team-featured-desc{font-size:0.88rem;color:var(--text2);line-height:1.65;}
         .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
-        .team-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:28px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;}
+        .team-carousel{display:none;}
+        .team-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;}
         .team-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
-        .team-avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--blue-light),#dbeafe);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;font-weight:800;color:var(--blue);}
-        .team-name{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:4px;}
-        .team-role{font-size:0.75rem;font-weight:700;color:var(--blue);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.05em;}
-        .team-desc{font-size:0.82rem;color:var(--text2);line-height:1.65;}
+        .team-avatar{width:56px;height:56px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;margin:0 auto 0.875rem;font-size:1.4rem;}
+        .team-role{font-size:0.72rem;font-weight:700;color:var(--blue);margin-bottom:0.625rem;text-transform:uppercase;letter-spacing:0.05em;}
+        .team-desc{font-size:0.80rem;color:var(--text2);line-height:1.6;}
+        @media(max-width:768px){
+          .team-featured{flex-direction:column;text-align:center;gap:16px;}
+          .team-grid{display:none;}
+          .team-carousel{display:flex;overflow-x:auto;gap:16px;padding-bottom:12px;scrollbar-width:none;-ms-overflow-style:none;}
+          .team-carousel::-webkit-scrollbar{display:none;}
+          .team-carousel .team-card{min-width:240px;flex-shrink:0;}
+        }
 
         /* GUARANTEE */
         .guarantee-section{background:white;}
@@ -1190,14 +1202,27 @@ export default function Home() {
               Nejsme nová platforma. Stojí za námi <strong>reálné portfolio nemovitostí</strong> nakoupených jako celek, s existujícími nájemníky a provozní historií. Odprodáváme část tohoto portfolia investorům <strong>s garancí správy a příjmu</strong>. Každý projekt má za sebou tým lidí, kteří <strong>za výsledky ručí osobně</strong>.
             </div>
           </div>
+          <div className="team-featured reveal">
+            <Image src={team[0].photo} alt={team[0].name} width={80} height={80} style={{width:80,height:80,borderRadius:"50%",objectFit:"cover",flexShrink:0}}/>
+            <div className="team-featured-text">
+              <div className="team-featured-name">{team[0].name}</div>
+              <div className="team-featured-role">{team[0].role}</div>
+              <div className="team-featured-desc">{team[0].desc}</div>
+            </div>
+          </div>
           <div className="team-grid">
-            {team.map((member, i) => (
+            {team.slice(1).map((member, i) => (
               <div key={i} className={`team-card reveal d${i+1}`}>
-                {member.photo
-                  ? <Image src={member.photo} alt={member.name} width={68} height={68} style={{width:68,height:68,borderRadius:"50%",objectFit:"cover",margin:"0 auto 1rem",display:"block"}}/>
-                  : <div className="team-avatar">{member.icon || member.name.charAt(0)}</div>
-                }
-                {member.name && <div className="team-name">{member.name}</div>}
+                <div className="team-avatar">{member.icon}</div>
+                <div className="team-role">{member.role}</div>
+                <div className="team-desc">{member.desc}</div>
+              </div>
+            ))}
+          </div>
+          <div className="team-carousel">
+            {team.slice(1).map((member, i) => (
+              <div key={i} className="team-card">
+                <div className="team-avatar">{member.icon}</div>
                 <div className="team-role">{member.role}</div>
                 <div className="team-desc">{member.desc}</div>
               </div>
