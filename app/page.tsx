@@ -25,8 +25,13 @@ const testimonials = [
 ];
 
 const team = [
-  { name: "Ing. František Petrouš", role: "Spoluzakladatel", desc: "V oblasti investičních nemovitostí se pohybuje od roku 2014. Vlastní osobní portfolio 81 nemovitostí v hodnotě 285 mil. Kč, převážně bytových jednotek.", photo: "/images/team/frantisek-petrous.jpg" },
-  { name: "Tým správy", role: "Provozní péče o investiční byty", desc: "Zahrnuje technika, řemeslníky na rekonstrukce, asistentku pro nájemníky, realitní makléřku, administrativní správkyni a uklizečku. O tuto i další nemovitosti se starají od roku 2016.", photo: "" },
+  { name: "Ing. František Petrouš", role: "Spoluzakladatel", desc: "V oblasti investičních nemovitostí se pohybuje od roku 2014. Vlastní osobní portfolio 81 nemovitostí v hodnotě 285 mil. Kč, převážně bytových jednotek.", photo: "/images/team/frantisek-petrous.jpg", icon: "" },
+  { name: "", role: "Technik", desc: "Místní člověk s bydlištěm kousek od domu. Od roku 2016 zajišťuje rekonstrukce bytů, řídí řemeslníky a drží vše v chodu. Disponuje klíči od všech jednotek.", photo: "", icon: "🔧" },
+  { name: "", role: "Řemeslníci", desc: "Tři zkušení pracovníci — dva zedníci se zkušenostmi ve vodoinštalaci, odpadech a obkladech, a samostatný elektrikář. Zlaté české ručičky s letitou praxí.", photo: "", icon: "🛠️" },
+  { name: "", role: "Asistentka pro nájemníky", desc: "Pečuje o nájemníky od nastěhování až po vystěhování. Nemovitosti v Bílině spravuje přes 30 let — ještě od dob, kdy patřily místní Sklárně.", photo: "", icon: "🤝" },
+  { name: "", role: "Realitní makléřka", desc: "Dvacet let v oboru, hluboká znalost lokality. Provádí výběr nájemníků — prověřuje exekuce, příjmy a má cit pro lidi, kteří dobře platí a zodpovědně bydlí.", photo: "", icon: "🏠" },
+  { name: "", role: "Administrativní správkyně", desc: "Řídí provozní agendu z kanceláře s profesionálním softwarem. Zkušená, pečlivá a motivovaná — přináší přesnost a chuť do práce.", photo: "", icon: "📋" },
+  { name: "", role: "Uklizečka", desc: "Spolehlivá a se smyslem pro detail. Bydlí v jednom z bytů v domě — stará se o něj jako o vlastní.", photo: "", icon: "✨" },
 ];
 
 
@@ -782,7 +787,7 @@ export default function Home() {
         .team-section{background:var(--bg);}
         .team-intro{background:white;border:1.5px solid var(--border);border-radius:20px;padding:36px;margin-bottom:2rem;}
         .team-intro-text{font-size:1rem;color:var(--text2);line-height:1.75;}
-        .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+        .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;}
         .team-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:28px;text-align:center;transition:transform 0.25s,box-shadow 0.25s;}
         .team-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
         .team-avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--blue-light),#dbeafe);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.5rem;font-weight:800;color:var(--blue);}
@@ -1190,9 +1195,9 @@ export default function Home() {
               <div key={i} className={`team-card reveal d${i+1}`}>
                 {member.photo
                   ? <Image src={member.photo} alt={member.name} width={68} height={68} style={{width:68,height:68,borderRadius:"50%",objectFit:"cover",margin:"0 auto 1rem",display:"block"}}/>
-                  : <div className="team-avatar">{member.name.charAt(0)}</div>
+                  : <div className="team-avatar">{member.icon || member.name.charAt(0)}</div>
                 }
-                <div className="team-name">{member.name}</div>
+                {member.name && <div className="team-name">{member.name}</div>}
                 <div className="team-role">{member.role}</div>
                 <div className="team-desc">{member.desc}</div>
               </div>
