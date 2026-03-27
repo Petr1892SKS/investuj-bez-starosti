@@ -36,11 +36,10 @@ const testimonials = [
 const team = [
   { name: "Ing. František Petrouš", role: "Spoluzakladatel", desc: "V oblasti investičních nemovitostí se pohybuje od roku 2014. Vlastní osobní portfolio 81 nemovitostí v hodnotě 285 mil. Kč, převážně bytových jednotek.", photo: "/images/team/frantisek-petrous.jpg", icon: "" },
   { name: "", role: "Technik", desc: "Místní člověk s bydlištěm kousek od domu. Od roku 2016 zajišťuje rekonstrukce bytů, řídí řemeslníky a drží vše v chodu. Disponuje klíči od všech jednotek.", photo: "", icon: "wrench" },
-  { name: "", role: "Řemeslníci", desc: "Tři zkušení pracovníci — dva zedníci se zkušenostmi ve vodoinštalaci, odpadech a obkladech, a samostatný elektrikář. Zlaté české ručičky s letitou praxí.", photo: "", icon: "hammer" },
-  { name: "", role: "Asistentka pro nájemníky", desc: "Pečuje o nájemníky od nastěhování až po vystěhování. Nemovitosti v Bílině spravuje přes 30 let — ještě od dob, kdy patřily místní Sklárně.", photo: "", icon: "message" },
+  { name: "", role: "Řemeslníci", desc: "Tři zkušení pracovníci — dva zedníci se zkušenostmi ve vodoinstalaci, odpadech a obkladech, a samostatný elektrikář. Zlaté české ručičky s letitou praxí.", photo: "", icon: "hammer" },
+  { name: "", role: "Asistentka pro nájemníky", desc: "Pečuje o nájemníky od nastěhování až po vystěhování. Nemovitosti v Bílině spravuje přes 30 let — ještě od dob, kdy patřily místní sklárně.", photo: "", icon: "message" },
   { name: "", role: "Realitní makléřka", desc: "Dvacet let v oboru, hluboká znalost lokality. Provádí výběr nájemníků — prověřuje exekuce, příjmy a má cit pro lidi, kteří dobře platí a zodpovědně bydlí.", photo: "", icon: "key" },
-  { name: "", role: "Administrativní správkyně", desc: "Řídí provozní agendu z kanceláře s profesionálním softwarem. Zkušená, pečlivá a motivovaná — přináší přesnost a chuť do práce.", photo: "", icon: "folder" },
-  { name: "", role: "Uklizečka", desc: "Spolehlivá a se smyslem pro detail. Bydlí v jednom z bytů v domě — stará se o něj jako o vlastní.", photo: "", icon: "sparkles" },
+  { name: "", role: "Administrativní správkyně", desc: "Řídí provozní agendu z kanceláře s profesionálním softwarem. Zkušenosti v oboru, přesná evidence a spolehlivá komunikace.", photo: "", icon: "folder" },
 ];
 
 
