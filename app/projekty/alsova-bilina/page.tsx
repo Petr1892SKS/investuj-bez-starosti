@@ -13,15 +13,15 @@ const project = {
 
   // Investiční parametry
   price: 2990000,
-  monthlyIncome: 12458,
-  yearlyIncome: 149500,
-  yieldPercent: 5,
+  monthlyIncome: 13370,
+  yearlyIncome: 160440,
+  yieldPercent: 5.37,
   growthPercent: 7,
   ownershipType: "Družstevní",
   condition: "Po rekonstrukci",
   holdingPeriod: "5–10 let",
-  area: 80,
-  floor: "3. patro / 6",
+  area: 87.2,
+  floor: "3. patro",
   yearBuilt: 1935,
 
   // Proč tento projekt – max 5 bodů
