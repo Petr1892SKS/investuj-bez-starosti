@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 const projects = [
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1/IMG_6892.jpeg", totalUnits: 8, availableUnits: 4 },
-  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 2 },
+  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 2 },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m² (bez závěří)", price: "2 850 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1/IMG_6892.jpeg", totalUnits: 4, availableUnits: 2 },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m² (se závěřím)", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1/IMG_6892.jpeg", totalUnits: 4, availableUnits: 2 },
 ];
 
 const faqs = [
