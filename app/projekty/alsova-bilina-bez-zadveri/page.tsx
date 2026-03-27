@@ -7,7 +7,7 @@ import Link from "next/link";
 // ============================================================
 const project = {
   name: "Projekt Alšova – Bílina",
-  subtitle: "Byt 3+1 bez zádveří · Bílina – Alšova",
+  subtitle: "Byt 3+1 · Bílina – Alšova",
   claim: "Konkrétní nemovitost ve vašem vlastnictví. Předem sjednaný měsíční příjem. Správa bez vaší účasti.",
   status: "Volný", // "Volný" | "Obsazený" | "Připravený"
 
