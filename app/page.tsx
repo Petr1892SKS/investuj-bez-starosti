@@ -14,8 +14,8 @@ const TEAM_ICONS: Record<string, React.ReactNode> = {
 
 const projects = [
   { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 2 },
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 4, availableUnits: 2 },
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 4, availableUnits: 2 },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 5, availableUnits: 3 },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 1 },
 ];
 
 const faqs = [
@@ -1033,7 +1033,7 @@ export default function Home() {
               <div className="project-card-body">
                 <div className="project-card-header">
                   <div className="project-name">{p.name}</div>
-                  <div className="project-status status-blue">{p.availableUnits} z {p.totalUnits} volné</div>
+                  <div className="project-status status-blue">{p.availableUnits} z {p.totalUnits} {p.availableUnits === 1 ? "volný" : "volné"}</div>
                 </div>
                 <div style={{margin:"10px 0 12px"}}>
                   <div style={{height:"4px",background:"#e2e8f0",borderRadius:"2px",overflow:"hidden"}}>
