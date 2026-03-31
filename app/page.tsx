@@ -617,6 +617,9 @@ export default function Home() {
     await new Promise((r) => setTimeout(r, 1500));
     setFormLoading(false);
     setFormSubmitted(true);
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "Lead");
+    }
   };
 
   return (
