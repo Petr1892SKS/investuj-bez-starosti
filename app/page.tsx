@@ -614,7 +614,15 @@ export default function Home() {
     const errors = validate();
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     setFormLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      });
+    } catch {
+      // pokračujeme i při chybě — neblokujeme UX
+    }
     setFormLoading(false);
     setFormSubmitted(true);
     if (typeof window !== "undefined" && (window as any).fbq) {
