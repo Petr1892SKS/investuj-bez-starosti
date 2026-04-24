@@ -1389,7 +1389,6 @@ export default function Home() {
             <div className="footer-col-title">Kontakt</div>
             <div className="footer-links">
               <a href="mailto:info@investujbezstarosti.cz">info@investujbezstarosti.cz</a>
-              <a href="tel:+420000000000">+420 000 000 000</a>
               <Link href="/pravni-dokumenty">GDPR</Link>
               <Link href="/pravni-dokumenty">Všeobecné podmínky</Link>
             </div>
