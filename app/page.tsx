@@ -889,9 +889,7 @@ export default function Home() {
         @keyframes pop{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
         .success-icon svg{stroke:#15803d;width:32px;height:32px;}
         .success-title{font-size:1.3rem;font-weight:800;margin-bottom:0.5rem;}
-        .success-text{color:var(--text2);font-size:0.87rem;margin-bottom:1.5rem;line-height:1.6;}
-        .success-link{display:inline-flex;align-items:center;gap:7px;color:var(--blue);font-weight:700;text-decoration:none;font-size:0.87rem;border:2px solid var(--blue);border-radius:50px;padding:10px 20px;transition:background 0.2s;}
-        .success-link:hover{background:var(--blue-light);}
+        .success-text{color:var(--text2);font-size:0.87rem;line-height:1.6;}
 
         /* MINI CTA */
         .mini-cta{background:var(--blue-light);border:1px solid rgba(54,109,255,0.15);border-radius:16px;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:2.5rem;}
@@ -1340,7 +1338,6 @@ export default function Home() {
               <div className="success-icon"><svg viewBox="0 0 24 24" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
               <div className="success-title">Odesláno! Brzy se ozveme.</div>
               <div className="success-text">Vaši žádost jsme přijali. Ozveme se vám co nejdříve a doporučíme vhodné řešení.</div>
-              <a href="#" className="success-link">Stáhnout: Jak investovat bez starostí (PDF)</a>
             </div>
           ) : (
             <>
