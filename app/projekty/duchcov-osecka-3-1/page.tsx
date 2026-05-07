@@ -34,8 +34,8 @@ const project = {
   ],
 
   gallery: [
-    { src: "/images/duchcov-osecka-3-1/IMG_0794.jpeg", label: "Fotografie 1" },
-    { src: "/images/duchcov-osecka-3-1/IMG_0815.jpeg", label: "Fotografie 2" },
+    { src: "/images/duchcov-osecka-3-1/IMG_0815.jpeg", label: "Fotografie 1" },
+    { src: "/images/duchcov-osecka-3-1/IMG_0794.jpeg", label: "Fotografie 2" },
     { src: "/images/duchcov-osecka-3-1/IMG_0818.jpeg", label: "Fotografie 3" },
     { src: "/images/duchcov-osecka-3-1/IMG_0888.jpeg", label: "Fotografie 4" },
     { src: "/images/duchcov-osecka-3-1/IMG_0947.jpeg", label: "Fotografie 5" },

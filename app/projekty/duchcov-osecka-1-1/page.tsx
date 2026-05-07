@@ -34,12 +34,12 @@ const project = {
   ],
 
   gallery: [
-    { src: "/images/duchcov-osecka-1-1/IMG_9334.jpeg", label: "Fotografie 1" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9335.jpeg", label: "Fotografie 2" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9336.jpeg", label: "Fotografie 3" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9337.jpeg", label: "Fotografie 4" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9338.jpeg", label: "Fotografie 5" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", label: "Fotografie 6" },
+    { src: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", label: "Fotografie 1" },
+    { src: "/images/duchcov-osecka-1-1/IMG_9334.jpeg", label: "Fotografie 2" },
+    { src: "/images/duchcov-osecka-1-1/IMG_9335.jpeg", label: "Fotografie 3" },
+    { src: "/images/duchcov-osecka-1-1/IMG_9336.jpeg", label: "Fotografie 4" },
+    { src: "/images/duchcov-osecka-1-1/IMG_9337.jpeg", label: "Fotografie 5" },
+    { src: "/images/duchcov-osecka-1-1/IMG_9338.jpeg", label: "Fotografie 6" },
     { src: "/images/duchcov-osecka-budova/IMG_6022.jpeg", label: "Budova" },
     { src: "/images/duchcov-osecka-budova/IMG_6025.jpeg", label: "Budova 2" },
   ],

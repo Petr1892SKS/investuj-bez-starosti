@@ -34,10 +34,10 @@ const project = {
   ],
 
   gallery: [
-    { src: "/images/duchcov-osecka-2-1/IMG_0787.jpeg", label: "Fotografie 1" },
-    { src: "/images/duchcov-osecka-2-1/IMG_0814.jpeg", label: "Fotografie 2" },
-    { src: "/images/duchcov-osecka-2-1/IMG_0900.jpeg", label: "Fotografie 3" },
-    { src: "/images/duchcov-osecka-2-1/IMG_0901.jpeg", label: "Fotografie 4" },
+    { src: "/images/duchcov-osecka-2-1/IMG_0901.jpeg", label: "Fotografie 1" },
+    { src: "/images/duchcov-osecka-2-1/IMG_0787.jpeg", label: "Fotografie 2" },
+    { src: "/images/duchcov-osecka-2-1/IMG_0814.jpeg", label: "Fotografie 3" },
+    { src: "/images/duchcov-osecka-2-1/IMG_0900.jpeg", label: "Fotografie 4" },
     { src: "/images/duchcov-osecka-2-1/IMG_0902.jpeg", label: "Fotografie 5" },
     { src: "/images/duchcov-osecka-budova/IMG_6022.jpeg", label: "Budova" },
     { src: "/images/duchcov-osecka-budova/IMG_6025.jpeg", label: "Budova 2" },

@@ -16,9 +16,9 @@ const projects = [
   { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 2, isNew: false },
   { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 5, availableUnits: 3, isNew: false },
   { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 1, isNew: false },
-  { name: "Byt Osecká 1+1", location: "Duchcov – Osecká", type: "Byt 1+1 · 38 m²", price: "2 190 000 Kč", slug: "duchcov-osecka-1-1", thumb: "/images/duchcov-osecka-1-1/IMG_9334.jpeg", totalUnits: 8, availableUnits: 6, isNew: true },
-  { name: "Byt Osecká 2+1", location: "Duchcov – Osecká", type: "Byt 2+1 · 62 m²", price: "2 990 000 Kč", slug: "duchcov-osecka-2-1", thumb: "/images/duchcov-osecka-2-1/IMG_0787.jpeg", totalUnits: 6, availableUnits: 4, isNew: true },
-  { name: "Byt Osecká 3+1", location: "Duchcov – Osecká", type: "Byt 3+1 · 67 m²", price: "3 190 000 Kč", slug: "duchcov-osecka-3-1", thumb: "/images/duchcov-osecka-3-1/IMG_0794.jpeg", totalUnits: 5, availableUnits: 3, isNew: true },
+  { name: "Byt Osecká 1+1", location: "Duchcov – Osecká", type: "Byt 1+1 · 38 m²", price: "2 190 000 Kč", slug: "duchcov-osecka-1-1", thumb: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", totalUnits: 8, availableUnits: 6, isNew: true },
+  { name: "Byt Osecká 2+1", location: "Duchcov – Osecká", type: "Byt 2+1 · 62 m²", price: "2 990 000 Kč", slug: "duchcov-osecka-2-1", thumb: "/images/duchcov-osecka-2-1/IMG_0901.jpeg", totalUnits: 6, availableUnits: 4, isNew: true },
+  { name: "Byt Osecká 3+1", location: "Duchcov – Osecká", type: "Byt 3+1 · 67 m²", price: "3 190 000 Kč", slug: "duchcov-osecka-3-1", thumb: "/images/duchcov-osecka-3-1/IMG_0815.jpeg", totalUnits: 5, availableUnits: 3, isNew: true },
 ];
 
 const faqs = [
