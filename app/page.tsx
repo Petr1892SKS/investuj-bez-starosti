@@ -13,9 +13,12 @@ const TEAM_ICONS: Record<string, React.ReactNode> = {
 };
 
 const projects = [
-  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 2 },
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 5, availableUnits: 3 },
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 1 },
+  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 2, isNew: false },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 5, availableUnits: 3, isNew: false },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 1, isNew: false },
+  { name: "Byt Osecká 1+1", location: "Duchcov – Osecká", type: "Byt 1+1 · 38 m²", price: "2 190 000 Kč", slug: "duchcov-osecka-1-1", thumb: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", totalUnits: 8, availableUnits: 6, isNew: true },
+  { name: "Byt Osecká 2+1", location: "Duchcov – Osecká", type: "Byt 2+1 · 62 m²", price: "2 990 000 Kč", slug: "duchcov-osecka-2-1", thumb: "/images/duchcov-osecka-2-1/IMG_0901.jpeg", totalUnits: 6, availableUnits: 4, isNew: true },
+  { name: "Byt Osecká 3+1", location: "Duchcov – Osecká", type: "Byt 3+1 · 67 m²", price: "3 190 000 Kč", slug: "duchcov-osecka-3-1", thumb: "/images/duchcov-osecka-3-1/IMG_0815.jpeg", totalUnits: 5, availableUnits: 3, isNew: true },
 ];
 
 const faqs = [
@@ -751,6 +754,11 @@ export default function Home() {
         .project-meta-item{display:flex;align-items:center;gap:5px;}
         .project-cta{display:flex;align-items:center;gap:5px;color:var(--blue);font-size:0.83rem;font-weight:700;transition:gap 0.2s;}
         .project-card:hover .project-cta{gap:9px;}
+        .project-card.is-new{border-color:rgba(217,119,6,0.35);box-shadow:0 6px 24px rgba(217,119,6,0.08);}
+        .project-card.is-new:hover{border-color:rgba(217,119,6,0.55);}
+        .project-card.is-new::after{background:linear-gradient(90deg,#fbbf24,#d97706);}
+        .project-ribbon-wrap{position:absolute;top:0;right:0;width:110px;height:110px;overflow:hidden;z-index:3;pointer-events:none;}
+        .project-ribbon{position:absolute;top:22px;right:-32px;transform:rotate(45deg);background:linear-gradient(135deg,#fbbf24 0%,#d97706 100%);color:white;font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;padding:6px 44px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.18);}
 
 
         /* WHY */
@@ -1037,7 +1045,12 @@ export default function Home() {
         </div>
         <div className="projects-grid">
           {projects.map((p, i) => (
-            <Link key={i} href={`/projekty/${p.slug || "vinohrady"}`} className={`project-card reveal d${(i%3)+1}`} style={{textDecoration:"none",display:"block"}}>
+            <Link key={i} href={`/projekty/${p.slug || "vinohrady"}`} className={`project-card reveal d${(i%3)+1}${p.isNew ? " is-new" : ""}`} style={{textDecoration:"none",display:"block"}}>
+              {p.isNew && (
+                <div className="project-ribbon-wrap">
+                  <div className="project-ribbon">Novinka</div>
+                </div>
+              )}
               {p.thumb && <Image src={p.thumb} alt={p.name} width={360} height={180} className="project-card-thumb" style={{objectFit:"cover",width:"100%",height:"180px"}}/>}
               <div className="project-card-body">
                 <div className="project-card-header">

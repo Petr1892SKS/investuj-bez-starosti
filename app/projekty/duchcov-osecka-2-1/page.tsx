@@ -6,44 +6,41 @@ import Link from "next/link";
 // UPRAVUJ POUZE TUTO SEKCI – DATA PROJEKTU
 // ============================================================
 const project = {
-  name: "Projekt Alšova – Bílina",
-  subtitle: "Byt 3+1 · Bílina – Alšova",
+  name: "Projekt Duchcov – Osecká",
+  subtitle: "Byt 2+1 · Duchcov – Osecká 75",
   claim: "Konkrétní nemovitost ve vašem vlastnictví. Předem sjednaný měsíční příjem. Správa bez vaší účasti.",
   status: "Volný", // "Volný" | "Obsazený" | "Připravený"
+  isNew: true,
 
   // Investiční parametry
-  price: 2850000,
-  monthlyIncome: 12974,
-  yearlyIncome: 155688,
-  yieldPercent: 5.46,
+  price: 2990000,
+  monthlyIncome: 13181,
+  yearlyIncome: 158172,
+  yieldPercent: 5.29,
   growthPercent: 7,
   ownershipType: "Družstevní s převodem do OV",
   condition: "Po rekonstrukci",
   holdingPeriod: "5–10 let",
-  area: 82.3,
-  floor: "4. patro",
-  yearBuilt: 1935,
+  area: 62,
+  floor: "2. patro",
 
   // Proč tento projekt – max 5 bodů
   reasons: [
-    { title: "Stabilní lokalita s nízkou prázdnotou", text: "Bílina – Alšova má dlouhodobě stabilní poptávku po nájemním bydlení. Poptávka po nájemním bydlení v lokalitě stabilně převyšuje nabídku." },
-    { title: "Dispozice 3+1 odpovídá trhu", text: "Segment 3+1 je dlouhodobě stabilně poptávaný na nájemním trhu. Nájemní příjem pro tuto kategorii je stabilní a předvídatelný." },
-    { title: "Nemovitost z existujícího portfolia", text: "Projekt nepochází z volného trhu. Nemovitost je součástí portfolia s ověřenou provozní historií a existujícím nájemcem." },
+    { title: "Stabilní lokalita s nízkou prázdnotou", text: "Duchcov má dlouhodobě stabilní poptávku po nájemním bydlení. Lokalita Osecká je v dosahu obchodní vybavenosti i hromadné dopravy. Poptávka po nájmu v lokalitě stabilně převyšuje nabídku." },
+    { title: "Dispozice 2+1 odpovídá trhu", text: "Segment 2+1 je dlouhodobě stabilně poptávaný na nájemním trhu. Nájemní příjem pro tuto kategorii je stabilní a předvídatelný." },
+    { title: "Nemovitost z existujícího portfolia", text: "Projekt nepochází z volného trhu. Nemovitost je součástí portfolia s ověřenou provozní historií a připraveným modelem správy." },
     { title: "Po rekonstrukci – bez dalších investic", text: "Kompletní rekonstrukce je již provedena. Investor nevkládá žádné dodatečné prostředky do oprav ani přípravy na pronájem." },
     { title: "All-in správa od prvního dne", text: "Výběr nájemce, servis, komunikace, účetnictví – vše zajišťujeme my. Investor přijímá měsíční příjem bez operativní zátěže." },
   ],
 
   gallery: [
-    { src: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6875.jpeg", label: "Fotografie 1" },
-    { src: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6876.jpeg", label: "Fotografie 2" },
-    { src: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6877.jpeg", label: "Fotografie 3" },
-    { src: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", label: "Fotografie 4" },
-    { src: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6879.jpeg", label: "Fotografie 5" },
-    { src: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6880.jpeg", label: "Fotografie 6" },
-    { src: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6881.jpeg", label: "Fotografie 7" },
-    { src: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6882.jpeg", label: "Fotografie 8" },
-    { src: "/images/alsova-bilina-budova/IMG_4974.jpeg", label: "Budova" },
-    { src: "/images/alsova-bilina-budova/IMG_4975.jpeg", label: "Budova 2" },
+    { src: "/images/duchcov-osecka-2-1/IMG_0901.jpeg", label: "Fotografie 1" },
+    { src: "/images/duchcov-osecka-2-1/IMG_0787.jpeg", label: "Fotografie 2" },
+    { src: "/images/duchcov-osecka-2-1/IMG_0814.jpeg", label: "Fotografie 3" },
+    { src: "/images/duchcov-osecka-2-1/IMG_0900.jpeg", label: "Fotografie 4" },
+    { src: "/images/duchcov-osecka-2-1/IMG_0902.jpeg", label: "Fotografie 5" },
+    { src: "/images/duchcov-osecka-budova/IMG_6022.jpeg", label: "Budova" },
+    { src: "/images/duchcov-osecka-budova/IMG_6025.jpeg", label: "Budova 2" },
   ],
 
   // Pro koho je projekt vhodný
@@ -61,7 +58,7 @@ const project = {
     { q: "Co zahrnuje správa nemovitosti?", a: "Výběr a prověření nájemce, smluvní zajištění pronájmu, pravidelný servis, komunikaci s nájemcem, technickou údržbu a měsíční výplatu nájemného investorovi. Investor neřeší nic." },
     { q: "Jaký je rozdíl mezi nájemním příjmem a kapitálovým zhodnocením?", a: "Nájemní příjem je garantovaná částka vyplácená měsíčně – je sjednána smluvně a investor ji dostává pravidelně. Kapitálové zhodnocení je modelový scénář budoucí hodnoty nemovitosti při případném prodeji. Není garantováno a nedá se předvídat s jistotou." },
     { q: "Co se stane, když nájemník přestane platit?", a: "Investorovi je vyplácena garantovaná výše příjmu bez ohledu na platební morálku nájemníka. Vymáhání a řešení neplatičů je na naší straně." },
-    { q: "Jak probíhá nabytí vlastnictví?", a: "Nemovitost přechází do osobního vlastnictví investora standardní cestou přes katastr nemovitostí. Veškerou administraci zajišťujeme my." },
+    { q: "Jak probíhá nabytí vlastnictví?", a: "Nemovitost přechází do vlastnictví investora standardní cestou. Veškerou administraci zajišťujeme my. Družstevní podíl lze kdykoli převést do osobního vlastnictví." },
   ],
 };
 // ============================================================
@@ -120,14 +117,23 @@ export default function ProjectDetail() {
         /* HERO */
         .hero { background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%); padding: 60px 24px 50px; }
         .hero-inner { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: start; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: white; border: 1px solid var(--border); border-radius: 50px; padding: 5px 14px; font-size: 0.75rem; font-weight: 700; color: var(--text2); margin-bottom: 20px; }
+        .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: white; border: 1px solid var(--border); border-radius: 50px; padding: 5px 14px; font-size: 0.75rem; font-weight: 700; color: var(--text2); }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+
+        /* NOVÝ PROJEKT BADGE */
+        .new-project-badge { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color: white; border: none; border-radius: 50px; padding: 6px 14px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; box-shadow: 0 6px 18px rgba(217,119,6,0.35); animation: newPulse 2.4s ease-in-out infinite; }
+        .new-project-badge svg { animation: newSparkle 2.4s ease-in-out infinite; }
+        @keyframes newPulse { 0%, 100% { box-shadow: 0 6px 18px rgba(217,119,6,0.35); } 50% { box-shadow: 0 8px 26px rgba(217,119,6,0.55); } }
+        @keyframes newSparkle { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(20deg) scale(1.15); } }
+
         .hero-title { font-size: 2.4rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 10px; }
         .hero-subtitle { font-size: 1rem; color: var(--text2); margin-bottom: 6px; font-weight: 500; }
         .hero-claim { font-size: 0.9rem; color: var(--text2); line-height: 1.6; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
 
         /* HERO CARD */
-        .hero-card { background: white; border-radius: 24px; padding: 28px; box-shadow: 0 4px 40px rgba(0,0,0,0.08); border: 1px solid var(--border); }
+        .hero-card { background: white; border-radius: 24px; padding: 28px; box-shadow: 0 4px 40px rgba(0,0,0,0.08); border: 1px solid var(--border); position: relative; }
+        .hero-card-corner-badge { position: absolute; top: -10px; right: 18px; background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color: white; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; padding: 5px 12px; border-radius: 50px; box-shadow: 0 4px 14px rgba(217,119,6,0.45); }
         .hero-card-label { font-size: 0.68rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
         .income-block { background: var(--blue-light); border-radius: 14px; padding: 18px 20px; margin-bottom: 10px; }
         .income-tag { font-size: 0.68rem; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
@@ -157,7 +163,7 @@ export default function ProjectDetail() {
         .gallery-main img { width: 100%; height: 100%; object-fit: cover; }
         .gallery-main-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: var(--text2); }
         .gallery-label { position: absolute; bottom: 16px; left: 16px; background: rgba(0,0,0,0.55); color: white; font-size: 0.75rem; font-weight: 600; padding: 5px 12px; border-radius: 50px; backdrop-filter: blur(4px); }
-        .gallery-thumbs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+        .gallery-thumbs { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
         .gallery-thumb { aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #e2e8f0; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
         .gallery-thumb.active { border-color: var(--blue); }
         .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
@@ -249,7 +255,7 @@ export default function ProjectDetail() {
           .process-steps { grid-template-columns: 1fr 1fr; gap: 20px; }
           .process-steps::before { display: none; }
           .yield-grid { grid-template-columns: 1fr; }
-          .gallery-thumbs { grid-template-columns: repeat(3, 1fr); }
+          .gallery-thumbs { grid-template-columns: repeat(4, 1fr); }
           .hero-title { font-size: 1.8rem; }
         }
         @media (max-width: 600px) {
@@ -272,9 +278,14 @@ export default function ProjectDetail() {
       <section className="hero">
         <div className="hero-inner">
           <div>
-            <div className="hero-badge">
-              <span className="status-dot" style={{background: project.status === "Volný" ? "#366dff" : project.status === "Obsazený" ? "#16a34a" : "#f59e0b"}}/>
-              {project.status}
+            <div className="hero-badges">
+              {project.isNew && (
+                <div className="new-project-badge">Nový projekt</div>
+              )}
+              <div className="hero-badge">
+                <span className="status-dot" style={{background: project.status === "Volný" ? "#366dff" : project.status === "Obsazený" ? "#16a34a" : "#f59e0b"}}/>
+                {project.status}
+              </div>
             </div>
             <h1 className="hero-title">{project.name}</h1>
             <p className="hero-subtitle">{project.subtitle}</p>
@@ -282,6 +293,7 @@ export default function ProjectDetail() {
           </div>
 
           <div className="hero-card">
+            {project.isNew && <div className="hero-card-corner-badge">Novinka</div>}
             <div className="hero-card-label">Investiční přehled</div>
 
             <div className="income-block">
@@ -310,41 +322,43 @@ export default function ProjectDetail() {
       </section>
 
       {/* GALERIE */}
-      <section className="section gallery-section">
-        <div className="section-inner">
-          <div className="section-label">Fotodokumentace</div>
-          <div className="gallery-main">
-            {imgErrors[activePhoto] ? (
-              <div className="gallery-main-placeholder">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                <span style={{fontSize:"0.8rem"}}>Fotografie budou doplněny</span>
-              </div>
-            ) : (
-              <img
-                src={project.gallery[activePhoto].src}
-                alt={project.gallery[activePhoto].label}
-                onError={() => setImgErrors(e => ({ ...e, [activePhoto]: true }))}
-              />
-            )}
-            <div className="gallery-label">{project.gallery[activePhoto].label}</div>
+      {project.gallery.length > 0 && (
+        <section className="section gallery-section">
+          <div className="section-inner">
+            <div className="section-label">Fotodokumentace</div>
+            <div className="gallery-main">
+              {imgErrors[activePhoto] ? (
+                <div className="gallery-main-placeholder">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                  <span style={{fontSize:"0.8rem"}}>Fotografie budou doplněny</span>
+                </div>
+              ) : (
+                <img
+                  src={project.gallery[activePhoto].src}
+                  alt={project.gallery[activePhoto].label}
+                  onError={() => setImgErrors(e => ({ ...e, [activePhoto]: true }))}
+                />
+              )}
+              <div className="gallery-label">{project.gallery[activePhoto]?.label}</div>
+            </div>
+            <div className="gallery-thumbs">
+              {project.gallery.map((photo, i) => (
+                <div key={i} className={`gallery-thumb${activePhoto===i?" active":""}`} onClick={() => setActivePhoto(i)}>
+                  {imgErrors[i] ? (
+                    <div className="gallery-thumb-placeholder">{photo.label}</div>
+                  ) : (
+                    <img
+                      src={photo.src}
+                      alt={photo.label}
+                      onError={() => setImgErrors(e => ({ ...e, [i]: true }))}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="gallery-thumbs">
-            {project.gallery.map((photo, i) => (
-              <div key={i} className={`gallery-thumb${activePhoto===i?" active":""}`} onClick={() => setActivePhoto(i)}>
-                {imgErrors[i] ? (
-                  <div className="gallery-thumb-placeholder">{photo.label}</div>
-                ) : (
-                  <img
-                    src={photo.src}
-                    alt={photo.label}
-                    onError={() => setImgErrors(e => ({ ...e, [i]: true }))}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* INVESTIČNÍ PARAMETRY */}
       <section className="section">
