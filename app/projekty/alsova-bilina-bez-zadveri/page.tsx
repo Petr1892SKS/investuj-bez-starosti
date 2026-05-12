@@ -17,7 +17,7 @@ const project = {
   yearlyIncome: 155688,
   yieldPercent: 5.46,
   growthPercent: 7,
-  ownershipType: "Družstevní",
+  ownershipType: "Družstevní s převodem do OV",
   condition: "Po rekonstrukci",
   holdingPeriod: "5–10 let",
   area: 82.3,
@@ -444,7 +444,7 @@ export default function ProjectDetail() {
           <p className="section-sub">Jednoduchý proces. Vše vyřešíme s vámi.</p>
           <div className="process-steps">
             {[
-              { num: 1, title: "Rezervace projektu", text: "Potvrdíte zájem a projekt je rezervován pro vás.", highlight: false },
+              { num: 1, title: "Rezervace projektu", text: "Potvrdíte zájem a byt v projektu je rezervován pro vás.", highlight: false },
               { num: 2, title: "Nastavení podmínek", text: "Smluvně sjednáme garantovanou výši příjmu a podmínky správy.", highlight: false },
               { num: 3, title: "Nabytí vlastnictví", text: "Nemovitost přechází do vašeho vlastnictví. Vše administrativní vyřešíme.", highlight: false },
               { num: 4, title: "Správa a výplata", text: "Od prvního dne se staráme o vše. Vy přijímáte garantovaný měsíční příjem.", highlight: true },
