@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import VideoIntroButton from "../../components/VideoIntroButton";
 
 // ============================================================
 // UPRAVUJ POUZE TUTO SEKCI – DATA PROJEKTU
@@ -510,6 +511,9 @@ export default function ProjectDetail() {
           <div className="section-label">Časté otázky</div>
           <h2 className="section-title">Odpovědi na klíčové otázky</h2>
           <p className="section-sub">Nejčastější otázky investorů před rozhodnutím.</p>
+          <div style={{display:"flex",justifyContent:"center",margin:"1.25rem 0 1.75rem"}}>
+            <VideoIntroButton variant="compact" />
+          </div>
           <div className="faq-list">
             {project.faq.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
           </div>

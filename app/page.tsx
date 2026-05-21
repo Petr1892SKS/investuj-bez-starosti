@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import VideoIntroButton from "./components/VideoIntroButton";
 
 const TEAM_ICONS: Record<string, React.ReactNode> = {
   wrench: <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>,
@@ -737,6 +738,10 @@ export default function Home() {
 
         /* PROJECTS */
         .projects-section{background:var(--bg);}
+        .projects-header{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;}
+        .projects-header > div:first-child{flex:1 1 420px;min-width:0;}
+        .projects-header-cta{flex:0 0 auto;max-width:360px;padding-bottom:6px;}
+        @media (max-width:720px){.projects-header-cta{width:100%;max-width:none;padding-bottom:0;}}
         .projects-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
         .projects-grid .project-card{width:100%;max-width:360px;}
         .project-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:0;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;position:relative;overflow:hidden;}
@@ -1038,10 +1043,15 @@ export default function Home() {
 
       {/* PROJEKTY */}
       <section id="projekty" className="section projects-section">
-        <div className="section-header reveal">
-          <div className="section-label">Projekty</div>
-          <h2 className="section-title">Aktuální investiční byty v nabídce</h2>
-          <p className="section-sub">Vyberte si byt. Pokud si nejste jistí, rádi poradíme nebo sestavíme portfolio.</p>
+        <div className="section-header reveal projects-header">
+          <div>
+            <div className="section-label">Projekty</div>
+            <h2 className="section-title">Aktuální investiční byty v nabídce</h2>
+            <p className="section-sub">Vyberte si byt. Pokud si nejste jistí, rádi poradíme nebo sestavíme portfolio.</p>
+          </div>
+          <div className="projects-header-cta">
+            <VideoIntroButton />
+          </div>
         </div>
         <div className="projects-grid">
           {projects.map((p, i) => (
@@ -1175,6 +1185,9 @@ export default function Home() {
             <div className="section-label">Jak to funguje</div>
             <h2 className="section-title">Čtyři kroky k pravidelnému příjmu</h2>
             <p className="section-sub">Jednoduchý proces. Žádná složitost. Vše vyřešíme s vámi.</p>
+            <div style={{margin:"0 0 1.5rem"}}>
+              <VideoIntroButton />
+            </div>
             <div className="steps-photo">
               <div className="steps-photo-inner">
                 <div className="steps-photo-big">0{activeStep+1}</div>
