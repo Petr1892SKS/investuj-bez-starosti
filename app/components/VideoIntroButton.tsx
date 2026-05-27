@@ -78,21 +78,20 @@ export default function VideoIntroButton({ variant = "inline" }: { variant?: Var
           display: inline-flex;
           align-items: center;
           gap: 14px;
-          background: #ffffff;
-          border: 1px solid #e2e8f0;
+          background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+          border: 1px solid rgba(217,119,6,0.4);
           border-radius: 14px;
           padding: 12px 18px 12px 14px;
           font-family: inherit;
-          color: #0f172a;
+          color: #ffffff;
           text-align: left;
           cursor: pointer;
-          transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-          box-shadow: 0 1px 2px rgba(15,23,42,0.04);
+          transition: box-shadow 0.2s, transform 0.2s;
+          box-shadow: 0 6px 20px rgba(217,119,6,0.28);
           max-width: 100%;
         }
         .vib-btn:hover {
-          border-color: #366dff;
-          box-shadow: 0 6px 20px rgba(54,109,255,0.12);
+          box-shadow: 0 10px 28px rgba(217,119,6,0.42);
           transform: translateY(-1px);
         }
         .vib-play {
@@ -100,17 +99,25 @@ export default function VideoIntroButton({ variant = "inline" }: { variant?: Var
           width: 32px;
           height: 32px;
           border-radius: 50%;
-          background: #366dff;
-          color: #fff;
+          background: #ffffff;
+          color: #d97706;
           display: inline-flex;
           align-items: center;
           justify-content: center;
           padding-left: 2px;
+          box-shadow: 0 0 0 0 rgba(255,255,255,0.6);
+          animation: vibPulse 2.2s ease-out infinite;
         }
         .vib-text { display: flex; flex-direction: column; line-height: 1.25; }
-        .vib-lead { font-size: 0.92rem; font-weight: 700; color: #0f172a; }
-        .vib-sub { font-size: 0.78rem; color: #64748b; margin-top: 2px; }
-        .vib-arrow { color: #366dff; font-weight: 700; margin-left: 4px; }
+        .vib-lead { font-size: 0.92rem; font-weight: 700; color: #ffffff; }
+        .vib-sub { font-size: 0.78rem; color: rgba(255,255,255,0.9); margin-top: 2px; }
+        .vib-arrow { color: #ffffff; font-weight: 700; margin-left: 4px; }
+
+        @keyframes vibPulse {
+          0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
+          70%  { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+          100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+        }
 
         .vib-compact { padding: 10px 14px 10px 12px; gap: 10px; }
         .vib-compact .vib-play { width: 26px; height: 26px; }
