@@ -738,9 +738,9 @@ export default function Home() {
 
         /* PROJECTS */
         .projects-section{background:var(--bg);}
-        .projects-header{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;max-width:1200px;margin:0 auto;}
+        .projects-header{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;max-width:1200px;margin:0 auto 5rem;}
         .projects-header > div:first-child{flex:1 1 420px;min-width:0;}
-        .projects-header-cta{flex:0 0 auto;max-width:360px;padding-bottom:6px;}
+        .projects-header-cta{flex:0 0 auto;max-width:360px;}
         @media (max-width:720px){.projects-header-cta{width:100%;max-width:none;padding-bottom:0;}}
         .projects-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:1200px;margin:0 auto;}
         .projects-grid .project-card{width:100%;max-width:360px;}
