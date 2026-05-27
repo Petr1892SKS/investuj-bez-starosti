@@ -14,9 +14,9 @@ const TEAM_ICONS: Record<string, React.ReactNode> = {
 };
 
 const projects = [
-  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 2, isNew: false },
+  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 1, isNew: false, highlight: "critical" as const },
   { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 5, availableUnits: 3, isNew: false },
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 1, isNew: false },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 1, isNew: false, highlight: "critical" as const },
   { name: "Byt Osecká 1+1", location: "Duchcov – Osecká", type: "Byt 1+1 · 38 m²", price: "2 190 000 Kč", slug: "duchcov-osecka-1-1", thumb: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", totalUnits: 8, availableUnits: 6, isNew: true },
   { name: "Byt Osecká 2+1", location: "Duchcov – Osecká", type: "Byt 2+1 · 62 m²", price: "2 990 000 Kč", slug: "duchcov-osecka-2-1", thumb: "/images/duchcov-osecka-2-1/IMG_0901.jpeg", totalUnits: 6, availableUnits: 4, isNew: true },
   { name: "Byt Osecká 3+1", location: "Duchcov – Osecká", type: "Byt 3+1 · 67 m²", price: "3 190 000 Kč", slug: "duchcov-osecka-3-1", thumb: "/images/duchcov-osecka-3-1/IMG_0815.jpeg", totalUnits: 5, availableUnits: 3, isNew: true },
@@ -756,6 +756,12 @@ export default function Home() {
         .project-status{font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:50px;}
         .status-green{background:#dcfce7;color:#15803d;}
         .status-blue{background:#dbeafe;color:#1d4ed8;}
+        .status-amber{background:#fef3c7;color:#b45309;}
+        .status-red{background:#fee2e2;color:#b91c1c;animation:stockPulse 1.6s ease-in-out infinite;}
+        @keyframes stockPulse{
+          0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(220,38,38,0.45);}
+          50%{transform:scale(1.06);box-shadow:0 0 0 6px rgba(220,38,38,0);}
+        }
         .project-meta{display:flex;gap:14px;font-size:0.8rem;color:var(--text2);margin-bottom:18px;flex-wrap:wrap;}
         .project-meta-item{display:flex;align-items:center;gap:5px;}
         .project-cta{display:flex;align-items:center;gap:5px;color:var(--blue);font-size:0.83rem;font-weight:700;transition:gap 0.2s;}
@@ -1055,7 +1061,11 @@ export default function Home() {
           </div>
         </div>
         <div className="projects-grid">
-          {projects.map((p, i) => (
+          {projects.map((p, i) => {
+            const stock = (p as { highlight?: "critical" | "medium" }).highlight ?? "normal";
+            const pillClass = stock === "critical" ? "status-red" : stock === "medium" ? "status-amber" : "status-blue";
+            const barFill = stock === "critical" ? "linear-gradient(90deg,#ef4444,#dc2626)" : stock === "medium" ? "linear-gradient(90deg,#f59e0b,#d97706)" : "#366dff";
+            return (
             <Link key={i} href={`/projekty/${p.slug || "vinohrady"}`} className={`project-card reveal d${(i%3)+1}${p.isNew ? " is-new" : ""}`} style={{textDecoration:"none",display:"block"}}>
               {p.isNew && (
                 <div className="project-ribbon-wrap">
@@ -1066,11 +1076,11 @@ export default function Home() {
               <div className="project-card-body">
                 <div className="project-card-header">
                   <div className="project-name">{p.name}</div>
-                  <div className="project-status status-blue">{p.availableUnits} z {p.totalUnits} {p.availableUnits === 1 ? "volný" : "volné"}</div>
+                  <div className={`project-status ${pillClass}`}>{p.availableUnits} z {p.totalUnits} {p.availableUnits === 1 ? "volný" : "volné"}</div>
                 </div>
                 <div style={{margin:"10px 0 12px"}}>
                   <div style={{height:"4px",background:"#e2e8f0",borderRadius:"2px",overflow:"hidden"}}>
-                    <div style={{height:"100%",width:`${((p.totalUnits-p.availableUnits)/p.totalUnits)*100}%`,background:"#366dff",borderRadius:"2px"}}/>
+                    <div style={{height:"100%",width:`${((p.totalUnits-p.availableUnits)/p.totalUnits)*100}%`,background:barFill,borderRadius:"2px"}}/>
                   </div>
                   <div style={{fontSize:"0.72rem",color:"var(--text2)",marginTop:"4px"}}>{p.availableUnits} z {p.totalUnits} bytů volných</div>
                 </div>
@@ -1082,7 +1092,8 @@ export default function Home() {
                 <div className="project-cta">Detail projektu<IconArrow/></div>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
         <div className="mini-cta reveal">
           <div><div className="mini-cta-title">Nevíte, který projekt vybrat?</div><div className="mini-cta-sub">Rádi sestavíme portfolio na míru vašim cílům.</div></div>
