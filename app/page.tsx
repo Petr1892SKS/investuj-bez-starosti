@@ -738,12 +738,13 @@ export default function Home() {
 
         /* PROJECTS */
         .projects-section{background:var(--bg);}
-        .projects-header{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;}
+        .projects-header{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;max-width:1200px;margin:0 auto;}
         .projects-header > div:first-child{flex:1 1 420px;min-width:0;}
         .projects-header-cta{flex:0 0 auto;max-width:360px;padding-bottom:6px;}
         @media (max-width:720px){.projects-header-cta{width:100%;max-width:none;padding-bottom:0;}}
-        .projects-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
+        .projects-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:1200px;margin:0 auto;}
         .projects-grid .project-card{width:100%;max-width:360px;}
+        .projects-section .mini-cta{max-width:1200px;margin-left:auto;margin-right:auto;}
         .project-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:0;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;position:relative;overflow:hidden;}
         .project-card-thumb{width:100%;height:180px;object-fit:cover;display:block;}
         .project-card-body{padding:22px 26px 26px;}
