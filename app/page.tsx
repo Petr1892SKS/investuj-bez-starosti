@@ -22,13 +22,97 @@ const projects = [
   { name: "Byt Osecká 3+1", location: "Duchcov – Osecká", type: "Byt 3+1 · 67 m²", price: "3 190 000 Kč", slug: "duchcov-osecka-3-1", thumb: "/images/duchcov-osecka-3-1/IMG_0815.jpeg", totalUnits: 5, availableUnits: 3, isNew: true },
 ];
 
-const faqs = [
-  { q: "Co přesně znamená garantovaná výše měsíčního příjmu?", a: "Garantovaná výše nájemního příjmu je smluvně sjednána před převodem vlastnictví. Výplata probíhá pravidelně každý měsíc bez ohledu na aktuální obsazenost nemovitosti. Konkrétní podmínky jsou vždy upraveny individuální smlouvou." },
-  { q: "Co když je byt dočasně neobsazený?", a: "Obsazenost řešíme my. Investor pobírá sjednaný měsíční příjem podle smluvních podmínek. Veškerá správa nájemníků, výběr, komunikace i řešení provozu je součástí služby." },
-  { q: "Musím se starat o nájemníky, opravy nebo administrativu?", a: "Ne. Zajišťujeme kompletní správu nemovitosti včetně výběru nájemníků, smluv, vyúčtování, oprav i komunikace. Investor vlastní nemovitost, ale provoz řešíme my." },
-  { q: "Jak je řešeno financování nemovitosti?", a: "Pomůžeme vám nastavit optimální kombinaci vlastních zdrojů a bankovního financování. Cílem je nastavit strukturu investice tak, aby odpovídala vaší finanční situaci a investičním cílům." },
-  { q: "Je možné nemovitost v budoucnu prodat?", a: "Ano. Nemovitost je ve vašem vlastnictví a můžete ji kdykoliv prodat podle podmínek smlouvy. Možné kapitálové zhodnocení se realizuje při prodeji." },
-  { q: "Je tato investice vhodná i pro začínající investory?", a: "Ano, pokud hledáte stabilní měsíční příjem a nechcete řešit provoz nemovitosti. Před každou investicí společně posoudíme, zda projekt odpovídá vaší situaci." },
+const faqCategories = [
+  {
+    short: "Projekt a co získáte",
+    items: [
+      { q: "Co přesně si investicí pořizuji?", a: "Konkrétní bytovou jednotku ve vašem vlastnictví formou družstevního podílu s právem na převod do osobního vlastnictví. Není to fond, dluhopis ani podíl na SPV — vlastníte konkrétní byt na konkrétní adrese." },
+      { q: "Proč část portfolia prodáváte a nenecháte si vše sami?", a: "Původně jsme kupovali sedm panelových domů jako celek. Při velkých balících banky nabízejí horší financování (LTV typicky 45 %) než fyzické osobě kupující jednu jednotku (80 % LTV, hypotéka 30 let). Dva domy otevíráme investorům, aby získali přístup k výhodnějšímu financování, zatímco my zachováme správu a kontrolu." },
+      { q: "Jaké byty jsou aktuálně v nabídce?", a: "Dostupné jsou byty v Bílině (Alšova) a Duchcově (Osecká) v dispozicích 1+1 až 3+1 s cenami od 2 190 000 Kč do 3 190 000 Kč. Některé jednotky jsou již ústně rezervovány." },
+      { q: "Jaký je technický stav domů?", a: "Oba domy jsou po kompletní rekonstrukci (okna, rozvody, interiéry). Zbývá zateplení s připraveným projektem, čeká na program Nová zelená úsporám. Kupní cena ani výše nájmu se kvůli tomu nemění." },
+      { q: "Jak je v bytech řešeno vytápění a ohřev vody?", a: "Ústřední topení s výměníkovou stanicí v domě. Zálohy na služby hradí přímo nájemník — ne investor." },
+      { q: "Mají všechny byty stejný standard?", a: "V rámci jednoho domu jsou byty rekonstruovány v jednotném standardu." },
+    ],
+  },
+  {
+    short: "Výnos a čísla",
+    items: [
+      { q: "Jak funguje garantovaná výše měsíčního příjmu?", a: "Příjem přichází každý měsíc ve stejné výši bez ohledu na obsazenost nebo platební morálku nájemníka. Konkrétní částka je sjednána smluvně před nabytím vlastnictví. Například u Alšova 2+1 je to 10 279 Kč měsíčně (5,39 % p.a. z kupní ceny)." },
+      { q: "Je výnos čistý, nebo před náklady?", a: "Garantovaná výše nájemního příjmu je hrubá. Po započtení provozních nákladů (správa, fond oprav, poplatek za garanci) vychází čistý výnos zhruba 4,3–5,2 % p.a. Nad rámec toho je předpokládané kapitálové zhodnocení modelově 7 % p.a. — to není garantováno a realizuje se až při prodeji." },
+      { q: "Kdo je smluvní stranou garance a z čeho je krytá?", a: "Smluvní stranou je provozní společnost spravující portfolio. Garance je krytá reálným nájemným, širokou základnou pracujících nájemníků v lokalitě, provozním cash-flow portfolia a osobní zainteresovaností zakladatelů, kteří v portfoliu drží majoritu nemovitostí." },
+      { q: "Kolik garance stojí a co všechno zahrnuje?", a: "590 Kč měsíčně. Kryje výplatu nájemného ve sjednané výši i v měsících, kdy je byt prázdný nebo nájemník neplatí, a opravy/údržbu bytu do limitu 20 000 Kč ročně. Investice je bez údržbové zátěže." },
+      { q: "Je garance fixní, nebo závisí na obsazenosti?", a: "Garance je fixní. Riziko obsazenosti a platební morálky nese provozní společnost — to je jádro modelu." },
+      { q: "Roste výše příjmu v čase?", a: "Ano. Smlouva je roční s automatickou prolongací a každoroční aktualizací výše nájemného na tržní úroveň." },
+      { q: "Co se stane, když nájemník přestane platit nebo se vystěhuje?", a: "Pro investora se nemění nic — garantovaná částka přijde dál. Hledání nového nájemníka, vymáhání a právní kroky řešíme my na vlastní náklady. Nájemníci se vybírají přes realitní makléřku s 20letou praxí, s prověřením exekucí, příjmů a referenčního bydlení." },
+      { q: "Jak vypadá očekávaná návratnost investice?", a: "Dvě oddělené složky: pravidelný nájemní příjem (čistý cca 4,3–5,2 % p.a., garantovaný) a předpokládané kapitálové zhodnocení (modelově 7 % p.a., negarantováno, realizace při prodeji). Předpokládaný horizont držby 5–50 let." },
+    ],
+  },
+  {
+    short: "Náklady a fond oprav",
+    items: [
+      { q: "Jaké jsou orientační měsíční náklady mimo hypotéku?", a: "U bytu Alšova 2+1 (53,1 m²): správa družstva 249 Kč, profi předseda 149 Kč, fond oprav 637 Kč, poplatek za garanci 590 Kč — celkem cca 1 625 Kč. Zálohy na služby hradí přímo nájemník." },
+      { q: "Jak je nastavený fond oprav?", a: "Tvorba fondu oprav je 12 Kč/m² podlahové plochy měsíčně — s rezervou, kam se vejde plánované zateplení i běžná údržba." },
+      { q: "Jak se řeší větší opravy a poškození bytu?", a: "Drobná údržba a běžné opravy v bytě (do 20 000 Kč/rok) kryje garance. Větší opravy domu jdou z fondu oprav. Poškození bytu nájemníkem řešíme my — z kauce nebo soudně, vždy bez zapojení majitele." },
+    ],
+  },
+  {
+    short: "Správa za vás",
+    items: [
+      { q: "Co všechno správa zahrnuje?", a: "Výběr a prověřování nájemníků, podpis smluv a předávacích protokolů, výběr nájemného a vymáhání pohledávek, komunikaci s nájemníky, drobnou údržbu v bytě, roční vyúčtování, administrativu s družstvem a podporu při prodeji nebo převodu do OV." },
+      { q: "Kdo bude byt reálně spravovat?", a: "Interní tým: místní technik (od roku 2016), tři řemeslníci, asistentka (30 let praxe v Bílině), realitní makléřka (20 let v lokalitě) a administrativní správkyně." },
+      { q: "Mohu do správy zasáhnout nebo ji ukončit?", a: "Smlouva o správě se uzavírá na pevné období 10 let s možností výpovědi. Reporting dostáváte pravidelně, ad-hoc dotazy řešíme kdykoli." },
+      { q: "Co když poskytovatel správy v budoucnu skončí?", a: "Zůstáváte vlastníkem bytu a družstevního podílu. Správa je smluvní služba — pokud by skončila, můžete si zvolit jiného správce nebo si byt spravovat sami. Vlastnictví na tom nestojí." },
+    ],
+  },
+  {
+    short: "Nájemníci a obsazenost",
+    items: [
+      { q: "Jaká je dlouhodobá obsazenost?", a: "Oba domy jsou obsazeny dlouhodobě s nízkou fluktuací. Bílina a Duchcov mají stabilně vyšší poptávku po nájemním bydlení než nabídku." },
+      { q: "Jaká je skladba nájemníků?", a: "Pracující lidé, často zaměstnaní v Německu nebo u místních zaměstnavatelů. Portfolio záměrně nestaví na sociálních dávkách — nepřijímá platby z úřadu práce. V krátkodobém pohledu to vypadá hůř, ale v horizontu dvou tří let to dělá obrovský rozdíl v nákladech a fluktuaci." },
+      { q: "Jak se vybírají nájemníci?", a: "Realitní makléřka s 20letou praxí vybírá podle schopnosti platit. Prověření exekucí, doložení příjmů, referenční bydlení." },
+      { q: "Proč je správa pod jednou střechou bezpečnější než vlastní nájemní byt?", a: "Máte všechny byty pod kontrolou. U klasické investice máte byt mezi 30 jednotkami bez vlivu — kvalita ostatních nájemníků rozhoduje o fungování domu. Zde je celý dům spravován jednotně." },
+    ],
+  },
+  {
+    short: "Družstvo a převod do OV",
+    items: [
+      { q: "Proč družstvo a ne rovnou osobní vlastnictví?", a: "Družstevní forma má výhody: vlastnictví mimo katastr, jednodušší dědictví, kratší časový test 5 let pro osvobození od daně. Kdo tyto výhody nevyužije, převede si byt do osobního vlastnictví — kdykoli." },
+      { q: "Je nárok na převod do osobního vlastnictví zakotven ve stanovách?", a: "Ano. Článek 32 stanov přiznává členovi právo na převod jednotky do osobního vlastnictví. Není to věc rozhodnutí schůze — je to vymahatelné právo." },
+      { q: "Kdy bude převod do OV možný?", a: "Kdykoli po splnění podmínek: vyrovnané veškeré platby vůči družstvu, platná nájemní smlouva, případně doložení splacení podílu na bankovním úvěru. V praxi i druhý den po koupi." },
+      { q: "Kolik převod do OV stojí?", a: "Bezúplatně, pokud jsou splněny podmínky článku 32 stanov. Investor hradí pouze správní poplatky katastru nemovitostí." },
+      { q: "Co je předmětem převodu — podíl, nebo konkrétní bytová jednotka?", a: "Družstevní podíl představující vlastnictví konkrétní bytové jednotky — v domě Alšova již zapsaný na katastru." },
+      { q: "Vznikne po převodech nové SVJ?", a: "Ano. Jakmile se část bytů převede do osobního vlastnictví, vznikne v domě SVJ, které bude existovat paralelně s družstvem." },
+      { q: "Bude správa fungovat i po převodu do OV a vzniku SVJ?", a: "Ano. Správa pokračuje beze změny — pouze část plateb se přesouvá z družstva do SVJ automaticky. Zajišťujeme správu pro oba subjekty. Platby vlastníka jsou po převodu srovnatelné: správa SVJ 124,50 Kč, profi předseda 74,50 Kč, fond oprav 12 Kč/m²." },
+      { q: "Mohu si vzít hypotéku na byt, aniž bych ho převáděl do OV?", a: "Ano. Družstvo podepisuje zástavní smlouvu k družstevnímu podílu. ČSOB poskytne standardní hypotéku až 90 % LTV na 30 let bez nutnosti převodu do OV. Některé banky vyžadují převod do OV do 3 měsíců — ten proběhne bezúplatně." },
+    ],
+  },
+  {
+    short: "Financování",
+    items: [
+      { q: "Jak je řešeno financování?", a: "Tři varianty: vlastní zdroje (přímá koupě za hotovost), standardní hypotéka nebo úvěr na družstevní bydlení od stavební spořitelny, a hypotéka na zpětné proplacení vlastních zdrojů (nejflexibilnější)." },
+      { q: "Spolupracujete s konkrétním hypotečním specialistou?", a: "Ano, máte k dispozici vlastní hypoteční tým, který porovnává nabídky a doporučuje optimální strategii portfolia." },
+      { q: "Jaké financování dostanu na družstevní byt?", a: "ČSOB poskytne standardní hypotéku až 90 % LTV na 30 let. Jiné banky vyžadují převod do OV (do 3–12 měsíců od čerpání) — u nás bezúplatně. Stavební spořitelny poskytují úvěry na družstevní bydlení se splatností 25 let od 5,29 % — i bez vlastních zdrojů na 100 % kupní ceny." },
+    ],
+  },
+  {
+    short: "Prodej, exit a rizika",
+    items: [
+      { q: "Můžu byt v budoucnu prodat?", a: "Ano, kdykoli. Zpět nám (první volba), nebo na trhu — jako družstevní podíl (časový test 5 let), nebo po převodu do OV (časový test 10 let)." },
+      { q: "Jaká jsou hlavní rizika investice?", a: "Vývoj realitního trhu (kapitálové zhodnocení není garantováno), změna legislativy (historicky stabilní) a likvidita — prodej trvá týdny až měsíce. Pojistky: reálně rekonstruovaný dům a pracující nájemníci, kde je riziko nepřizpůsobivosti nižší." },
+      { q: "Jak řešíte horší období na trhu?", a: "Pracující nájemník v rekonstruovaném bytě v lokalitě s převisem poptávky nikam neodejde ani v recesi — naopak roste počet lidí zůstávajících v nájmu." },
+      { q: "Jak poznám, že prezentovaná čísla nejsou optimistický scénář?", a: "Garantovaná výše příjmu je smluvně závazná — to není projekce. Reálné nájemné v lokalitě si ověříte u realitních makléřů. Modelové zhodnocení 7 % p.a. je výslovně označeno jako modelový scénář, není garantováno." },
+    ],
+  },
+  {
+    short: "Tým a důvěra",
+    items: [
+      { q: "Kdo za projektem stojí?", a: "Spoluzakladatel Ing. František Petrouš se investičním nemovitostem věnuje od roku 2014, osobně vlastní portfolio 81 nemovitostí v hodnotě cca 285 mil. Kč. Druhý společník Ing. Martin Vohralík, MBA, provozuje bytové domy v Chomutově déle než deset let." },
+      { q: "Kolik podobných projektů máte za sebou?", a: "V tomto modelu (garantovaná správa, prodej po jednotkách) je toto první otevřená fáze. Ve správě je dnes přes 300 nemovitostí, hodnota portfolia překračuje 350 mil. Kč." },
+      { q: "Investujete v projektu i vlastní peníze?", a: "Ano — majoritní část obou domů zůstává v našem vlastnictví. Pokud garance nefunguje, dopadne to nejdřív na nás." },
+      { q: "Proč držíte správu interně a nedáváte ji externí firmě?", a: "Protože ekonomika domu — kvalita nájemníků, údržba, fond oprav — rozhoduje o hodnotě portfolia za 5 a 10 let. Externí správce optimalizuje marži, my máme motivaci dlouhodobé hodnoty, protože v portfoliu držíme vlastní byty." },
+      { q: "Co je podle vás největší chyba lidí při investici do nájemních bytů?", a: "Tři klasické chyby: podcenění nákladů a fluktuace, honba za nejvyšším výnosem v Excelu opřeným o nájemníky na dávkách, a koupě jednoho bytu v domě bez vlivu na zbytek. Tento model adresuje všechny tři." },
+    ],
+  },
 ];
 
 const testimonials = [
@@ -552,7 +636,8 @@ function useCounter(target: number, duration: number, triggered: boolean) {
 }
 
 export default function Home() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<string | null>(null);
+  const [faqCat, setFaqCat] = useState(0);
   const [chatOpen, setChatOpen] = useState(false);
   const [formState, setFormState] = useState({ name: "", email: "", phone: "", interest: "", message: "", gdpr: false });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
@@ -745,6 +830,12 @@ export default function Home() {
         .projects-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:1200px;margin:0 auto;}
         .projects-grid .project-card{width:100%;max-width:360px;}
         .projects-section .mini-cta{max-width:1200px;margin-left:auto;margin-right:auto;}
+        .faq-prompt{max-width:1200px;margin:1.5rem auto 0;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 24px;background:linear-gradient(135deg,rgba(54,109,255,0.06),rgba(54,109,255,0.02));border:1.5px solid rgba(54,109,255,0.18);border-radius:14px;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;}
+        .faq-prompt:hover{border-color:rgba(54,109,255,0.4);box-shadow:0 8px 24px rgba(54,109,255,0.12);transform:translateY(-1px);}
+        .faq-prompt-title{font-size:0.98rem;font-weight:700;color:var(--text);}
+        .faq-prompt-sub{font-size:0.84rem;color:var(--text2);margin-top:3px;}
+        .faq-prompt-cta{display:inline-flex;align-items:center;gap:7px;font-size:0.88rem;font-weight:700;color:var(--blue);white-space:nowrap;flex-shrink:0;}
+        @media(max-width:640px){.faq-prompt{flex-direction:column;align-items:flex-start;gap:12px;}}
         .project-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:0;cursor:pointer;transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;position:relative;overflow:hidden;}
         .project-card-thumb{width:100%;height:180px;object-fit:cover;display:block;}
         .project-card-body{padding:22px 26px 26px;}
@@ -877,6 +968,10 @@ export default function Home() {
 
         /* FAQ */
         .faq-section{background:white;}
+        .faq-cats{max-width:840px;margin:0 auto 1.75rem;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+        .faq-cat{font-family:inherit;font-size:0.8rem;font-weight:600;color:var(--text2);background:var(--bg);border:1.5px solid var(--border);border-radius:999px;padding:8px 16px;cursor:pointer;transition:all 0.18s;white-space:nowrap;}
+        .faq-cat:hover{border-color:rgba(54,109,255,0.4);color:var(--text);}
+        .faq-cat.active{background:var(--blue);border-color:var(--blue);color:white;box-shadow:0 4px 12px rgba(54,109,255,0.25);}
         .faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:10px;}
         .faq-item{background:var(--bg);border:1.5px solid var(--border);border-radius:13px;overflow:hidden;transition:box-shadow 0.2s,border-color 0.2s;}
         .faq-item:hover{box-shadow:var(--shadow);}
@@ -1095,9 +1190,12 @@ export default function Home() {
             );
           })}
         </div>
-        <div className="mini-cta reveal">
-          <div><div className="mini-cta-title">Nevíte, který projekt vybrat?</div><div className="mini-cta-sub">Rádi sestavíme portfolio na míru vašim cílům.</div></div>
-          <button className="btn-primary" onClick={() => scrollTo("kontakt")}>Nezávazná konzultace</button>
+        <div className="faq-prompt reveal" onClick={() => scrollTo("faq")}>
+          <div className="faq-prompt-text">
+            <div className="faq-prompt-title">Máte otázky dřív, než nás oslovíte?</div>
+            <div className="faq-prompt-sub">Garance, výnos, družstvo, financování i prodej — odpovědi najdete v častých otázkách níže.</div>
+          </div>
+          <span className="faq-prompt-cta">Časté otázky<IconArrow/></span>
         </div>
       </section>
 
@@ -1348,22 +1446,31 @@ export default function Home() {
 
       {/* FAQ */}
       <section id="faq" className="section faq-section">
-        <div className="section-header reveal" style={{textAlign:"center",maxWidth:"600px",margin:"0 auto 3rem"}}>
-          <div className="section-label">FAQ</div>
-          <h2 className="section-title">Časté otázky</h2>
+        <div className="section-header reveal" style={{textAlign:"center",maxWidth:"640px",margin:"0 auto 2.5rem"}}>
+          <div className="section-label" style={{justifyContent:"center",display:"flex"}}>FAQ</div>
+          <h2 className="section-title">Časté otázky k investici</h2>
+          <p className="section-sub" style={{margin:"0.75rem auto 0"}}>Vše podstatné na jednom místě — od garance a výnosu přes družstvo až po financování a prodej. Vyberte téma.</p>
         </div>
-        <div className="faq-list">
-          {faqs.map((faq,i) => (
-            <div key={i} className={`faq-item${openFaq===i?" open":""}`}>
-              <button className="faq-q" onClick={() => setOpenFaq(openFaq===i?null:i)}>
-                {faq.q}<div className="faq-icon"><IconPlus/></div>
-              </button>
-              {openFaq===i && <div className="faq-a">{faq.a}</div>}
-            </div>
+        <div className="faq-cats reveal">
+          {faqCategories.map((cat,c) => (
+            <button key={c} className={`faq-cat${faqCat===c?" active":""}`} onClick={() => { setFaqCat(c); setOpenFaq(null); }}>{cat.short}</button>
           ))}
         </div>
-        <div className="mini-cta reveal" style={{maxWidth:"700px",margin:"2rem auto 0"}}>
-          <div><div className="mini-cta-title">Máte další otázky?</div><div className="mini-cta-sub">Rádi odpovíme na vše při nezávazné konzultaci.</div></div>
+        <div className="faq-list">
+          {faqCategories[faqCat].items.map((faq,i) => {
+            const key = `${faqCat}-${i}`;
+            return (
+            <div key={key} className={`faq-item${openFaq===key?" open":""}`}>
+              <button className="faq-q" onClick={() => setOpenFaq(openFaq===key?null:key)}>
+                {faq.q}<div className="faq-icon"><IconPlus/></div>
+              </button>
+              {openFaq===key && <div className="faq-a">{faq.a}</div>}
+            </div>
+            );
+          })}
+        </div>
+        <div className="mini-cta reveal" style={{maxWidth:"700px",margin:"2.5rem auto 0"}}>
+          <div><div className="mini-cta-title">Nenašli jste odpověď?</div><div className="mini-cta-sub">Rádi probereme vaši situaci při nezávazné konzultaci.</div></div>
           <button className="btn-primary" onClick={() => scrollTo("kontakt")}>Konzultace zdarma</button>
         </div>
       </section>
