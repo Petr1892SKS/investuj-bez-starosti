@@ -647,7 +647,10 @@ export default function Home() {
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [statsTriggered, setStatsTriggered] = useState(false);
   const [calcAmount, setCalcAmount] = useState(3000000);
-  const [calcMode, setCalcMode] = useState<"najem"|"rust">("najem");
+  const [calcBytIdx, setCalcBytIdx] = useState(0);
+  const [vklad, setVklad] = useState(400000);
+  const [urok, setUrok] = useState(4.9);
+  const [doba, setDoba] = useState(30);
   const statsRef = useRef<HTMLDivElement>(null);
 
 
@@ -661,6 +664,30 @@ export default function Home() {
   const yearlyIncomeMin = Math.round(calcAmount * 0.05);
   const yearlyIncomeMax = Math.round(calcAmount * 0.06);
   const yearlyGrowth = Math.round(calcAmount * 0.07);
+
+  // --- Investiční kalkulačka (model páka / financování) ---
+  const calcByty = [
+    { id: "2+1", label: "2+1", plocha: "53,1 m²", cena: 2290000, najem: 10279 },
+    { id: "3+1b", label: "3+1", plocha: "82,3 m²", cena: 2850000, najem: 12974 },
+    { id: "3+1z", label: "3+1", plocha: "87,2 m²", cena: 2990000, najem: 13370 },
+  ];
+  const selByt = calcByty[calcBytIdx];
+  const vkladClamped = Math.min(vklad, selByt.cena);
+  const hypoteka = Math.max(0, selByt.cena - vkladClamped);
+  const rMonth = urok / 100 / 12;
+  const nSplatek = doba * 12;
+  const splatka = hypoteka <= 0 ? 0 : Math.round((hypoteka * rMonth) / (1 - Math.pow(1 + rMonth, -nSplatek)));
+  const cashflow = selByt.najem - splatka;
+  const rocniZhodnoceni = Math.round(selByt.cena * 0.07);
+  const projekceRoky = [3, 5, 10];
+  const projHodnota = (y: number) => Math.round(selByt.cena * Math.pow(1.07, y));
+  // graf hodnoty 0–10 let
+  const grafW = 320, grafH = 120, grafPadX = 12, grafPadTop = 12, grafPadBot = 14;
+  const grafMin = selByt.cena, grafMax = selByt.cena * Math.pow(1.07, 10);
+  const grafX = (y: number) => grafPadX + (y / 10) * (grafW - 2 * grafPadX);
+  const grafY = (val: number) => (grafH - grafPadBot) - ((val - grafMin) / (grafMax - grafMin)) * (grafH - grafPadTop - grafPadBot);
+  const grafLine = Array.from({ length: 11 }, (_, y) => `${grafX(y).toFixed(1)},${grafY(selByt.cena * Math.pow(1.07, y)).toFixed(1)}`).join(" ");
+  const grafArea = `${grafX(0).toFixed(1)},${grafH - grafPadBot} ${grafLine} ${grafX(10).toFixed(1)},${grafH - grafPadBot}`;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -920,6 +947,19 @@ export default function Home() {
         .calc-result-value{font-size:1.1rem;font-weight:800;color:white;}
         .calc-result-value.big{font-size:1.5rem;color:var(--blue);}
         .calc-note{font-size:0.72rem;color:rgba(255,255,255,0.6);margin-top:12px;line-height:1.5;}
+        .calc-mini-label{font-size:0.74rem;font-weight:600;color:rgba(255,255,255,0.82);margin-bottom:8px;}
+        .calc-byt-row{display:flex;gap:8px;margin-bottom:22px;}
+        .calc-byt-btn{flex:1;padding:11px 6px;border:1px solid rgba(255,255,255,0.14);border-radius:11px;background:rgba(255,255,255,0.04);cursor:pointer;transition:all 0.2s;text-align:center;font-family:inherit;}
+        .calc-byt-btn:hover{border-color:rgba(147,197,253,0.5);}
+        .calc-byt-btn.active{border-color:#60a5fa;background:rgba(54,109,255,0.22);}
+        .calc-byt-btn .t{font-size:1rem;font-weight:800;color:white;line-height:1.1;}
+        .calc-byt-btn .s{font-size:0.66rem;color:#94a3b8;margin-top:3px;}
+        .calc-two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:6px 0 22px;}
+        .calc-proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+        .calc-proj-card{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:12px 8px;text-align:center;}
+        .calc-proj-card .y{font-size:0.64rem;font-weight:700;color:#fbbf24;text-transform:uppercase;letter-spacing:0.05em;}
+        .calc-proj-card .v{font-size:1.05rem;font-weight:800;color:#fbbf24;margin-top:4px;letter-spacing:-0.5px;}
+        .calc-proj-card .d{font-size:0.62rem;color:#a8a29e;margin-top:2px;}
 
         /* TEAM */
         .team-section{background:var(--bg);}
@@ -1250,44 +1290,76 @@ export default function Home() {
       <section className="calc-section">
         <div className="calc-wrap reveal">
           <div>
-            <div className="section-label">Kalkulačka příjmu</div>
-            <h2 className="section-title" style={{color:"white"}}>Orientační výpočet měsíčního příjmu</h2>
-            <p className="section-sub" style={{color:"rgba(255,255,255,0.8)"}}>Zadejte výši investice a uvidíte orientační výši měsíčního příjmu odpovídající garantované výši nájmu.</p>
-
+            <div className="section-label">Investiční kalkulačka</div>
+            <h2 className="section-title" style={{color:"white"}}>Kolik vložíte a jak roste vaše hodnota v čase</h2>
+            <p className="section-sub" style={{color:"rgba(255,255,255,0.8)"}}>Vyberte konkrétní byt a zadejte vlastní vklad. Uvidíte orientační měsíční cashflow (garantovaný nájem oproti splátce financování) a odděleně předpokládaný vývoj hodnoty nemovitosti v čase.</p>
+            <p className="section-sub" style={{color:"rgba(255,255,255,0.6)",fontSize:"0.92rem",marginTop:"14px"}}>S využitím financování pracuje váš vklad na celé hodnotě bytu — nájem zpravidla pokryje splátku, takže vás držba měsíčně stojí jen málo, a přitom se zhodnocuje celá nemovitost.</p>
           </div>
           <div className="calc-box">
-            {/* Přepínač */}
-            <div style={{display:"flex",marginBottom:"20px",background:"rgba(255,255,255,0.07)",borderRadius:"10px",padding:"3px"}}>
-              <button onClick={()=>setCalcMode("najem")} style={{flex:1,padding:"9px 10px",border:"none",borderRadius:"8px",fontFamily:"inherit",fontSize:"0.8rem",fontWeight:700,cursor:"pointer",transition:"all 0.2s",background:calcMode==="najem"?"white":"transparent",color:calcMode==="najem"?"#0f172a":"#94a3b8"}}>
-                Nájemní výnos
-              </button>
-              <button onClick={()=>setCalcMode("rust")} style={{flex:1,padding:"9px 10px",border:"none",borderRadius:"8px",fontFamily:"inherit",fontSize:"0.8rem",fontWeight:700,cursor:"pointer",transition:"all 0.2s",background:calcMode==="rust"?"white":"transparent",color:calcMode==="rust"?"#0f172a":"#94a3b8"}}>
-                + Růst hodnoty
-              </button>
+            {/* Výběr bytu */}
+            <div className="calc-mini-label">Vyberte byt z nabídky</div>
+            <div className="calc-byt-row">
+              {calcByty.map((b,i)=>(
+                <button key={b.id} className={"calc-byt-btn"+(calcBytIdx===i?" active":"")} onClick={()=>setCalcBytIdx(i)}>
+                  <div className="t">{b.label}</div>
+                  <div className="s">{b.plocha}<br/>{(b.cena/1000000).toFixed(2).replace(".",",")} mil. Kč</div>
+                </button>
+              ))}
             </div>
 
-            <div className="calc-label">Výše investice</div>
-            <div className="calc-amount-display">{(calcAmount/1000000).toFixed(2).replace(".",",")} mil. Kč</div>
-            <input type="range" className="calc-slider-dark" min={500000} max={10000000} step={100000} value={calcAmount} onChange={e=>setCalcAmount(Number(e.target.value))}/>
-            <div className="calc-range-labels"><span>500 tis. Kč</span><span>10 mil. Kč</span></div>
+            {/* Vlastní vklad */}
+            <div className="calc-label">Vlastní vklad</div>
+            <div className="calc-amount-display">{vkladClamped.toLocaleString("cs-CZ")} Kč</div>
+            <input type="range" className="calc-slider-dark" min={200000} max={selByt.cena} step={50000} value={vkladClamped} onChange={e=>setVklad(Number(e.target.value))}/>
+            <div className="calc-range-labels"><span>200 tis. Kč</span><span>{(selByt.cena/1000000).toFixed(2).replace(".",",")} mil. (celá cena)</span></div>
 
-            {/* Blok 1 – garantovaný příjem – vždy viditelný */}
-            <div style={{background:"rgba(54,109,255,0.24)",border:"1px solid rgba(147,197,253,0.42)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
-              <div style={{fontSize:"0.68rem",fontWeight:700,color:"#dbeafe",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Garantovaný měsíční příjem</div>
-              <div style={{fontSize:"2rem",fontWeight:800,color:"#60a5fa",letterSpacing:"-1px",lineHeight:1}}>{monthlyIncomeMin.toLocaleString("cs-CZ")} – {monthlyIncomeMax.toLocaleString("cs-CZ")} Kč</div>
-              <div style={{fontSize:"0.73rem",color:"#cbd5e1",marginTop:"4px"}}>vypláceno každý měsíc · {yearlyIncomeMin.toLocaleString("cs-CZ")} – {yearlyIncomeMax.toLocaleString("cs-CZ")} Kč ročně</div>
-            </div>
-
-            {/* Blok 2 – růst hodnoty – jen při přepnutí */}
-            {calcMode==="rust" && (
-              <div style={{background:"rgba(245,158,11,0.08)",border:"1px solid rgba(245,158,11,0.3)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
-                <div style={{fontSize:"0.68rem",fontWeight:700,color:"#fbbf24",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Předpokládané kapitálové zhodnocení</div>
-                <div style={{fontSize:"2rem",fontWeight:800,color:"#fbbf24",letterSpacing:"-1px",lineHeight:1}}>+{yearlyGrowth.toLocaleString("cs-CZ")} Kč</div>
-                <div style={{fontSize:"0.73rem",color:"#78716c",marginTop:"4px"}}>ročně · předpokládaný scénář 7 % p.a. · realizuje se až při prodeji</div>
+            {/* Úrok + doba */}
+            <div className="calc-two">
+              <div>
+                <div className="calc-mini-label">Úrok financování: {urok.toFixed(1).replace(".",",")} %</div>
+                <input type="range" className="calc-slider-dark" style={{marginBottom:0}} min={3} max={7} step={0.1} value={urok} onChange={e=>setUrok(Number(e.target.value))}/>
               </div>
-            )}
+              <div>
+                <div className="calc-mini-label">Doba splácení: {doba} let</div>
+                <input type="range" className="calc-slider-dark" style={{marginBottom:0}} min={15} max={30} step={5} value={doba} onChange={e=>setDoba(Number(e.target.value))}/>
+              </div>
+            </div>
 
-            <div className="calc-note">* Výpočet je orientační. Konkrétní podmínky jsou vždy sjednány individuálně smluvně.</div>
+            {/* Blok 1 – měsíční cashflow (garantovaný nájem − splátka) */}
+            <div style={{background:"rgba(54,109,255,0.24)",border:"1px solid rgba(147,197,253,0.42)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
+              <div style={{fontSize:"0.68rem",fontWeight:700,color:"#dbeafe",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Měsíční cashflow</div>
+              <div style={{fontSize:"2rem",fontWeight:800,color:cashflow>=0?"#60a5fa":"#fca5a5",letterSpacing:"-1px",lineHeight:1}}>{cashflow>=0?"+":"−"}{Math.abs(cashflow).toLocaleString("cs-CZ")} Kč<span style={{fontSize:"0.9rem",fontWeight:600,color:"#cbd5e1"}}> / měs.</span></div>
+              <div style={{fontSize:"0.73rem",color:"#cbd5e1",marginTop:"6px"}}>garantovaný nájem {selByt.najem.toLocaleString("cs-CZ")} Kč − ilustrativní splátka {splatka.toLocaleString("cs-CZ")} Kč</div>
+            </div>
+
+            {/* Blok 2 – předpokládané zhodnocení + projekce v čase */}
+            <div style={{background:"rgba(245,158,11,0.08)",border:"1px solid rgba(245,158,11,0.3)",borderRadius:"12px",padding:"16px 18px",marginBottom:"10px"}}>
+              <div style={{fontSize:"0.68rem",fontWeight:700,color:"#fbbf24",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"5px"}}>Předpokládané zhodnocení nemovitosti</div>
+              <div style={{fontSize:"2rem",fontWeight:800,color:"#fbbf24",letterSpacing:"-1px",lineHeight:1}}>+{rocniZhodnoceni.toLocaleString("cs-CZ")} Kč<span style={{fontSize:"0.9rem",fontWeight:600,color:"#d6c3a0"}}> / rok</span></div>
+              <div style={{fontSize:"0.73rem",color:"#a8a29e",marginTop:"6px"}}>7 % p.a. z celé hodnoty {(selByt.cena/1000000).toFixed(2).replace(".",",")} mil. Kč · negarantováno, realizace při prodeji</div>
+
+              {/* graf vývoje hodnoty 0–10 let */}
+              <svg viewBox={`0 0 ${grafW} ${grafH}`} style={{width:"100%",height:"auto",marginTop:"14px",display:"block"}}>
+                <polygon points={grafArea} fill="rgba(245,158,11,0.12)"/>
+                <polyline points={grafLine} fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinejoin="round"/>
+                {projekceRoky.map(y=>(
+                  <circle key={y} cx={grafX(y)} cy={grafY(selByt.cena*Math.pow(1.07,y))} r="3.5" fill="#fbbf24"/>
+                ))}
+              </svg>
+
+              {/* karty za 3 / 5 / 10 let */}
+              <div className="calc-proj-grid">
+                {projekceRoky.map(y=>(
+                  <div className="calc-proj-card" key={y}>
+                    <div className="y">za {y} let</div>
+                    <div className="v">{(projHodnota(y)/1000000).toFixed(2).replace(".",",")} mil.</div>
+                    <div className="d">+{(projHodnota(y)-selByt.cena).toLocaleString("cs-CZ")} Kč</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="calc-note">* Výpočet je orientační. Splátka financování je ilustrativní — konkrétní sazba a podmínky závisí na bance a jsou sjednány individuálně. Garantovaný nájemní příjem je smluvní; předpokládané kapitálové zhodnocení 7 % p.a. není garantováno a je nad rámec příjmu z nájmu.</div>
           </div>
         </div>
         <div style={{textAlign:"center",marginTop:"2.5rem"}}>
