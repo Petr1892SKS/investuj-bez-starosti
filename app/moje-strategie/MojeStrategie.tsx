@@ -189,11 +189,28 @@ export default function MojeStrategie() {
         </div>
       </section>
 
-      {/* NÁMITKA */}
+      {/* NÁMITKA – mini chat */}
       <section className="ms-obj">
         <div className="ms-obj-inner rv">
-          <blockquote>„Vy nemáte vlastní bydlení, pořád bydlíte v nájmu — a budete kupovat investiční byt někde na severu Čech? Vy nejste normální."</blockquote>
-          <p className="ms-obj-react">Tak zněla první reakce v rodině. Zní to bláznivě — dokud si to nerozkreslíte. Pak zjistíte, že je to <strong>nuda, která dává smysl.</strong></p>
+          <div className="ms-obj-eyebrow">Nejčastější reakce, když to vysvětluju</div>
+          <div className="ms-chat">
+            <div className="ms-msg ms-msg-in">
+              <div className="ms-av ms-av-fam">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+              </div>
+              <div className="ms-msg-col">
+                <span className="ms-msg-name">Rodina</span>
+                <div className="ms-bubble ms-bubble-in">Vy nemáte vlastní bydlení, pořád bydlíte v nájmu — a budete si kupovat investiční byt někde na severu Čech? Vy nejste normální.</div>
+              </div>
+            </div>
+            <div className="ms-msg ms-msg-out">
+              <div className="ms-msg-col">
+                <span className="ms-msg-name">Petr</span>
+                <div className="ms-bubble ms-bubble-out">Zní to bláznivě — dokud si to nerozkreslíš. Je to nuda, která dává smysl.</div>
+              </div>
+              <div className="ms-av ms-av-me"><Image src="/images/petr-avatar.jpg" alt="Petr" fill sizes="38px" style={{ objectFit: "cover" }} /></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -405,12 +422,23 @@ const styles = `
 .ms-path-txt b{display:block;font-size:.92rem;font-weight:700;line-height:1.2;}
 .ms-path-txt small{font-size:.74rem;color:#94a3b8;}
 
-/* NÁMITKA */
+/* NÁMITKA – mini chat */
 .ms-obj{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:64px 6%;}
-.ms-obj-inner{max-width:780px;margin:0 auto;text-align:center;}
-.ms-obj blockquote{font-size:clamp(1.3rem,2.4vw,1.75rem);font-weight:700;line-height:1.4;letter-spacing:-.5px;color:var(--text);}
-.ms-obj-react{margin-top:18px;font-size:1.02rem;color:var(--text2);line-height:1.6;}
-.ms-obj-react strong{color:var(--blue);}
+.ms-obj-inner{max-width:620px;margin:0 auto;}
+.ms-obj-eyebrow{text-align:center;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:26px;}
+.ms-chat{display:flex;flex-direction:column;gap:16px;}
+.ms-msg{display:flex;align-items:flex-end;gap:10px;max-width:88%;}
+.ms-msg-in{align-self:flex-start;}
+.ms-msg-out{align-self:flex-end;flex-direction:row;}
+.ms-msg-col{display:flex;flex-direction:column;gap:5px;min-width:0;}
+.ms-msg-out .ms-msg-col{align-items:flex-end;}
+.ms-msg-name{font-size:.72rem;font-weight:700;color:var(--text2);padding:0 6px;}
+.ms-av{position:relative;flex-shrink:0;width:38px;height:38px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;}
+.ms-av-fam{background:#f1f5f9;border:1px solid var(--border);}
+.ms-av-me{background:var(--blue);color:#fff;}
+.ms-bubble{font-size:1.02rem;line-height:1.5;padding:13px 17px;border-radius:20px;}
+.ms-bubble-in{background:#f1f5f9;color:var(--text);font-weight:600;border-bottom-left-radius:5px;}
+.ms-bubble-out{background:var(--blue);color:#fff;font-weight:600;border-bottom-right-radius:5px;box-shadow:0 8px 24px rgba(54,109,255,.28);}
 
 /* sekce */
 .ms-sec{padding:80px 6%;}
