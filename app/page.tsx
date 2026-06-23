@@ -14,7 +14,7 @@ const TEAM_ICONS: Record<string, React.ReactNode> = {
 };
 
 const projects = [
-  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 1, isNew: false, highlight: "critical" as const },
+  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 0, isNew: false, soldOut: true },
   { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 5, availableUnits: 3, isNew: false },
   { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 1, isNew: false, highlight: "critical" as const },
   { name: "Byt Osecká 1+1", location: "Duchcov – Osecká", type: "Byt 1+1 · 38 m²", price: "2 190 000 Kč", slug: "duchcov-osecka-1-1", thumb: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", totalUnits: 8, availableUnits: 6, isNew: true },
@@ -667,7 +667,6 @@ export default function Home() {
 
   // --- Investiční kalkulačka (model páka / financování) ---
   const calcByty = [
-    { id: "2+1", label: "2+1", plocha: "53,1 m²", cena: 2290000, najem: 10279 },
     { id: "3+1b", label: "3+1", plocha: "82,3 m²", cena: 2850000, najem: 12974 },
     { id: "3+1z", label: "3+1", plocha: "87,2 m²", cena: 2990000, najem: 13370 },
   ];
@@ -884,6 +883,7 @@ export default function Home() {
         .status-blue{background:#dbeafe;color:#1d4ed8;}
         .status-amber{background:#fef3c7;color:#b45309;}
         .status-red{background:#fee2e2;color:#b91c1c;animation:stockPulse 1.6s ease-in-out infinite;}
+        .status-sold{background:#e2e8f0;color:#475569;}
         @keyframes stockPulse{
           0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(220,38,38,0.45);}
           50%{transform:scale(1.06);box-shadow:0 0 0 6px rgba(220,38,38,0);}
@@ -897,6 +897,10 @@ export default function Home() {
         .project-card.is-new::after{background:linear-gradient(90deg,#fbbf24,#d97706);}
         .project-ribbon-wrap{position:absolute;top:0;right:0;width:110px;height:110px;overflow:hidden;z-index:3;pointer-events:none;}
         .project-ribbon{position:absolute;top:22px;right:-32px;transform:rotate(45deg);background:linear-gradient(135deg,#fbbf24 0%,#d97706 100%);color:white;font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;padding:6px 44px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.18);}
+        .project-ribbon-sold{background:linear-gradient(135deg,#64748b 0%,#334155 100%);}
+        .project-card.is-sold{opacity:0.72;}
+        .project-card.is-sold .project-card-thumb{filter:grayscale(0.55);}
+        @media(hover:hover){.project-card.is-sold:hover{opacity:0.85;}}
 
 
         /* WHY */
@@ -1205,12 +1209,18 @@ export default function Home() {
         </div>
         <div className="projects-grid">
           {projects.map((p, i) => {
+            const soldOut = (p as { soldOut?: boolean }).soldOut ?? false;
             const stock = (p as { highlight?: "critical" | "medium" }).highlight ?? "normal";
             const pillClass = stock === "critical" ? "status-red" : stock === "medium" ? "status-amber" : "status-blue";
             const barFill = stock === "critical" ? "linear-gradient(90deg,#ef4444,#dc2626)" : stock === "medium" ? "linear-gradient(90deg,#f59e0b,#d97706)" : "#366dff";
             return (
-            <Link key={i} href={`/projekty/${p.slug || "vinohrady"}`} className={`project-card reveal d${(i%3)+1}${p.isNew ? " is-new" : ""}`} style={{textDecoration:"none",display:"block"}}>
-              {p.isNew && (
+            <Link key={i} href={`/projekty/${p.slug || "vinohrady"}`} className={`project-card reveal d${(i%3)+1}${p.isNew ? " is-new" : ""}${soldOut ? " is-sold" : ""}`} style={{textDecoration:"none",display:"block"}}>
+              {soldOut && (
+                <div className="project-ribbon-wrap">
+                  <div className="project-ribbon project-ribbon-sold">Vyprodáno</div>
+                </div>
+              )}
+              {!soldOut && p.isNew && (
                 <div className="project-ribbon-wrap">
                   <div className="project-ribbon">Novinka</div>
                 </div>
@@ -1219,13 +1229,15 @@ export default function Home() {
               <div className="project-card-body">
                 <div className="project-card-header">
                   <div className="project-name">{p.name}</div>
-                  <div className={`project-status ${pillClass}`}>{p.availableUnits} z {p.totalUnits} {p.availableUnits === 1 ? "volný" : "volné"}</div>
+                  {soldOut
+                    ? <div className="project-status status-sold">Vyprodáno</div>
+                    : <div className={`project-status ${pillClass}`}>{p.availableUnits} z {p.totalUnits} {p.availableUnits === 1 ? "volný" : "volné"}</div>}
                 </div>
                 <div style={{margin:"10px 0 12px"}}>
                   <div style={{height:"4px",background:"#e2e8f0",borderRadius:"2px",overflow:"hidden"}}>
-                    <div style={{height:"100%",width:`${((p.totalUnits-p.availableUnits)/p.totalUnits)*100}%`,background:barFill,borderRadius:"2px"}}/>
+                    <div style={{height:"100%",width:`${((p.totalUnits-p.availableUnits)/p.totalUnits)*100}%`,background:soldOut ? "#94a3b8" : barFill,borderRadius:"2px"}}/>
                   </div>
-                  <div style={{fontSize:"0.72rem",color:"var(--text2)",marginTop:"4px"}}>{p.availableUnits} z {p.totalUnits} bytů volných</div>
+                  <div style={{fontSize:"0.72rem",color:"var(--text2)",marginTop:"4px"}}>{soldOut ? "Všechny byty prodané" : `${p.availableUnits} z ${p.totalUnits} bytů volných`}</div>
                 </div>
                 <div className="project-meta">
                   <div className="project-meta-item"><IconPin/>{p.location}</div>

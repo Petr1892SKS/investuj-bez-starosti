@@ -5,7 +5,6 @@ import Image from "next/image";
 
 /* ---------- data ---------- */
 const BYTY = [
-  { id: "2+1", label: "2+1", plocha: "53,1 m²", patro: "1. patro", cena: 2290000, najem: 10279, vynos: "5,39 %", slug: "alsova-bilina-2-1", img: "/images/alsova-bilina-2-1/IMG_6863.jpeg" },
   { id: "3+1b", label: "3+1", plocha: "82,3 m²", patro: "4. patro", cena: 2850000, najem: 12974, vynos: "5,46 %", slug: "alsova-bilina-bez-zadveri", img: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg" },
   { id: "3+1z", label: "3+1", plocha: "87,2 m²", patro: "3. patro", cena: 2990000, najem: 13370, vynos: "5,37 %", slug: "alsova-bilina", img: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg" },
 ];
@@ -33,7 +32,7 @@ function useCounter(target: number, duration = 1600, run = false) {
 const fmt = (n: number) => Math.round(n).toLocaleString("cs-CZ");
 
 export default function BytNaHypoteku() {
-  const [bytIdx, setBytIdx] = useState(2); // default 3+1 87,2 m²
+  const [bytIdx, setBytIdx] = useState(1); // default 3+1 87,2 m²
   const [cmp, setCmp] = useState(0); // mobilní srovnání: 0 akcie, 1 fond, 2 spořicí
   const [vklad, setVklad] = useState(990000);
   const [urok, setUrok] = useState(4.9);
