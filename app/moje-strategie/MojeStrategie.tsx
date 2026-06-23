@@ -276,16 +276,22 @@ export default function MojeStrategie() {
               <label>Doba<div className="ms-inwrap"><input type="number" value={doba} onChange={(e) => setDoba(Number(e.target.value))} /><span>let</span></div></label>
             </div>
 
+            <div className="ms-calc-split">
+              <div><small>Hypotéka</small><b>{fmt(hypoteka)} Kč</b></div>
+              <div><small>Měsíční splátka</small><b>{fmt(splatka)} Kč</b></div>
+            </div>
+
             <div className="ms-cf">
-              <div>
-                <small>Měsíční cashflow (nájem − splátka)</small>
-                <b style={{ color: cashflow >= 0 ? "#34d399" : "#fca5a5" }}>{cashflow >= 0 ? "+" : "−"}{fmt(Math.abs(cashflow))} Kč/měs.</b>
+              <div className="ms-cf-label">Měsíční cashflow</div>
+              <div className="ms-cf-num" style={{ color: cashflow >= 0 ? "#34d399" : "#fca5a5" }}>
+                {cashflow >= 0 ? "+" : "−"}{fmt(Math.abs(cashflow))} Kč<small> / měs.</small>
               </div>
+              <div className="ms-cf-eq">garantovaný nájem {fmt(byt.najem)} Kč − splátka {fmt(splatka)} Kč</div>
             </div>
 
             {/* hodnota bytu v čase */}
             <div className="ms-eq">
-              <div className="ms-eq-title">Předpokládaná hodnota bytu <span>· 7 % p.a., negarantováno</span></div>
+              <div className="ms-eq-title">Předpokládaný vývoj hodnoty <span>7 % p.a., negarantováno</span></div>
               <svg className="ms-graf" viewBox={`0 0 ${gW} ${gH}`} preserveAspectRatio="none">
                 <polygon points={gArea} fill="rgba(54,109,255,0.16)" />
                 <polyline className="ms-graf-line" points={gLine} pathLength={1} fill="none" stroke="#60a5fa" strokeWidth={2.5} strokeLinejoin="round" />
@@ -296,7 +302,6 @@ export default function MojeStrategie() {
                   <div key={y} className="ms-proj-item">
                     <small>za {y} {rokyTxt(y)}</small>
                     <b>{fmt(hodnotaZa(y))} Kč</b>
-                    <span>hodnota bytu</span>
                   </div>
                 ))}
               </div>
@@ -493,11 +498,16 @@ const styles = `
 .ms-inwrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px 12px;margin-top:6px;}
 .ms-inwrap input{width:100%;background:none;border:none;outline:none;color:#fff;font-family:inherit;font-size:1rem;font-weight:700;}
 .ms-inwrap span{font-size:.82rem;color:#94a3b8;}
-.ms-cf{padding:14px 0;border-top:1px solid rgba(255,255,255,.1);}
-.ms-cf small{display:block;font-size:.72rem;color:#94a3b8;}
-.ms-cf b{font-size:1.25rem;font-weight:800;}
-.ms-eq{background:rgba(255,255,255,.05);border-radius:14px;padding:16px;margin-top:6px;}
-.ms-eq-title{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#93c5fd;}
+.ms-calc-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 0;border-top:1px solid rgba(255,255,255,.1);}
+.ms-calc-split small{display:block;font-size:.72rem;color:#94a3b8;}
+.ms-calc-split b{font-size:1.05rem;font-weight:800;color:#fff;}
+.ms-cf{background:rgba(255,255,255,.05);border-radius:14px;padding:16px;margin-top:6px;}
+.ms-cf-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#dbeafe;}
+.ms-cf-num{font-size:2rem;font-weight:800;letter-spacing:-1px;margin:4px 0 2px;}
+.ms-cf-num small{font-size:.9rem;font-weight:600;color:#cbd5e1;}
+.ms-cf-eq{font-size:.74rem;color:#94a3b8;}
+.ms-eq{margin-top:16px;}
+.ms-eq-title{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#93c5fd;}
 .ms-eq-title span{font-weight:600;color:#64748b;text-transform:none;letter-spacing:0;}
 .ms-payoff{margin-top:12px;background:linear-gradient(135deg,rgba(54,109,255,.22),rgba(96,165,250,.12));border:1px solid rgba(96,165,250,.4);border-radius:14px;padding:16px 18px;}
 .ms-payoff-label{font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#93c5fd;}
