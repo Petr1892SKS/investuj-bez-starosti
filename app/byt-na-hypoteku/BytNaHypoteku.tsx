@@ -5,8 +5,11 @@ import Image from "next/image";
 
 /* ---------- data ---------- */
 const BYTY = [
-  { id: "3+1b", label: "3+1", plocha: "82,3 m²", patro: "4. patro", cena: 2850000, najem: 12974, vynos: "5,46 %", slug: "alsova-bilina-bez-zadveri", img: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg" },
-  { id: "3+1z", label: "3+1", plocha: "87,2 m²", patro: "3. patro", cena: 2990000, najem: 13370, vynos: "5,37 %", slug: "alsova-bilina", img: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg" },
+  { id: "3+1b", label: "3+1", mesto: "Bílina", lokalita: "Alšova, Bílina", plocha: "82,3 m²", patro: "4. patro", cena: 2850000, najem: 12974, vynos: "5,46 %", slug: "alsova-bilina-bez-zadveri", img: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg" },
+  { id: "3+1z", label: "3+1", mesto: "Bílina", lokalita: "Alšova, Bílina", plocha: "87,2 m²", patro: "3. patro", cena: 2990000, najem: 13370, vynos: "5,37 %", slug: "alsova-bilina", img: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg" },
+  { id: "os1+1", label: "1+1", mesto: "Duchcov", lokalita: "Osecká, Duchcov", plocha: "38 m²", patro: "1. patro", cena: 2190000, najem: 9490, vynos: "5,20 %", slug: "duchcov-osecka-1-1", img: "/images/duchcov-osecka-1-1/IMG_9339.jpeg" },
+  { id: "os2+1", label: "2+1", mesto: "Duchcov", lokalita: "Osecká, Duchcov", plocha: "62 m²", patro: "2. patro", cena: 2990000, najem: 13181, vynos: "5,29 %", slug: "duchcov-osecka-2-1", img: "/images/duchcov-osecka-2-1/IMG_0901.jpeg" },
+  { id: "os3+1", label: "3+1", mesto: "Duchcov", lokalita: "Osecká, Duchcov", plocha: "67 m²", patro: "3. patro", cena: 3190000, najem: 13611, vynos: "5,12 %", slug: "duchcov-osecka-3-1", img: "/images/duchcov-osecka-3-1/IMG_0815.jpeg" },
 ];
 
 /* ---------- count-up hook ---------- */
@@ -57,6 +60,7 @@ export default function BytNaHypoteku() {
   const zhodnRok = Math.round(byt.cena * 0.07);
   const zhodnVklad = Math.round(vkladC * 0.07);
   const projRoky = [3, 5, 10];
+  const rokyTxt = (y: number) => (y >= 5 ? "let" : "roky");
   const hodnotaZa = (y: number) => Math.round(byt.cena * Math.pow(1.07, y));
 
   // graf 0–10 let
@@ -211,7 +215,7 @@ export default function BytNaHypoteku() {
               {BYTY.map((b, i) => (
                 <button key={b.id} className={`lp-byt-btn${i === bytIdx ? " on" : ""}`} onClick={() => setBytIdx(i)}>
                   <span className="t">{b.label}</span>
-                  <span className="s">{b.plocha}</span>
+                  <span className="s">{b.mesto} · {b.plocha}</span>
                 </button>
               ))}
             </div>
@@ -223,7 +227,7 @@ export default function BytNaHypoteku() {
               </div>
               <div className="lp-bytcard-body">
                 <div className="lp-bytcard-title">Byt {byt.label} · {byt.plocha}</div>
-                <div className="lp-bytcard-meta">Alšova, Bílina · {byt.patro}</div>
+                <div className="lp-bytcard-meta">{byt.lokalita} · {byt.patro}</div>
                 <div className="lp-bytcard-price">{fmt(byt.cena)} Kč</div>
                 <Link href={`/projekty/${byt.slug}`} className="lp-bytcard-link">Zobrazit detail bytu →</Link>
               </div>
@@ -273,7 +277,7 @@ export default function BytNaHypoteku() {
               <div className="lp-proj">
                 {projRoky.map((y) => (
                   <div key={y} className="lp-proj-item">
-                    <small>za {y} let</small>
+                    <small>za {y} {rokyTxt(y)}</small>
                     <b>{fmt(hodnotaZa(y))} Kč</b>
                   </div>
                 ))}
@@ -476,8 +480,8 @@ const styles = `
 /* demo */
 .lp-demo-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
 .lp-demo-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:22px;box-shadow:0 4px 24px rgba(54,109,255,.07);}
-.lp-byt-pick{display:flex;gap:8px;margin-bottom:18px;}
-.lp-byt-btn{flex:1;padding:11px 6px;border:1px solid var(--border);border-radius:12px;background:var(--bg);cursor:pointer;transition:all .2s;font-family:inherit;text-align:center;}
+.lp-byt-pick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.lp-byt-btn{flex:1 1 84px;padding:11px 6px;border:1px solid var(--border);border-radius:12px;background:var(--bg);cursor:pointer;transition:all .2s;font-family:inherit;text-align:center;}
 .lp-byt-btn:hover{border-color:var(--blue);}
 .lp-byt-btn.on{border-color:var(--blue);background:#eef2ff;}
 .lp-byt-btn .t{display:block;font-size:1.05rem;font-weight:800;}

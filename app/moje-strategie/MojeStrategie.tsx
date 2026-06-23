@@ -5,8 +5,11 @@ import Image from "next/image";
 
 /* ---------- data ---------- */
 const BYTY = [
-  { id: "3+1b", label: "3+1", plocha: "82,3 m²", patro: "4. patro", cena: 2850000, najem: 12974, vynos: "5,46 %", slug: "alsova-bilina-bez-zadveri", img: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg" },
-  { id: "3+1z", label: "3+1", plocha: "87,2 m²", patro: "3. patro", cena: 2990000, najem: 13370, vynos: "5,37 %", slug: "alsova-bilina", img: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg" },
+  { id: "3+1b", label: "3+1", mesto: "Bílina", lokalita: "Alšova, Bílina", plocha: "82,3 m²", patro: "4. patro", cena: 2850000, najem: 12974, vynos: "5,46 %", slug: "alsova-bilina-bez-zadveri", img: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg" },
+  { id: "3+1z", label: "3+1", mesto: "Bílina", lokalita: "Alšova, Bílina", plocha: "87,2 m²", patro: "3. patro", cena: 2990000, najem: 13370, vynos: "5,37 %", slug: "alsova-bilina", img: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg" },
+  { id: "os1+1", label: "1+1", mesto: "Duchcov", lokalita: "Osecká, Duchcov", plocha: "38 m²", patro: "1. patro", cena: 2190000, najem: 9490, vynos: "5,20 %", slug: "duchcov-osecka-1-1", img: "/images/duchcov-osecka-1-1/IMG_9339.jpeg" },
+  { id: "os2+1", label: "2+1", mesto: "Duchcov", lokalita: "Osecká, Duchcov", plocha: "62 m²", patro: "2. patro", cena: 2990000, najem: 13181, vynos: "5,29 %", slug: "duchcov-osecka-2-1", img: "/images/duchcov-osecka-2-1/IMG_0901.jpeg" },
+  { id: "os3+1", label: "3+1", mesto: "Duchcov", lokalita: "Osecká, Duchcov", plocha: "67 m²", patro: "3. patro", cena: 3190000, najem: 13611, vynos: "5,12 %", slug: "duchcov-osecka-3-1", img: "/images/duchcov-osecka-3-1/IMG_0815.jpeg" },
 ];
 
 const KROKY = [
@@ -81,11 +84,12 @@ export default function MojeStrategie() {
     const pn = Math.pow(1 + rM, n), pk = Math.pow(1 + rM, Math.min(months, n));
     return Math.max(0, (hypoteka * (pn - pk)) / (pn - 1));
   };
-  const equity = (y: number) => Math.round(hodnota(y) - balance(y * 12));
+  const hodnotaZa = (y: number) => Math.round(hodnota(y));
   const naRuceni = (y: number) => Math.max(0, Math.round(0.8 * hodnota(y) - balance(y * 12)));
   const horizonty = [3, 5, 10];
+  const rokyTxt = (y: number) => (y >= 5 ? "let" : "roky");
 
-  const equity3 = useCounter(equity(3), 1600, run);
+  const ruceni5 = useCounter(naRuceni(5), 1600, run);
 
   // graf hodnoty 0–10 let
   const gW = 320, gH = 120, gPx = 14, gTop = 14, gBot = 16;
@@ -243,7 +247,7 @@ export default function MojeStrategie() {
             <div className="ms-byt-pick">
               {BYTY.map((b, i) => (
                 <button key={b.id} className={`ms-byt-btn${i === bytIdx ? " on" : ""}`} onClick={() => setBytIdx(i)}>
-                  <span className="t">{b.label}</span><span className="s">{b.plocha}</span>
+                  <span className="t">{b.label}</span><span className="s">{b.mesto} · {b.plocha}</span>
                 </button>
               ))}
             </div>
@@ -254,7 +258,7 @@ export default function MojeStrategie() {
               </div>
               <div className="ms-bytcard-body">
                 <div className="ms-bytcard-title">Byt {byt.label} · {byt.plocha}</div>
-                <div className="ms-bytcard-meta">Alšova, Bílina · {byt.patro}</div>
+                <div className="ms-bytcard-meta">{byt.lokalita} · {byt.patro}</div>
                 <div className="ms-bytcard-price">{fmt(byt.cena)} Kč</div>
                 <Link href={`/projekty/${byt.slug}`} className="ms-bytcard-link">Zobrazit detail bytu →</Link>
               </div>
@@ -279,13 +283,9 @@ export default function MojeStrategie() {
               </div>
             </div>
 
-            {/* equity / ručení */}
+            {/* hodnota bytu v čase */}
             <div className="ms-eq">
-              <div className="ms-eq-hero">
-                <small>Váš vlastní kapitál v bytě za 3 roky</small>
-                <b>{fmt(equity3)} Kč</b>
-                <span>hodnota bytu − zůstatek úvěru (modelově, viz pozn.)</span>
-              </div>
+              <div className="ms-eq-title">Předpokládaná hodnota bytu <span>· 7 % p.a., negarantováno</span></div>
               <svg className="ms-graf" viewBox={`0 0 ${gW} ${gH}`} preserveAspectRatio="none">
                 <polygon points={gArea} fill="rgba(54,109,255,0.16)" />
                 <polyline className="ms-graf-line" points={gLine} pathLength={1} fill="none" stroke="#60a5fa" strokeWidth={2.5} strokeLinejoin="round" />
@@ -294,15 +294,22 @@ export default function MojeStrategie() {
               <div className="ms-proj">
                 {horizonty.map((y) => (
                   <div key={y} className="ms-proj-item">
-                    <small>za {y} let</small>
-                    <b>{fmt(naRuceni(y))} Kč</b>
-                    <span>potenciál k ručení</span>
+                    <small>za {y} {rokyTxt(y)}</small>
+                    <b>{fmt(hodnotaZa(y))} Kč</b>
+                    <span>hodnota bytu</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="ms-calc-note">Orientační výpočet. Splátka je ilustrativní, konkrétní sazba závisí na bance. Garantovaný nájem je smluvní; předpokládané zhodnocení 7 % p.a. není garantováno a je nad rámec příjmu z nájmu. „Potenciál k ručení" je hrubý odhad (80 % předpokládané hodnoty mínus zůstatek úvěru) — skutečnou výši posoudí banka individuálně.</div>
+            {/* pointa: kolik využijete na bydlení v Praze */}
+            <div className="ms-payoff">
+              <div className="ms-payoff-label">Na vlastní bydlení v Praze</div>
+              <div className="ms-payoff-big">Už za 5 let můžete ručit ~{fmt(ruceni5)} Kč</div>
+              <div className="ms-payoff-sub">Banka uzná zhruba 80 % hodnoty bytu po odečtení zbývajícího úvěru. Tímto kapitálem pak ručíte za hypotéku na vlastní bydlení v Praze.</div>
+            </div>
+
+            <div className="ms-calc-note">Orientační výpočet. Splátka je ilustrativní, konkrétní sazba závisí na bance. Garantovaný nájem je smluvní; předpokládané zhodnocení 7 % p.a. není garantováno a je nad rámec příjmu z nájmu. Částka k ručení je hrubý odhad (80 % předpokládané hodnoty mínus zůstatek úvěru) — skutečnou výši posoudí banka individuálně.</div>
           </div>
         </div>
       </section>
@@ -459,8 +466,8 @@ const styles = `
 /* DEMO */
 .ms-demo-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
 .ms-demo-card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:22px;box-shadow:0 4px 24px rgba(54,109,255,.07);}
-.ms-byt-pick{display:flex;gap:8px;margin-bottom:18px;}
-.ms-byt-btn{flex:1;padding:11px 6px;border:1px solid var(--border);border-radius:12px;background:var(--bg);cursor:pointer;transition:all .2s;font-family:inherit;text-align:center;}
+.ms-byt-pick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.ms-byt-btn{flex:1 1 84px;padding:11px 6px;border:1px solid var(--border);border-radius:12px;background:var(--bg);cursor:pointer;transition:all .2s;font-family:inherit;text-align:center;}
 .ms-byt-btn:hover{border-color:var(--blue);}
 .ms-byt-btn.on{border-color:var(--blue);background:#eef2ff;}
 .ms-byt-btn .t{display:block;font-size:1.05rem;font-weight:800;}
@@ -490,9 +497,12 @@ const styles = `
 .ms-cf small{display:block;font-size:.72rem;color:#94a3b8;}
 .ms-cf b{font-size:1.25rem;font-weight:800;}
 .ms-eq{background:rgba(255,255,255,.05);border-radius:14px;padding:16px;margin-top:6px;}
-.ms-eq-hero small{display:block;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#93c5fd;}
-.ms-eq-hero b{font-size:1.9rem;font-weight:800;letter-spacing:-1px;color:#fff;display:block;margin:3px 0 1px;}
-.ms-eq-hero span{font-size:.72rem;color:#64748b;}
+.ms-eq-title{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#93c5fd;}
+.ms-eq-title span{font-weight:600;color:#64748b;text-transform:none;letter-spacing:0;}
+.ms-payoff{margin-top:12px;background:linear-gradient(135deg,rgba(54,109,255,.22),rgba(96,165,250,.12));border:1px solid rgba(96,165,250,.4);border-radius:14px;padding:16px 18px;}
+.ms-payoff-label{font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#93c5fd;}
+.ms-payoff-big{font-size:1.45rem;font-weight:800;letter-spacing:-.5px;color:#fff;margin:4px 0 6px;line-height:1.2;}
+.ms-payoff-sub{font-size:.78rem;color:#cbd5e1;line-height:1.55;}
 .ms-graf{width:100%;height:auto;margin-top:14px;display:block;}
 .ms-graf-line{stroke-dasharray:1;stroke-dashoffset:1;animation:msdraw 1.6s .2s ease forwards;}
 @keyframes msdraw{to{stroke-dashoffset:0;}}

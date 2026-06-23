@@ -667,8 +667,11 @@ export default function Home() {
 
   // --- Investiční kalkulačka (model páka / financování) ---
   const calcByty = [
-    { id: "3+1b", label: "3+1", plocha: "82,3 m²", cena: 2850000, najem: 12974 },
-    { id: "3+1z", label: "3+1", plocha: "87,2 m²", cena: 2990000, najem: 13370 },
+    { id: "3+1b", label: "3+1", mesto: "Bílina", plocha: "82,3 m²", cena: 2850000, najem: 12974 },
+    { id: "3+1z", label: "3+1", mesto: "Bílina", plocha: "87,2 m²", cena: 2990000, najem: 13370 },
+    { id: "os1+1", label: "1+1", mesto: "Duchcov", plocha: "38 m²", cena: 2190000, najem: 9490 },
+    { id: "os2+1", label: "2+1", mesto: "Duchcov", plocha: "62 m²", cena: 2990000, najem: 13181 },
+    { id: "os3+1", label: "3+1", mesto: "Duchcov", plocha: "67 m²", cena: 3190000, najem: 13611 },
   ];
   const selByt = calcByty[calcBytIdx];
   const vkladClamped = Math.min(vklad, selByt.cena);
@@ -883,7 +886,7 @@ export default function Home() {
         .status-blue{background:#dbeafe;color:#1d4ed8;}
         .status-amber{background:#fef3c7;color:#b45309;}
         .status-red{background:#fee2e2;color:#b91c1c;animation:stockPulse 1.6s ease-in-out infinite;}
-        .status-sold{background:#e2e8f0;color:#475569;}
+        .status-sold{background:#dc2626;color:#fff;font-weight:800;}
         @keyframes stockPulse{
           0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(220,38,38,0.45);}
           50%{transform:scale(1.06);box-shadow:0 0 0 6px rgba(220,38,38,0);}
@@ -897,10 +900,9 @@ export default function Home() {
         .project-card.is-new::after{background:linear-gradient(90deg,#fbbf24,#d97706);}
         .project-ribbon-wrap{position:absolute;top:0;right:0;width:110px;height:110px;overflow:hidden;z-index:3;pointer-events:none;}
         .project-ribbon{position:absolute;top:22px;right:-32px;transform:rotate(45deg);background:linear-gradient(135deg,#fbbf24 0%,#d97706 100%);color:white;font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;padding:6px 44px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.18);}
-        .project-ribbon-sold{background:linear-gradient(135deg,#64748b 0%,#334155 100%);}
-        .project-card.is-sold{opacity:0.72;}
-        .project-card.is-sold .project-card-thumb{filter:grayscale(0.55);}
-        @media(hover:hover){.project-card.is-sold:hover{opacity:0.85;}}
+        .project-card.is-sold .project-card-thumb{filter:grayscale(0.7) brightness(0.82);}
+        .project-sold-overlay{position:absolute;top:0;left:0;right:0;height:180px;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,0.4);z-index:3;pointer-events:none;}
+        .project-sold-stamp{transform:rotate(-9deg);background:rgba(220,38,38,0.95);color:#fff;font-size:1.35rem;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;padding:9px 26px;border:3px solid #fff;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.4);}
 
 
         /* WHY */
@@ -952,8 +954,8 @@ export default function Home() {
         .calc-result-value.big{font-size:1.5rem;color:var(--blue);}
         .calc-note{font-size:0.72rem;color:rgba(255,255,255,0.6);margin-top:12px;line-height:1.5;}
         .calc-mini-label{font-size:0.74rem;font-weight:600;color:rgba(255,255,255,0.82);margin-bottom:8px;}
-        .calc-byt-row{display:flex;gap:8px;margin-bottom:22px;}
-        .calc-byt-btn{flex:1;padding:11px 6px;border:1px solid rgba(255,255,255,0.14);border-radius:11px;background:rgba(255,255,255,0.04);cursor:pointer;transition:all 0.2s;text-align:center;font-family:inherit;}
+        .calc-byt-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+        .calc-byt-btn{flex:1 1 80px;padding:11px 6px;border:1px solid rgba(255,255,255,0.14);border-radius:11px;background:rgba(255,255,255,0.04);cursor:pointer;transition:all 0.2s;text-align:center;font-family:inherit;}
         .calc-byt-btn:hover{border-color:rgba(147,197,253,0.5);}
         .calc-byt-btn.active{border-color:#60a5fa;background:rgba(54,109,255,0.22);}
         .calc-byt-btn .t{font-size:1rem;font-weight:800;color:white;line-height:1.1;}
@@ -1216,8 +1218,8 @@ export default function Home() {
             return (
             <Link key={i} href={`/projekty/${p.slug || "vinohrady"}`} className={`project-card reveal d${(i%3)+1}${p.isNew ? " is-new" : ""}${soldOut ? " is-sold" : ""}`} style={{textDecoration:"none",display:"block"}}>
               {soldOut && (
-                <div className="project-ribbon-wrap">
-                  <div className="project-ribbon project-ribbon-sold">Vyprodáno</div>
+                <div className="project-sold-overlay">
+                  <span className="project-sold-stamp">Vyprodáno</span>
                 </div>
               )}
               {!soldOut && p.isNew && (
@@ -1314,7 +1316,7 @@ export default function Home() {
               {calcByty.map((b,i)=>(
                 <button key={b.id} className={"calc-byt-btn"+(calcBytIdx===i?" active":"")} onClick={()=>setCalcBytIdx(i)}>
                   <div className="t">{b.label}</div>
-                  <div className="s">{b.plocha}<br/>{(b.cena/1000000).toFixed(2).replace(".",",")} mil. Kč</div>
+                  <div className="s">{b.mesto} · {b.plocha}<br/>{(b.cena/1000000).toFixed(2).replace(".",",")} mil. Kč</div>
                 </button>
               ))}
             </div>
