@@ -85,11 +85,13 @@ export default function MojeStrategie() {
     return Math.max(0, (hypoteka * (pn - pk)) / (pn - 1));
   };
   const hodnotaZa = (y: number) => Math.round(hodnota(y));
-  const naRuceni = (y: number) => Math.max(0, Math.round(0.8 * hodnota(y) - balance(y * 12)));
+  // čistá hodnota (equity) = předpokládaná hodnota bytu − zůstatek úvěru
+  const cistaHodnota = (y: number) => Math.max(0, Math.round(hodnota(y) - balance(y * 12)));
   const horizonty = [3, 5, 10];
   const rokyTxt = (y: number) => (y >= 5 ? "let" : "roky");
 
-  const ruceni5 = useCounter(naRuceni(5), 1600, run);
+  const cista5 = useCounter(cistaHodnota(5), 1600, run);
+  const nasobek5 = vkladC > 0 ? cistaHodnota(5) / vkladC : 0;
 
   // graf hodnoty 0–10 let
   const gW = 320, gH = 120, gPx = 14, gTop = 14, gBot = 16;
@@ -307,14 +309,15 @@ export default function MojeStrategie() {
               </div>
             </div>
 
-            {/* pointa: kolik využijete na bydlení v Praze */}
+            {/* pointa: čistá hodnota (equity), kterou si v bytě vytvoříte */}
             <div className="ms-payoff">
-              <div className="ms-payoff-label">Na vlastní bydlení v Praze</div>
-              <div className="ms-payoff-big">Už za 5 let můžete ručit ~{fmt(ruceni5)} Kč</div>
-              <div className="ms-payoff-sub">Banka uzná zhruba 80 % hodnoty bytu po odečtení zbývajícího úvěru. Tímto kapitálem pak ručíte za hypotéku na vlastní bydlení v Praze.</div>
+              <div className="ms-payoff-label">Vaše čistá hodnota v bytě</div>
+              <div className="ms-payoff-big">Za 5 let ~{fmt(cista5)} Kč</div>
+              <div className="ms-payoff-mult">z vkladu {fmt(vkladC)} Kč&nbsp;&nbsp;≈&nbsp;&nbsp;<b>{nasobek5.toFixed(1).replace(".", ",")}×</b></div>
+              <div className="ms-payoff-sub">Čistá hodnota = předpokládaná hodnota bytu − zůstatek úvěru. Úvěr postupně splácíte a hodnota bytu předpokládaně roste (7 % p.a., negarantováno).</div>
             </div>
 
-            <div className="ms-calc-note">Orientační výpočet. Splátka je ilustrativní, konkrétní sazba závisí na bance. Garantovaný nájem je smluvní; předpokládané zhodnocení 7 % p.a. není garantováno a je nad rámec příjmu z nájmu. Částka k ručení je hrubý odhad (80 % předpokládané hodnoty mínus zůstatek úvěru) — skutečnou výši posoudí banka individuálně.</div>
+            <div className="ms-calc-note">Orientační výpočet. Splátka je ilustrativní, konkrétní sazba závisí na bance. Garantovaný nájem je smluvní; předpokládané zhodnocení 7 % p.a. není garantováno a je nad rámec příjmu z nájmu. Čistá hodnota je modelový odhad (předpokládaná hodnota bytu mínus zůstatek úvěru) a vychází z negarantovaného zhodnocení.</div>
           </div>
         </div>
       </section>
@@ -511,7 +514,9 @@ const styles = `
 .ms-eq-title span{font-weight:600;color:#64748b;text-transform:none;letter-spacing:0;}
 .ms-payoff{margin-top:12px;background:linear-gradient(135deg,rgba(54,109,255,.22),rgba(96,165,250,.12));border:1px solid rgba(96,165,250,.4);border-radius:14px;padding:16px 18px;}
 .ms-payoff-label{font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#93c5fd;}
-.ms-payoff-big{font-size:1.45rem;font-weight:800;letter-spacing:-.5px;color:#fff;margin:4px 0 6px;line-height:1.2;}
+.ms-payoff-big{font-size:1.45rem;font-weight:800;letter-spacing:-.5px;color:#fff;margin:4px 0 2px;line-height:1.2;}
+.ms-payoff-mult{font-size:.92rem;color:#bfdbfe;margin:0 0 8px;}
+.ms-payoff-mult b{color:#fff;font-weight:800;font-size:1.05rem;}
 .ms-payoff-sub{font-size:.78rem;color:#cbd5e1;line-height:1.55;}
 .ms-graf{width:100%;height:auto;margin-top:14px;display:block;}
 .ms-graf-line{stroke-dasharray:1;stroke-dashoffset:1;animation:msdraw 1.6s .2s ease forwards;}
