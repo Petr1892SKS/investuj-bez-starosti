@@ -17,9 +17,9 @@ const projects = [
   { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 0, isNew: false, soldOut: true },
   { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 5, availableUnits: 3, isNew: false },
   { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 1, isNew: false, highlight: "critical" as const },
-  { name: "Byt Osecká 1+1", location: "Duchcov – Osecká", type: "Byt 1+1 · 38 m²", price: "2 190 000 Kč", slug: "duchcov-osecka-1-1", thumb: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", totalUnits: 8, availableUnits: 6, isNew: true },
-  { name: "Byt Osecká 2+1", location: "Duchcov – Osecká", type: "Byt 2+1 · 62 m²", price: "2 990 000 Kč", slug: "duchcov-osecka-2-1", thumb: "/images/duchcov-osecka-2-1/IMG_0901.jpeg", totalUnits: 6, availableUnits: 4, isNew: true },
-  { name: "Byt Osecká 3+1", location: "Duchcov – Osecká", type: "Byt 3+1 · 67 m²", price: "3 190 000 Kč", slug: "duchcov-osecka-3-1", thumb: "/images/duchcov-osecka-3-1/IMG_0815.jpeg", totalUnits: 5, availableUnits: 3, isNew: true },
+  { name: "Byt Osecká 1+1", location: "Duchcov – Osecká", type: "Byt 1+1 · 41 m²", price: "2 190 000 Kč", slug: "duchcov-osecka-1-1", thumb: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", totalUnits: 8, availableUnits: 3, isNew: true },
+  { name: "Byt Osecká 2+1", location: "Duchcov – Osecká", type: "Byt 2+1 · 67 m²", price: "2 990 000 Kč", slug: "duchcov-osecka-2-1", thumb: "/images/duchcov-osecka-2-1/IMG_0901.jpeg", totalUnits: 16, availableUnits: 9, isNew: true },
+  { name: "Byt Osecká 3+1", location: "Duchcov – Osecká", type: "Byt 3+1 · 73 m²", price: "3 190 000 Kč", slug: "duchcov-osecka-3-1", thumb: "/images/duchcov-osecka-3-1/IMG_0815.jpeg", totalUnits: 8, availableUnits: 6, isNew: true },
 ];
 
 const faqCategories = [
@@ -669,9 +669,9 @@ export default function Home() {
   const calcByty = [
     { id: "3+1b", label: "3+1", mesto: "Bílina", plocha: "82,3 m²", cena: 2850000, najem: 12974 },
     { id: "3+1z", label: "3+1", mesto: "Bílina", plocha: "87,2 m²", cena: 2990000, najem: 13370 },
-    { id: "os1+1", label: "1+1", mesto: "Duchcov", plocha: "38 m²", cena: 2190000, najem: 9490 },
-    { id: "os2+1", label: "2+1", mesto: "Duchcov", plocha: "62 m²", cena: 2990000, najem: 13181 },
-    { id: "os3+1", label: "3+1", mesto: "Duchcov", plocha: "67 m²", cena: 3190000, najem: 13611 },
+    { id: "os1+1", label: "1+1", mesto: "Duchcov", plocha: "41 m²", cena: 2190000, najem: 9490 },
+    { id: "os2+1", label: "2+1", mesto: "Duchcov", plocha: "67 m²", cena: 2990000, najem: 13181 },
+    { id: "os3+1", label: "3+1", mesto: "Duchcov", plocha: "73 m²", cena: 3190000, najem: 13611 },
   ];
   const selByt = calcByty[calcBytIdx];
   const vkladClamped = Math.min(vklad, selByt.cena);

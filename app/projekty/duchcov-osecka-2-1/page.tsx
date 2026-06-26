@@ -22,7 +22,7 @@ const project = {
   ownershipType: "Družstevní s převodem do OV",
   condition: "Po rekonstrukci",
   holdingPeriod: "5–10 let",
-  area: 62,
+  area: 67,
   floor: "2. patro",
 
   // Proč tento projekt – max 5 bodů
