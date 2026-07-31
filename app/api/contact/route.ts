@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, interest, message, zdroj, kontext } = body;
+    const { name, email, phone, interest, message, zdroj, kontext, cil, vek, pocet_bytu, horizont_let } = body;
 
     const datum = new Date().toLocaleString("cs-CZ", {
       timeZone: "Europe/Prague",
@@ -21,6 +21,11 @@ export async function POST(req: NextRequest) {
         message: message || "",
         zdroj: zdroj || "web-formular",
         kontext: kontext || "",
+        // vyplněné jen u leadů z kalkulačky, jinak prázdné
+        cil: cil ?? "",
+        vek: vek ?? "",
+        pocet_bytu: pocet_bytu ?? "",
+        horizont_let: horizont_let ?? "",
       }),
     });
 

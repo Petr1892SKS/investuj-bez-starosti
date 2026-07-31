@@ -84,6 +84,11 @@ export default function Kalkulacka() {
             `Cíl ${fmtKc(cil)} měsíčně · věk ${vek} let · ` +
             `vyšlo ${v.pocet} ${sklonujByty(v.pocet)} · ` +
             `příjem naskočí za ${v.roky} let (bude mu ${v.kdy})`,
+          // totéž po jednotlivých polích, ať jde v Make mapovat do sloupců
+          cil,
+          vek,
+          pocet_bytu: v.pocet,
+          horizont_let: v.roky,
         }),
       });
       setStav(r.ok ? "hotovo" : "chyba");
