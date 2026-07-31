@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, interest, message } = body;
+    const { name, email, phone, interest, message, zdroj, kontext } = body;
 
     const datum = new Date().toLocaleString("cs-CZ", {
       timeZone: "Europe/Prague",
@@ -12,7 +12,16 @@ export async function POST(req: NextRequest) {
     await fetch("https://hook.eu1.make.com/egu3z1a2w6dy57upf4x15ozg7ias5kk4", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ datum, name, email, phone, interest, message: message || "", zdroj: "web-formular" }),
+      body: JSON.stringify({
+        datum,
+        name,
+        email: email || "",
+        phone,
+        interest: interest || "",
+        message: message || "",
+        zdroj: zdroj || "web-formular",
+        kontext: kontext || "",
+      }),
     });
 
     return NextResponse.json({ ok: true });
