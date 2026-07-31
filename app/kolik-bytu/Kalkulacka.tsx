@@ -61,8 +61,8 @@ export default function Kalkulacka() {
     const chyby: Record<string, string> = {};
     if (!form.name.trim()) chyby.name = "Vyplňte prosím jméno.";
     if (!/^[+\d][\d\s]{7,}$/.test(form.phone.trim())) chyby.phone = "Zadejte prosím platné telefonní číslo.";
-    if (form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
-      chyby.email = "Zkontrolujte prosím e-mail.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
+      chyby.email = "Zadejte prosím e-mail — bez něj vás nemáme jak zavést do systému.";
     if (!form.gdpr) chyby.gdpr = "Bez souhlasu vás bohužel nemůžeme kontaktovat.";
     setErr(chyby);
     if (Object.keys(chyby).length) return;
@@ -255,7 +255,7 @@ export default function Kalkulacka() {
                 </label>
 
                 <label className="fl">
-                  E-mail <span className="opt">nepovinné</span>
+                  E-mail
                   <input
                     className="fi"
                     type="email"
