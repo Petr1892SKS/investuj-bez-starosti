@@ -3,9 +3,12 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 
 /* ---------- parametry výpočtu (dle Františka) ---------- */
-const PER_FLAT = 8000; // Kč čistého měsíčně z jednoho bytu po horizontu
-const HORIZON = 7;     // let, než první byt začne nést
-const STEP = 0.25;     // prodleva na každý další byt (roky)
+const PER_FLAT = 8800;  // Kč čistého měsíčně z jednoho bytu do BASE_AGE let věku
+const BASE_AGE = 35;    // do tohoto věku lze využít plnou splatnost úvěru
+const DECAY = 0.88;     // o kolik klesne čistý tok...
+const DECAY_YEARS = 2;  // ...za každé dva roky věku nad BASE_AGE
+const HORIZON = 7;      // let, než první byt začne nést
+const STEP = 0.25;      // prodleva na každý další byt (roky)
 
 function fmtKc(n: number) {
   return n.toLocaleString("cs-CZ").replace(/ /g, " ") + " Kč";
@@ -21,9 +24,10 @@ export default function Kalkulacka() {
   const [vek, setVek] = useState(35);
 
   const v = useMemo(() => {
-    // čím mladší, tím delší splatnost → nižší splátka → vyšší čistý tok
-    const bonus = vek <= 35 ? 1.1 : vek <= 45 ? 1.0 : 0.88;
-    const perFlat = Math.round((PER_FLAT * bonus) / 500) * 500;
+    // Čím starší, tím kratší dostupná splatnost úvěru → vyšší splátka → nižší
+    // čistý tok z bytu. Nad 35 let proto tok klesá o 12 % za každé dva roky.
+    const factor = Math.pow(DECAY, Math.max(0, vek - BASE_AGE) / DECAY_YEARS);
+    const perFlat = Math.max(500, Math.round((PER_FLAT * factor) / 50) * 50);
     const pocet = Math.max(1, Math.ceil(cil / perFlat));
     const roky = Math.round(HORIZON + Math.max(0, pocet - 1) * STEP);
     return { perFlat, pocet, roky, mesicne: pocet * perFlat, kdy: vek + roky };
@@ -126,10 +130,12 @@ export default function Kalkulacka() {
         </div>
 
         <p className="disc">
-          Orientační propočet: přibližně 8 000 Kč čistého měsíčně z jednoho bytu po zhruba
-          sedmi letech (při využití prodloužení fixace a splatnosti). Skutečný výsledek
-          závisí na lokalitě, ceně, financování a obsazenosti. Investice do nemovitostí
-          nese rizika, minulé výnosy nezaručují budoucí.
+          Orientační propočet: přibližně 8 800 Kč čistého měsíčně z jednoho bytu po zhruba
+          sedmi letech, pokud vstupujete do 35 let věku a využijete plnou splatnost úvěru.
+          S vyšším věkem se dostupná splatnost zkracuje, splátka roste a čistý výnos z bytu
+          klesá — proto je potřeba bytů více. Skutečný výsledek závisí na lokalitě, ceně,
+          financování a obsazenosti. Investice do nemovitostí nese rizika, minulé výnosy
+          nezaručují budoucí.
         </p>
       </div>
 
