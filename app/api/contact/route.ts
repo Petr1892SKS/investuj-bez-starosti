@@ -9,6 +9,10 @@ export async function POST(req: NextRequest) {
       timeZone: "Europe/Prague",
     });
 
+    // Google Sheets bere "+" na začátku jako vzorec a zapíše #ERROR!.
+    // Ukládáme proto jen číslice: "+420 777 000 000" → "420777000000".
+    const telefon = typeof phone === "string" ? phone.replace(/\D/g, "") : phone;
+
     await fetch("https://hook.eu1.make.com/egu3z1a2w6dy57upf4x15ozg7ias5kk4", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -16,7 +20,7 @@ export async function POST(req: NextRequest) {
         datum,
         name,
         email: email || "",
-        phone,
+        phone: telefon,
         interest: interest || "",
         message: message || "",
         zdroj: zdroj || "web-formular",
