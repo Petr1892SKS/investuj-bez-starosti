@@ -80,10 +80,8 @@ export default function Kalkulacka() {
           // ať se v Make.com nerozbije mapování
           interest: v.pocet === 1 ? "1" : "vice",
           zdroj: "kalkulacka-kolik-bytu",
-          kontext:
-            `Cíl ${fmtKc(cil)} měsíčně · věk ${vek} let · ` +
-            `vyšlo ${v.pocet} ${sklonujByty(v.pocet)} · ` +
-            `příjem naskočí za ${v.roky} let (bude mu ${v.kdy})`,
+          // jen to, co není v číselných polích níž — ať se vejde do buňky
+          kontext: `za ${v.roky} let · ve věku ${v.kdy}`,
           // totéž po jednotlivých polích, ať jde v Make mapovat do sloupců
           cil,
           vek,
