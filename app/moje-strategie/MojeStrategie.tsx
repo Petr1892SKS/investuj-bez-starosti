@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { novyEventId, trackLead } from "../lib/lead";
 
 /* ---------- data ---------- */
 const BYTY = [
@@ -122,6 +123,7 @@ export default function MojeStrategie() {
     if (Object.keys(err).length) { setErrors(err); return; }
     setErrors({});
     setLoading(true);
+    const eventId = novyEventId();
     try {
       await fetch("/api/contact", {
         method: "POST",
@@ -129,13 +131,16 @@ export default function MojeStrategie() {
         body: JSON.stringify({
           ...form,
           interest: "Moje strategie – bydlení v Praze",
+          zdroj: "moje-strategie",
           message: `${form.message ? form.message + " | " : ""}Zájem o byt ${byt.label} ${byt.plocha} (${fmt(byt.cena)} Kč), vlastní vklad ${fmt(vkladC)} Kč.`,
+          event_id: eventId,
+          event_source_url: typeof window !== "undefined" ? window.location.href : "",
         }),
       });
     } catch { /* neblokujeme UX */ }
     setLoading(false);
     setSent(true);
-    if (typeof window !== "undefined" && (window as any).fbq) (window as any).fbq("track", "Lead");
+    trackLead("moje-strategie", eventId);
   };
 
   return (

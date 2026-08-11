@@ -2,6 +2,7 @@
 import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { novyEventId, trackLead } from "../lib/lead";
 
 /* ---------- parametry výpočtu (dle Františka) ---------- */
 const PER_FLAT = 8800;  // Kč čistého měsíčně z jednoho bytu do BASE_AGE let věku
@@ -68,6 +69,7 @@ export default function Kalkulacka() {
     if (Object.keys(chyby).length) return;
 
     setStav("odesila");
+    const eventId = novyEventId();
     try {
       const r = await fetch("/api/contact", {
         method: "POST",
@@ -87,9 +89,12 @@ export default function Kalkulacka() {
           vek,
           pocet_bytu: v.pocet,
           horizont_let: v.roky,
+          event_id: eventId,
+          event_source_url: typeof window !== "undefined" ? window.location.href : "",
         }),
       });
       setStav(r.ok ? "hotovo" : "chyba");
+      if (r.ok) trackLead("kalkulacka-kolik-bytu", eventId, { pocet_bytu: v.pocet, horizont_let: v.roky });
     } catch {
       setStav("chyba");
     }

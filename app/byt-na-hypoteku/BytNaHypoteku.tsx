@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { novyEventId, trackLead } from "../lib/lead";
 
 /* ---------- data ---------- */
 const BYTY = [
@@ -96,6 +97,7 @@ export default function BytNaHypoteku() {
     if (Object.keys(err).length) { setErrors(err); return; }
     setErrors({});
     setLoading(true);
+    const eventId = novyEventId();
     try {
       await fetch("/api/contact", {
         method: "POST",
@@ -103,13 +105,16 @@ export default function BytNaHypoteku() {
         body: JSON.stringify({
           ...form,
           interest: "Páka – byt na hypotéku",
+          zdroj: "byt-na-hypoteku",
           message: `${form.message ? form.message + " | " : ""}Zájem o byt ${byt.label} ${byt.plocha} (${fmt(byt.cena)} Kč), vlastní vklad ${fmt(vkladC)} Kč.`,
+          event_id: eventId,
+          event_source_url: typeof window !== "undefined" ? window.location.href : "",
         }),
       });
     } catch { /* neblokujeme UX */ }
     setLoading(false);
     setSent(true);
-    if (typeof window !== "undefined" && (window as any).fbq) (window as any).fbq("track", "Lead");
+    trackLead("byt-na-hypoteku", eventId);
   };
 
   const SROVNANI = [
