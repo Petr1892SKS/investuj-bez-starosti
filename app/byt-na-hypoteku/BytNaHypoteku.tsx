@@ -6,8 +6,6 @@ import { novyEventId, trackLead } from "../lib/lead";
 
 /* ---------- data ---------- */
 const BYTY = [
-  { id: "3+1b", label: "3+1", mesto: "Bílina", lokalita: "Alšova, Bílina", plocha: "82,3 m²", patro: "4. patro", cena: 2850000, najem: 12974, vynos: "5,46 %", slug: "alsova-bilina-bez-zadveri", img: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg" },
-  { id: "3+1z", label: "3+1", mesto: "Bílina", lokalita: "Alšova, Bílina", plocha: "87,2 m²", patro: "3. patro", cena: 2990000, najem: 13370, vynos: "5,37 %", slug: "alsova-bilina", img: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg" },
   { id: "os1+1", label: "1+1", mesto: "Duchcov", lokalita: "Osecká, Duchcov", plocha: "41 m²", patro: "1. patro", cena: 2190000, najem: 9490, vynos: "5,20 %", slug: "duchcov-osecka-1-1", img: "/images/duchcov-osecka-1-1/IMG_9339.jpeg" },
   { id: "os2+1", label: "2+1", mesto: "Duchcov", lokalita: "Osecká, Duchcov", plocha: "67 m²", patro: "2. patro", cena: 2990000, najem: 13181, vynos: "5,29 %", slug: "duchcov-osecka-2-1", img: "/images/duchcov-osecka-2-1/IMG_0901.jpeg" },
   { id: "os3+1", label: "3+1", mesto: "Duchcov", lokalita: "Osecká, Duchcov", plocha: "73 m²", patro: "3. patro", cena: 3190000, najem: 13611, vynos: "5,12 %", slug: "duchcov-osecka-3-1", img: "/images/duchcov-osecka-3-1/IMG_0815.jpeg" },

@@ -33,13 +33,13 @@ const BYTY = [
     thumb: "/images/duchcov-osecka-1-1/IMG_9339.jpeg",
   },
   {
-    name: "Byt 3+1 · 82,3 m²",
-    loc: "Bílina – Alšova",
-    price: "2 850 000 Kč",
-    income: "12 974 Kč / měs.",
-    yield: "5,46 % p.a.",
-    slug: "alsova-bilina-bez-zadveri",
-    thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg",
+    name: "Byt 2+1 · 67 m²",
+    loc: "Duchcov – Osecká",
+    price: "2 990 000 Kč",
+    income: "13 181 Kč / měs.",
+    yield: "5,29 % p.a.",
+    slug: "duchcov-osecka-2-1",
+    thumb: "/images/duchcov-osecka-2-1/IMG_0901.jpeg",
   },
 ];
 

@@ -10,7 +10,7 @@ const project = {
   name: "Projekt Alšova – Bílina",
   subtitle: "Byt 3+1 · Bílina – Alšova",
   claim: "Konkrétní nemovitost ve vašem vlastnictví. Předem sjednaný měsíční příjem. Správa bez vaší účasti.",
-  status: "Volný", // "Volný" | "Obsazený" | "Připravený"
+  status: "Vyprodáno", // "Volný" | "Obsazený" | "Připravený" | "Vyprodáno"
 
   // Investiční parametry
   price: 2850000,
@@ -274,7 +274,7 @@ export default function ProjectDetail() {
         <div className="hero-inner">
           <div>
             <div className="hero-badge">
-              <span className="status-dot" style={{background: project.status === "Volný" ? "#366dff" : project.status === "Obsazený" ? "#16a34a" : "#f59e0b"}}/>
+              <span className="status-dot" style={{background: project.status === "Volný" ? "#366dff" : project.status === "Obsazený" ? "#16a34a" : project.status === "Vyprodáno" ? "#64748b" : "#f59e0b"}}/>
               {project.status}
             </div>
             <h1 className="hero-title">{project.name}</h1>

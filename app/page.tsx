@@ -15,12 +15,12 @@ const TEAM_ICONS: Record<string, React.ReactNode> = {
 };
 
 const projects = [
-  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 0, isNew: false, soldOut: true },
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 5, availableUnits: 3, isNew: false },
-  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 1, isNew: false, highlight: "critical" as const },
   { name: "Byt Osecká 1+1", location: "Duchcov – Osecká", type: "Byt 1+1 · 41 m²", price: "2 190 000 Kč", slug: "duchcov-osecka-1-1", thumb: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", totalUnits: 8, availableUnits: 3, isNew: true },
   { name: "Byt Osecká 2+1", location: "Duchcov – Osecká", type: "Byt 2+1 · 67 m²", price: "2 990 000 Kč", slug: "duchcov-osecka-2-1", thumb: "/images/duchcov-osecka-2-1/IMG_0901.jpeg", totalUnits: 16, availableUnits: 9, isNew: true },
   { name: "Byt Osecká 3+1", location: "Duchcov – Osecká", type: "Byt 3+1 · 73 m²", price: "3 190 000 Kč", slug: "duchcov-osecka-3-1", thumb: "/images/duchcov-osecka-3-1/IMG_0815.jpeg", totalUnits: 8, availableUnits: 6, isNew: true },
+  { name: "Byt Alšova 2+1", location: "Bílina – Alšova", type: "Byt 2+1 · 53,1 m²", price: "2 290 000 Kč", slug: "alsova-bilina-2-1", thumb: "/images/alsova-bilina-2-1/IMG_6863.jpeg", totalUnits: 4, availableUnits: 0, isNew: false, soldOut: true },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 82,3 m²", price: "2 850 000 Kč", slug: "alsova-bilina-bez-zadveri", thumb: "/images/alsova-bilina-3-1-bez-zadveri/IMG_6878.jpeg", totalUnits: 5, availableUnits: 0, isNew: false, soldOut: true },
+  { name: "Byt Alšova 3+1", location: "Bílina – Alšova", type: "Byt 3+1 · 87,2 m²", price: "2 990 000 Kč", slug: "alsova-bilina", thumb: "/images/alsova-bilina-3-1-zadveri/IMG_4967.jpeg", totalUnits: 3, availableUnits: 0, isNew: false, soldOut: true },
 ];
 
 const faqCategories = [
@@ -29,7 +29,7 @@ const faqCategories = [
     items: [
       { q: "Co přesně si investicí pořizuji?", a: "Konkrétní bytovou jednotku ve vašem vlastnictví formou družstevního podílu s právem na převod do osobního vlastnictví. Není to fond, dluhopis ani podíl na SPV — vlastníte konkrétní byt na konkrétní adrese." },
       { q: "Proč část portfolia prodáváte a nenecháte si vše sami?", a: "Původně jsme kupovali sedm panelových domů jako celek. Při velkých balících banky nabízejí horší financování (LTV typicky 45 %) než fyzické osobě kupující jednu jednotku (80 % LTV, hypotéka 30 let). Dva domy otevíráme investorům, aby získali přístup k výhodnějšímu financování, zatímco my zachováme správu a kontrolu." },
-      { q: "Jaké byty jsou aktuálně v nabídce?", a: "Dostupné jsou byty v Bílině (Alšova) a Duchcově (Osecká) v dispozicích 1+1 až 3+1 s cenami od 2 190 000 Kč do 3 190 000 Kč. Některé jednotky jsou již ústně rezervovány." },
+      { q: "Jaké byty jsou aktuálně v nabídce?", a: "Dostupné jsou byty v Duchcově (Osecká) v dispozicích 1+1 až 3+1 s cenami od 2 190 000 Kč do 3 190 000 Kč. Byty v Bílině (Alšova) jsou vyprodané. Některé jednotky jsou již ústně rezervovány." },
       { q: "Jaký je technický stav domů?", a: "Oba domy jsou po kompletní rekonstrukci (okna, rozvody, interiéry). Zbývá zateplení s připraveným projektem, čeká na program Nová zelená úsporám. Kupní cena ani výše nájmu se kvůli tomu nemění." },
       { q: "Jak je v bytech řešeno vytápění a ohřev vody?", a: "Ústřední topení s výměníkovou stanicí v domě. Zálohy na služby hradí přímo nájemník — ne investor." },
       { q: "Mají všechny byty stejný standard?", a: "V rámci jednoho domu jsou byty rekonstruovány v jednotném standardu." },
@@ -38,7 +38,7 @@ const faqCategories = [
   {
     short: "Výnos a čísla",
     items: [
-      { q: "Jak funguje garantovaná výše měsíčního příjmu?", a: "Příjem přichází každý měsíc ve stejné výši bez ohledu na obsazenost nebo platební morálku nájemníka. Konkrétní částka je sjednána smluvně před nabytím vlastnictví. Například u Alšova 2+1 je to 10 279 Kč měsíčně (5,39 % p.a. z kupní ceny)." },
+      { q: "Jak funguje garantovaná výše měsíčního příjmu?", a: "Příjem přichází každý měsíc ve stejné výši bez ohledu na obsazenost nebo platební morálku nájemníka. Konkrétní částka je sjednána smluvně před nabytím vlastnictví. Například u Osecká 2+1 je to 13 181 Kč měsíčně (5,29 % p.a. z kupní ceny)." },
       { q: "Je výnos čistý, nebo před náklady?", a: "Garantovaná výše nájemního příjmu je hrubá. Po započtení provozních nákladů (správa, fond oprav, poplatek za garanci) vychází čistý výnos zhruba 4,3–5,2 % p.a. Nad rámec toho je předpokládané kapitálové zhodnocení modelově 7 % p.a. — to není garantováno a realizuje se až při prodeji." },
       { q: "Kdo je smluvní stranou garance a z čeho je krytá?", a: "Smluvní stranou je provozní společnost spravující portfolio. Garance je krytá reálným nájemným, širokou základnou pracujících nájemníků v lokalitě, provozním cash-flow portfolia a osobní zainteresovaností zakladatelů, kteří v portfoliu drží majoritu nemovitostí." },
       { q: "Kolik garance stojí a co všechno zahrnuje?", a: "590 Kč měsíčně. Kryje výplatu nájemného ve sjednané výši i v měsících, kdy je byt prázdný nebo nájemník neplatí, a opravy/údržbu bytu do limitu 20 000 Kč ročně. Investice je bez údržbové zátěže." },
@@ -668,8 +668,6 @@ export default function Home() {
 
   // --- Investiční kalkulačka (model páka / financování) ---
   const calcByty = [
-    { id: "3+1b", label: "3+1", mesto: "Bílina", plocha: "82,3 m²", cena: 2850000, najem: 12974 },
-    { id: "3+1z", label: "3+1", mesto: "Bílina", plocha: "87,2 m²", cena: 2990000, najem: 13370 },
     { id: "os1+1", label: "1+1", mesto: "Duchcov", plocha: "41 m²", cena: 2190000, najem: 9490 },
     { id: "os2+1", label: "2+1", mesto: "Duchcov", plocha: "67 m²", cena: 2990000, najem: 13181 },
     { id: "os3+1", label: "3+1", mesto: "Duchcov", plocha: "73 m²", cena: 3190000, najem: 13611 },
