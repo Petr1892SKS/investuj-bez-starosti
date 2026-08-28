@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { novyEventId, trackLead } from "../lib/lead";
+import Honeypot from "../components/Honeypot";
 
 /* ---------- data ---------- */
 const BYTY = [
@@ -41,7 +42,7 @@ export default function BytNaHypoteku() {
   const [doba, setDoba] = useState(30);
   const [heroRun, setHeroRun] = useState(false);
 
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "", website: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -371,6 +372,7 @@ export default function BytNaHypoteku() {
               </div>
             ) : (
               <form className="lp-form" onSubmit={submit}>
+                <Honeypot value={form.website} onChange={(v) => setForm((s) => ({ ...s, website: v }))} />
                 <h3>Mám zájem o nezávaznou konzultaci</h3>
                 <div className="lp-field">
                   <input placeholder="Jméno a příjmení" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />

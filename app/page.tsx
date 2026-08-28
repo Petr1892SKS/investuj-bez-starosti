@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import VideoIntroButton from "./components/VideoIntroButton";
+import Honeypot from "./components/Honeypot";
 import { novyEventId, trackLead } from "./lib/lead";
 
 const TEAM_ICONS: Record<string, React.ReactNode> = {
@@ -640,7 +641,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
   const [faqCat, setFaqCat] = useState(0);
   const [chatOpen, setChatOpen] = useState(false);
-  const [formState, setFormState] = useState({ name: "", email: "", phone: "", interest: "", message: "", gdpr: false });
+  const [formState, setFormState] = useState({ name: "", email: "", phone: "", interest: "", message: "", gdpr: false, website: "" });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
@@ -1589,7 +1590,7 @@ export default function Home() {
                 <p className="section-sub" style={{margin:"0 auto"}}>Ozveme se a doporučíme vhodné řešení nebo projekty.</p>
               </div>
               <form onSubmit={handleSubmit} noValidate>
-                <input type="text" name="_honey" style={{display:"none"}}/>
+                <Honeypot value={formState.website} onChange={(v) => setFormState((s) => ({ ...s, website: v }))} />
                 <input type="hidden" name="form-name" value="konzultace"/>
                 <div className="form-grid">
                   <div className="fg full"><label className="f-label">Jméno a příjmení / Firma</label><input className="f-input" value={formState.name} onChange={e=>setFormState(s=>({...s,name:e.target.value}))} placeholder="Jan Novák"/>{formErrors.name&&<span className="f-error">{formErrors.name}</span>}</div>

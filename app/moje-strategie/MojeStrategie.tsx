@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { novyEventId, trackLead } from "../lib/lead";
+import Honeypot from "../components/Honeypot";
 
 /* ---------- data ---------- */
 const BYTY = [
@@ -62,7 +63,7 @@ export default function MojeStrategie() {
   const [doba, setDoba] = useState(30);
   const [run, setRun] = useState(false);
 
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "", website: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -370,6 +371,7 @@ export default function MojeStrategie() {
               </div>
             ) : (
               <form className="ms-form" onSubmit={submit}>
+                <Honeypot value={form.website} onChange={(v) => setForm((s) => ({ ...s, website: v }))} />
                 <h3>Chci probrat svoji strategii</h3>
                 <div className="ms-field"><input placeholder="Jméno a příjmení" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />{errors.name && <span className="ms-err">{errors.name}</span>}</div>
                 <div className="ms-field"><input placeholder="Telefon" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />{errors.phone && <span className="ms-err">{errors.phone}</span>}</div>

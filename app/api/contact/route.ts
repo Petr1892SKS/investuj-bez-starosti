@@ -1,7 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import {
+  zapisLeadDoSheetu,
+  zalozKontaktVBrevu,
+  jenCislice,
+  ted,
+} from "@/app/lib/leads";
+
+// googleapis potřebuje Node.js API (crypto, stream) — na Edge runtime nepoběží.
+export const runtime = "nodejs";
 
 const META_PIXEL_ID = "1648437119511238";
+
+/** Pole, která robot vyplní a člověk ne. Přijde-li v nich cokoli, jde o spam. */
+const HONEYPOT_POLE = ["website", "company"] as const;
+
+/**
+ * Dokud běží starý scénář v Make, posíláme lead oběma cestami najednou —
+ * je to kontrola, že nový zápis do sheetu dává stejný výsledek. Vypnutím
+ * LEAD_SINK_MAKE=false volání Make ustane a zůstane jen zápis odsud.
+ */
+const POSILAT_DO_MAKE = process.env.LEAD_SINK_MAKE !== "false";
 
 const hash = (v?: string) =>
   v ? crypto.createHash("sha256").update(v.trim().toLowerCase()).digest("hex") : undefined;
@@ -72,53 +91,98 @@ async function posliDoMety(
 }
 
 export async function POST(req: NextRequest) {
+  let body: Record<string, unknown>;
+
   try {
-    const body = await req.json();
-    const {
-      name, email, phone, interest, message, zdroj, kontext,
-      cil, vek, pocet_bytu, horizont_let, event_id, event_source_url,
-    } = body;
-
-    const datum = new Date().toLocaleString("cs-CZ", {
-      timeZone: "Europe/Prague",
-    });
-
-    // Google Sheets bere "+" na začátku jako vzorec a zapíše #ERROR!.
-    // Ukládáme proto jen číslice: "+420 777 000 000" → "420777000000".
-    const telefon = typeof phone === "string" ? phone.replace(/\D/g, "") : phone;
-
-    await fetch("https://hook.eu1.make.com/egu3z1a2w6dy57upf4x15ozg7ias5kk4", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        datum,
-        name,
-        email: email || "",
-        phone: telefon,
-        interest: interest || "",
-        message: message || "",
-        zdroj: zdroj || "web-formular",
-        kontext: kontext || "",
-        // vyplněné jen u leadů z kalkulačky, jinak prázdné
-        cil: cil ?? "",
-        vek: vek ?? "",
-        pocet_bytu: pocet_bytu ?? "",
-        horizont_let: horizont_let ?? "",
-      }),
-    });
-
-    await posliDoMety(req, {
-      eventId: event_id,
-      sourceUrl: event_source_url,
-      email,
-      telefon,
-      jmeno: name,
-      zdroj: zdroj || "web-formular",
-    });
-
-    return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error("Contact API error:", error);
-    return NextResponse.json({ ok: false, error: "Chyba serveru" }, { status: 500 });
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: "Neplatný JSON" }, { status: 400 });
   }
+
+  // Spam se tváří jako úspěch — robot se nemá dozvědět, že neprošel.
+  if (HONEYPOT_POLE.some((p) => String(body[p] ?? "").trim() !== "")) {
+    return NextResponse.json({ ok: true });
+  }
+
+  const {
+    name, email, phone, interest, message, zdroj, kontext,
+    cil, vek, pocet_bytu, horizont_let, event_id, event_source_url,
+  } = body as Record<string, string | number | undefined>;
+
+  const datum = ted();
+  const telefon = jenCislice(phone);
+  const zdrojLeadu = (zdroj as string) || "web-formular";
+
+  const lead = {
+    datum,
+    name: name as string,
+    email: (email as string) || "",
+    phone: telefon,
+    interest: (interest as string) || "",
+    message: (message as string) || "",
+    zdroj: zdrojLeadu,
+    kontext: (kontext as string) || "",
+    // vyplněné jen u leadů z kalkulaček, jinak prázdné
+    cil: cil ?? "",
+    vek: vek ?? "",
+    pocet_bytu: pocet_bytu ?? "",
+    horizont_let: horizont_let ?? "",
+  };
+
+  // 1) Make jde první, dokud je zapnutý.
+  //
+  //    Pořadí je záměr: kdyby se volal až po sheetu, znamenalo by selhání
+  //    zápisu (chybějící práva, překlep v názvu listu) návrat 500 dřív, než
+  //    se Make vůbec zavolá — a lead by propadl i přesto, že starý scénář
+  //    funguje. Takhle je po dobu souběhu vždy zachycený aspoň jednou.
+  if (POSILAT_DO_MAKE) {
+    try {
+      const r = await fetch(
+        "https://hook.eu1.make.com/egu3z1a2w6dy57upf4x15ozg7ias5kk4",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(lead),
+        }
+      );
+      if (!r.ok) console.error("Make:", r.status, await r.text());
+    } catch (e) {
+      console.error("Make selhalo:", e);
+    }
+  }
+
+  // 2) Sheet je povinný. Když selže, formulář musí uživateli říct "zkuste to
+  //    znovu" — jinak by se lead tiše ztratil.
+  try {
+    await zapisLeadDoSheetu(lead);
+  } catch (e) {
+    console.error("Zápis do Sheetu selhal:", e);
+    return NextResponse.json(
+      { ok: false, error: "Zápis se nepodařil" },
+      { status: 500 }
+    );
+  }
+
+  // 3) Brevo je doplňkové. Lead je v tuhle chvíli uložený, takže jeho selhání
+  //    nesmí shodit požadavek — jen se zaloguje.
+  try {
+    await zalozKontaktVBrevu(lead.email, lead.name || "");
+  } catch (e) {
+    console.error("Brevo selhalo:", e);
+  }
+
+  try {
+    await posliDoMety(req, {
+      eventId: event_id as string,
+      sourceUrl: event_source_url as string,
+      email: email as string,
+      telefon,
+      jmeno: name as string,
+      zdroj: zdrojLeadu,
+    });
+  } catch (e) {
+    console.error("Meta CAPI selhalo:", e);
+  }
+
+  return NextResponse.json({ ok: true });
 }

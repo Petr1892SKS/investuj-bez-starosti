@@ -3,6 +3,7 @@ import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { novyEventId, trackLead } from "../lib/lead";
+import Honeypot from "../components/Honeypot";
 
 /* ---------- parametry výpočtu (dle Františka) ---------- */
 const PER_FLAT = 8800;  // Kč čistého měsíčně z jednoho bytu do BASE_AGE let věku
@@ -48,7 +49,7 @@ export default function Kalkulacka() {
   const [vek, setVek] = useState(35);
 
   const formRef = useRef<HTMLDivElement>(null);
-  const [form, setForm] = useState({ name: "", phone: "", email: "", gdpr: false });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", gdpr: false, website: "" });
   const [err, setErr] = useState<Record<string, string>>({});
   const [stav, setStav] = useState<"idle" | "odesila" | "hotovo" | "chyba">("idle");
 
@@ -76,6 +77,7 @@ export default function Kalkulacka() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name.trim(),
+          website: form.website,
           phone: form.phone.trim(),
           email: form.email.trim(),
           // stejné hodnoty jako select ve formuláři na hlavní stránce,
@@ -232,6 +234,7 @@ export default function Kalkulacka() {
               </p>
 
               <form onSubmit={odeslat} noValidate>
+                <Honeypot value={form.website} onChange={(v) => setForm((s) => ({ ...s, website: v }))} />
                 <label className="fl">
                   Jméno a příjmení
                   <input
