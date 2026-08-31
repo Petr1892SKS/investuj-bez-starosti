@@ -11,7 +11,7 @@ const project = {
   subtitle: "Byt 2+1 · Duchcov – Osecká 75",
   claim: "Konkrétní nemovitost ve vašem vlastnictví. Předem sjednaný měsíční příjem. Správa bez vaší účasti.",
   status: "Volný", // "Volný" | "Obsazený" | "Připravený"
-  isNew: true,
+  isNew: false,
 
   // Investiční parametry
   price: 2990000,

@@ -7,42 +7,44 @@ import VideoIntroButton from "../../components/VideoIntroButton";
 // UPRAVUJ POUZE TUTO SEKCI – DATA PROJEKTU
 // ============================================================
 const project = {
-  name: "Projekt Duchcov – Osecká",
-  subtitle: "Byt 1+1 · Duchcov – Osecká 73",
+  name: "Projekt Aléská – Bílina",
+  subtitle: "Byt 3+1 větší · Bílina – Aléská 231, 232, 233",
   claim: "Konkrétní nemovitost ve vašem vlastnictví. Předem sjednaný měsíční příjem. Správa bez vaší účasti.",
   status: "Volný", // "Volný" | "Obsazený" | "Připravený"
-  isNew: false,
+  isNew: true,
 
   // Investiční parametry
-  price: 2190000,
-  monthlyIncome: 9490,
-  yearlyIncome: 113880,
-  yieldPercent: 5.20,
+  price: 2550000,
+  monthlyIncome: 12023,
+  yearlyIncome: 144276,
+  yieldPercent: 5.66,
   growthPercent: 7,
   ownershipType: "Družstevní s převodem do OV",
   condition: "Po rekonstrukci",
   holdingPeriod: "5–10 let",
-  area: 41,
-  floor: "1. patro",
+  area: 65.1,
+  floor: "",
 
   // Proč tento projekt – max 5 bodů
   reasons: [
-    { title: "Stabilní lokalita s nízkou prázdnotou", text: "Duchcov má dlouhodobě stabilní poptávku po nájemním bydlení. Lokalita Osecká je v dosahu obchodní vybavenosti i hromadné dopravy. Poptávka po nájmu v lokalitě stabilně převyšuje nabídku." },
-    { title: "Dispozice 1+1 – nejlikvidnější segment", text: "Byty 1+1 jsou nejlikvidnější segment nájemního trhu. Cílová skupina – mladí profesionálové, studenti a single domácnosti – zajišťuje stabilní poptávku po celý rok." },
+    { title: "Stabilní lokalita s nízkou prázdnotou", text: "Bílina má dlouhodobě stabilní poptávku po nájemním bydlení. Aléská je v dosahu obchodní vybavenosti i hromadné dopravy. Poptávka po nájmu v lokalitě stabilně převyšuje nabídku." },
+    { title: "Dispozice 3+1 – rodinné bydlení s nižší fluktuací", text: "Rodiny se stěhují méně často než jednotlivci. Delší nájemní vztahy znamenají nižší náklady na obměnu nájemníků a stabilnější provoz jednotky." },
     { title: "Nemovitost z existujícího portfolia", text: "Projekt nepochází z volného trhu. Nemovitost je součástí portfolia s ověřenou provozní historií a připraveným modelem správy." },
     { title: "Po rekonstrukci – bez dalších investic", text: "Kompletní rekonstrukce je již provedena. Investor nevkládá žádné dodatečné prostředky do oprav ani přípravy na pronájem." },
     { title: "All-in správa od prvního dne", text: "Výběr nájemce, servis, komunikace, účetnictví – vše zajišťujeme my. Investor přijímá měsíční příjem bez operativní zátěže." },
   ],
 
   gallery: [
-    { src: "/images/duchcov-osecka-1-1/IMG_9339.jpeg", label: "Fotografie 1" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9334.jpeg", label: "Fotografie 2" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9335.jpeg", label: "Fotografie 3" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9336.jpeg", label: "Fotografie 4" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9337.jpeg", label: "Fotografie 5" },
-    { src: "/images/duchcov-osecka-1-1/IMG_9338.jpeg", label: "Fotografie 6" },
-    { src: "/images/duchcov-osecka-budova/IMG_6022.jpeg", label: "Budova" },
-    { src: "/images/duchcov-osecka-budova/IMG_6025.jpeg", label: "Budova 2" },
+    { src: "/images/aleska-bilina-3-1-vetsi/IMG_7140.jpeg", label: "Fotografie 1" },
+    { src: "/images/aleska-bilina-3-1-vetsi/IMG_7141.jpeg", label: "Fotografie 2" },
+    { src: "/images/aleska-bilina-3-1-vetsi/IMG_7136.jpeg", label: "Fotografie 3" },
+    { src: "/images/aleska-bilina-3-1-vetsi/IMG_7143.jpeg", label: "Fotografie 4" },
+    { src: "/images/aleska-bilina-3-1-vetsi/IMG_7142.jpeg", label: "Fotografie 5" },
+    { src: "/images/aleska-bilina-3-1-vetsi/IMG_7138.jpeg", label: "Fotografie 6" },
+    { src: "/images/aleska-bilina-3-1-vetsi/IMG_7137.jpeg", label: "Fotografie 7" },
+    { src: "/images/aleska-bilina-3-1-vetsi/IMG_7139.jpeg", label: "Fotografie 8" },
+    { src: "/images/aleska-bilina-3-1-vetsi/IMG_7135.jpeg", label: "Fotografie 9" },
+    { src: "/images/alsova-bilina-budova/IMG_4974.jpeg", label: "Panelový dům v lokalitě" },
   ],
 
   // Pro koho je projekt vhodný
@@ -161,8 +163,9 @@ export default function ProjectDetail() {
 
         /* GALLERY */
         .gallery-section { background: var(--bg); }
-        .gallery-main { width: 100%; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; background: #e2e8f0; position: relative; margin-bottom: 12px; }
-        .gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-note { font-size: 0.88rem; color: var(--text2); line-height: 1.65; max-width: 620px; margin: -0.5rem 0 1.6rem; }
+        .gallery-main { width: 100%; aspect-ratio: 4/3; border-radius: 20px; overflow: hidden; background: #0f172a; position: relative; margin-bottom: 12px; }
+        .gallery-main img { width: 100%; height: 100%; object-fit: contain; }
         .gallery-main-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: var(--text2); }
         .gallery-label { position: absolute; bottom: 16px; left: 16px; background: rgba(0,0,0,0.55); color: white; font-size: 0.75rem; font-weight: 600; padding: 5px 12px; border-radius: 50px; backdrop-filter: blur(4px); }
         .gallery-thumbs { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
@@ -328,6 +331,10 @@ export default function ProjectDetail() {
         <section className="section gallery-section">
           <div className="section-inner">
             <div className="section-label">Fotodokumentace</div>
+            <p className="gallery-note">
+              Fotografie jsou z bytu za běžného provozu, ne z vyklizeného ani nastylovaného
+              interiéru. Ukazujeme skutečný stav jednotky tak, jak dnes vypadá.
+            </p>
             <div className="gallery-main">
               {imgErrors[activePhoto] ? (
                 <div className="gallery-main-placeholder">
@@ -424,10 +431,12 @@ export default function ProjectDetail() {
               <span className="param-label">Plocha</span>
               <span className="param-value">{project.area} m²</span>
             </div>
-            <div className="param-cell">
-              <span className="param-label">Podlaží</span>
-              <span className="param-value">{project.floor}</span>
-            </div>
+            {project.floor && (
+              <div className="param-cell">
+                <span className="param-label">Podlaží</span>
+                <span className="param-value">{project.floor}</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
