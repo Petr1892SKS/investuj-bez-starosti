@@ -45,7 +45,12 @@ const project = {
     { src: "/images/aleska-bilina-1-1/IMG_7012.jpeg", label: "Fotografie 8" },
     { src: "/images/aleska-bilina-1-1/IMG_7016.jpeg", label: "Fotografie 9" },
     { src: "/images/aleska-bilina-1-1/IMG_7010.jpeg", label: "Fotografie 10" },
-    { src: "/images/alsova-bilina-budova/IMG_4974.jpeg", label: "Panelový dům v lokalitě" },
+    { src: "/images/aleska-bilina-budova/IMG_5028.jpeg", label: "Dům Aléská" },
+    { src: "/images/aleska-bilina-budova/IMG_5033.jpeg", label: "Dům a okolí" },
+    { src: "/images/aleska-bilina-budova/IMG_5032.jpeg", label: "Vchod do domu" },
+    { src: "/images/aleska-bilina-budova/IMG_5031.jpeg", label: "Dům ze zahrady" },
+    { src: "/images/aleska-bilina-budova/IMG_5034.jpeg", label: "Společné prostory" },
+    { src: "/images/aleska-bilina-budova/IMG_5041.jpeg", label: "Schodiště" },
   ],
 
   // Pro koho je projekt vhodný
