@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Dr. Optik natáčení</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}*{box-sizing:border-box}
+/* Layout: jeden sloupec jako natáčecí plán. Nahoře přehled nápadů, pod ním pravidla kamery, pak storyboardy jako řady záběrů s náčrtem rámu 9:16. */
+:root{
+  --bg:#f3f5f7; --card:#ffffff; --ink:#131a24; --ink2:#566273; --line:#d9dfe6;
+  --accent:#0b7a75; --accent-soft:#dff1ef; --ai:#a8480c; --ai-soft:#fbe9d9; --frame:#e8ecf1;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#10151c; --card:#19202a; --ink:#e9edf2; --ink2:#9aa6b5; --line:#2c3643;
+  --accent:#5fd0c8; --accent-soft:#143432; --ai:#f2a467; --ai-soft:#3a2413; --frame:#222b37; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#10151c; --card:#19202a; --ink:#e9edf2; --ink2:#9aa6b5; --line:#2c3643;
+  --accent:#5fd0c8; --accent-soft:#143432; --ai:#f2a467; --ai-soft:#3a2413; --frame:#222b37; color-scheme:dark }
+
+body{background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:36px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:700}
+h2{font-size:22px;font-weight:700}
+h3{font-size:18px;font-weight:700}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lead{color:var(--ink2);max-width:65ch}
+header{display:flex;flex-direction:column;gap:10px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;color:var(--ink2);font-size:14px}
+.meta b{color:var(--ink);font-weight:600}
+section{display:flex;flex-direction:column;gap:14px}
+.note{border:1px dashed var(--line);border-radius:8px;padding:10px 14px;color:var(--ink2);font-size:14px}
+
+/* přehled nápadů */
+.ideas{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.ideas li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:4px 10px;padding:12px 16px;border-top:1px solid var(--line)}
+.ideas li:first-child{border-top:0}
+.ideas .n{font:700 16px var(--display);color:var(--accent)}
+.ideas b{font-weight:600}
+.ideas p{color:var(--ink2);font-size:14px}
+.ideas a{color:inherit;text-decoration:none}
+.ideas a:hover b,.ideas a:focus-visible b{text-decoration:underline}
+
+/* štítky */
+.t{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:1px 7px;border-radius:99px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.t.ai{background:var(--ai-soft);color:var(--ai)}
+.t.h{background:var(--frame);color:var(--ink2)}
+
+/* pravidla */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;list-style:none;margin:0;padding:0}
+.rules li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.rules b{display:block;font-weight:600;margin-bottom:2px}
+.rules p{color:var(--ink2);font-size:14px}
+
+/* pořadí dne */
+.day{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;list-style:none;margin:0;padding:0;counter-reset:d}
+.day li{counter-increment:d;border-left:3px solid var(--accent);padding:2px 0 2px 12px;min-width:0}
+.day li::before{content:"Blok " counter(d);display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.day p{font-size:14px;color:var(--ink2)}
+
+/* storyboard */
+.sb{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;gap:14px}
+.sb-head{display:flex;flex-direction:column;gap:6px}
+.sb-head p{color:var(--ink2);max-width:70ch}
+.sub{font:600 13px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);margin-top:4px}
+.shots{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;counter-reset:s}
+.shots li{counter-increment:s;display:grid;grid-template-columns:58px minmax(0,1fr);gap:12px;align-items:start}
+.fr{width:58px;aspect-ratio:9/16;background:var(--frame);border:1.5px solid var(--ink2);border-radius:6px;color:var(--ink);display:block}
+.shots b{font-weight:600;display:block}
+.shots b::before{content:counter(s) ". ";color:var(--accent);font-family:var(--display)}
+.shots p{font-size:14px;color:var(--ink2);margin-top:2px}
+.shots .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.cut{border-top:1px solid var(--line);padding-top:12px;font-size:14px;color:var(--ink2)}
+.cut b{color:var(--ink);font-weight:600}
+.plan{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+</style>
+</head>
+<body>
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <g id="st" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></g>
+    <symbol id="f-detail" viewBox="0 0 90 160"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="45" cy="72" r="30"/><path d="M4 160Q45 104 86 160"/></g></symbol>
+    <symbol id="f-polo" viewBox="0 0 90 160"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="45" cy="56" r="16"/><path d="M14 160V112Q14 82 45 82Q76 82 76 112V160"/></g></symbol>
+    <symbol id="f-celek" viewBox="0 0 90 160"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="45" cy="62" r="7"/><rect x="37" y="72" width="16" height="32" rx="6"/><path d="M41 104V138M49 104V138M8 140H82"/></g></symbol>
+    <symbol id="f-two" viewBox="0 0 90 160"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="26" cy="62" r="11"/><circle cx="64" cy="62" r="11"/><path d="M8 118V96Q8 78 26 78Q42 78 42 96V118M48 118V96Q48 78 64 78Q82 78 82 96V118M2 120H88"/></g></symbol>
+    <symbol id="f-ots" viewBox="0 0 90 160"><path d="M0 160V104Q6 92 22 92Q42 94 44 120V160Z" fill="currentColor" fill-opacity=".45"/><circle cx="20" cy="76" r="17" fill="currentColor" fill-opacity=".45"/><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="62" cy="58" r="11"/><path d="M46 126V92Q46 74 62 74Q80 74 80 92V126"/></g></symbol>
+    <symbol id="f-bryle" viewBox="0 0 90 160"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><rect x="12" y="60" width="28" height="22" rx="9"/><rect x="50" y="60" width="28" height="22" rx="9"/><path d="M40 69Q45 65 50 69M62 96V104"/><rect x="50" y="104" width="26" height="14" rx="2"/></g></symbol>
+    <symbol id="f-hled" viewBox="0 0 90 160"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><rect x="10" y="38" width="70" height="30" rx="3"/><rect x="10" y="78" width="70" height="30" rx="3"/><path d="M40 53H50M40 93H50M22 124L34 134M34 120L46 130M48 124L60 134"/></g></symbol>
+    <symbol id="f-tabule" viewBox="0 0 90 160"><rect x="18" y="28" width="54" height="96" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><g fill="currentColor" font-family="sans-serif" font-weight="700" text-anchor="middle"><text x="45" y="62" font-size="26">E</text><text x="45" y="84" font-size="15">F P</text><text x="45" y="100" font-size="10">T O Z</text><text x="45" y="113" font-size="7">2 9 9 0</text></g></symbol>
+    <symbol id="f-mobil" viewBox="0 0 90 160"><rect x="24" y="34" width="42" height="88" rx="7" fill="none" stroke="currentColor" stroke-width="3"/><text x="45" y="84" font-size="13" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="currentColor">2 990</text></symbol>
+    <symbol id="f-sirka" viewBox="0 0 90 160"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><rect x="8" y="42" width="74" height="70"/><rect x="20" y="49" width="50" height="10"/><rect x="36" y="72" width="18" height="40"/><circle cx="18" cy="118" r="5"/><path d="M18 124V140M2 142H88"/></g></symbol>
+    <symbol id="f-skryt" viewBox="0 0 90 160"><rect x="0" y="0" width="30" height="160" fill="currentColor" fill-opacity=".45"/><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="60" cy="70" r="9"/><path d="M46 122V98Q46 84 60 84Q74 84 74 98V122M36 124H88"/></g></symbol>
+    <symbol id="f-ucho" viewBox="0 0 90 160"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="30" cy="74" r="19"/><circle cx="63" cy="68" r="19"/><path d="M0 160Q28 106 52 160M44 160Q64 100 90 150"/></g></symbol>
+    <symbol id="f-prazdno" viewBox="0 0 90 160"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 6"><rect x="12" y="34" width="66" height="78"/></g><path d="M4 140H86" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">Natáčecí plán</span>
+  <h1>Dr. Optik natáčení: Black Week</h1>
+  <div class="meta">
+    <span><b>Datum:</b> 18. 11. 2026</span>
+    <span><b>Místo:</b> prodejna, prostor před ní, pasáž obchodního centra</span>
+    <span><b>Formát:</b> 9:16, iPhone</span>
+  </div>
+  <p class="lead">Osm skečů bez rekvizit. Herec hraje prodavače v běžném oblečení a používá jen to, co v prodejně už je. Co chybí, se dogeneruje v Higgsfieldu. Dole je ke každému skeči seznam záběrů z pohledu kameramana.</p>
+  <p class="note">Cena 2 990 Kč je v textech podle zadání z hovoru. Před natáčením ověřte přesné znění akce (kompletní brýle, „od“, vybrané obruby), ať hlášky odpovídají nabídce.</p>
+</header>
+
+<section>
+  <h2>Přehled nápadů</h2>
+  <ol class="ideas">
+    <li><span class="n">1</span><div><a href="#s1"><b>Deník prodavače</b></a> <span class="t ai">AI volitelně</span><p>Zpověď na kameru ve stylu The Office: „Je třetí den Black Weeku. Od pondělí jsem neseděl.“ Prokládáno pohledy do kamery z provozu. Z jednoho natáčení pět až deset klipů.</p></div></li>
+    <li><span class="n">2</span><div><a href="#s2"><b>Kde je háček</b></a><p>Zákazník nevěří ceně. Prodavač začne háček hledat s ním: pod pultem, v šuplíku, za zrcadlem. Nenajdou ho.</p></div></li>
+    <li><span class="n">3</span><div><a href="#s3"><b>Pohřeb plné ceny</b></a> <span class="t ai">AI</span><p>Prodavač drží starou cenovku a pronáší smuteční řeč. Svíčky, věnec a zčernání prodejny doplní AI.</p></div></li>
+    <li><span class="n">4</span><div><a href="#s4"><b>Telefonát šéfovi</b></a><p>Šeptá za pultem do mobilu: „Šéfe, oni to fakt kupujou. Zdražit to už nejde.“ Zvedne se a usměje se na zákazníka.</p></div></li>
+    <li><span class="n">5</span><div><a href="#s5"><b>Prodavač loví v pasáži</b></a> <span class="t ai">AI</span><p>Před prodejnou diagnostikuje kolemjdoucí: „Vy mžouráte.“ Brýle mu přiletí do ruky a rovnou je nasadí.</p></div></li>
+    <li><span class="n">6</span><div><a href="#s6"><b>Cenu neřeknu nahlas</b></a><p>Cenu zašeptá, pak ji ukáže na mobilu. Zákazník ji zařve na celou prodejnu. „Pšššt.“</p></div></li>
+    <li><span class="n">7</span><div><a href="#s7"><b>Vyšetření zraku</b></a> <span class="t ai">AI</span><p>„Přečtěte spodní řádek.“ „Dva, devět, devět, nula?“ Písmena na tabuli se přeskládají do BLACK WEEK.</p></div></li>
+    <li><span class="n">8</span><div><a href="#s8"><b>Lusknutí</b></a> <span class="t ai">AI volitelně</span><p>Prodavač luskne a zákazník má na nose brýle. Luskne znovu, jiné. „Tyhle.“</p></div></li>
+  </ol>
+</section>
+
+<section>
+  <h2>Jak točit, aby se to dobře stříhalo</h2>
+  <ul class="rules">
+    <li><b>Nejdřív celá scéna, pak detaily</b><p>Každý skeč natoč jednou celý z jedné pozice (dvojzáběr nebo polocelek). Pak ho nech zahrát znovu a toč jen detaily: obličej, ruce, reakci druhého. Ve střihu máš vždy kam utéct.</p></li>
+    <li><b>Dvě vteřiny před a po</b><p>Spusť nahrávání, počkej dvě vteřiny, teprve pak akce. Po poslední větě ještě dvě vteřiny drž. Bez toho se střih nemá čeho chytit.</p></li>
+    <li><b>Mezi záběry změň velikost</b><p>Střih z polocelku na skoro stejný polocelek skáče. Střih z celku na detail funguje. Mezi dvěma záběry téhož člověka vždy výrazně přibliž nebo změň úhel.</p></li>
+    <li><b>Reakce toč zvlášť</b><p>Od každého herce si vezmi 10 vteřin němých reakcí: nechápavý pohled, pokrčení ramen, pohled do kamery. Jsou to nejpoužívanější záběry ve střihu.</p></li>
+    <li><b>Střih v pohybu</b><p>Když se herec ohne pod pult, natoč ohnutí v celku i v detailu. Střih uprostřed pohybu není vidět.</p></li>
+    <li><b>Drž stranu</b><p>Při dialogu u pultu zůstaň celou dobu na jedné straně pomyslné čáry mezi herci. Prodavač se pak vždy dívá doprava, zákazník doleva.</p></li>
+    <li><b>Nastavení iPhonu</b><p>4K, 30 fps, objektiv 1× na dialogy, 2× na detaily. Podrž prst na obličeji, dokud se nezamkne expozice a ostření. Širokoúhlý 0,5× jen na celek pasáže.</p></li>
+    <li><b>Zvuk</b><p>V obchoďáku je hluk. Klopový mikrofon na prodavače, nebo telefon do metru od úst. Hlášky bez čistého zvuku nech zopakovat hned na místě.</p></li>
+    <li><b>Záběry pro AI</b><p>Vždy ze stativu, nehýbat. Herec drží první a poslední pózu dvě vteřiny. Ze stejného místa natoč i prázdný záběr bez lidí. Brýle k tomu vyfoť zepředu, z boku a ze tří čtvrtin.</p></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Pořadí natáčení</h2>
+  <ol class="day">
+    <li><p><b>Stativ v prodejně.</b> Pohřeb (3), vyšetření (7), lusknutí (8). Jednou postavíš stativ a uděláš všechny AI záběry.</p></li>
+    <li><p><b>Skeče u pultu.</b> Háček (2), telefonát (4), šeptaná cena (6). Stejné místo, mění se jen hlášky.</p></li>
+    <li><p><b>Zpověď.</b> Deník prodavače (1), mluvená část. Klidný kout, deset minut v kuse.</p></li>
+    <li><p><b>Pasáž.</b> Lov před prodejnou (5) a průběžně vstřihy do deníku.</p></li>
+  </ol>
+</section>
+
+<section>
+  <h2>Storyboardy</h2>
+  <p class="lead">U každého skeče je nahoře list z Higgsfieldu: půdorys s pozicí kamery (K), herce (H) a Matyáše (M) a vedle něj čtyři klíčové záběry. Pod ním je úplný seznam záběrů; náčrt u každého ukazuje, jak velký má být herec v rámu. <span class="t">stativ</span> znamená nehybnou kameru, <span class="t h">z ruky</span> volný pohyb, <span class="t ai">AI</span> záběr určený k dogenerování.</p>
+</section>
+
+<section class="sb" id="s1">
+  <div class="sb-head">
+    <span class="eyebrow">Skeč 1</span>
+    <h3>Deník prodavače</h3>
+    <p>Točí se dvě oddělené věci, které se ve střihu prolnou. Část A je zpověď: prodavač mluví, ty stojíš na místě. Část B jsou vstřihy z provozu: ty se hýbeš a lovíš momenty. Klip pak vzniká tak, že věta ze zpovědi skočí na vstřih, který ji potvrdí nebo popře.</p>
+  </div>
+  <img class="plan" src="/dr-optik-nataceni/sb1.jpg" alt="Plán rozmístění kamery a herců, skeč 1" width="1344" height="752">
+  <span class="sub">Část A: zpověď</span>
+  <ol class="shots">
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Polodetail, hlavní záběr</b><p>Prodavač stojí nebo sedí před regálem s brýlemi, telefon ve výšce jeho očí. Ty stojíš těsně vedle telefonu a ptáš se. On odpovídá tobě, takže se dívá kousek vedle objektivu. Na jeden klip stačí 2 až 3 minuty: pět otázek, každá odpověď dvakrát. Na sérii projdi všechny otázky níže, vyjde to na 8 až 10 minut. Mezi otázkami nevypínej.</p><div class="tags"><span class="t">stativ</span><span class="t h">1×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-detail"/></svg><div><b>Detail, druhá velikost</b><p>Stejné místo, objektiv 2×. Nech ho zopakovat tři až čtyři nejlepší hlášky. Ve střihu pak skáčeš mezi polodetailem a detailem a vystříháš pauzy bez viditelného skoku.</p><div class="tags"><span class="t">stativ</span><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Ticho a pohledy</b><p>Po poslední otázce nevypínej. Deset vteřin mlčí, povzdechne si, podívá se přímo do objektivu, podívá se ke dveřím. Tohle jsou konce klipů.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+  </ol>
+  <p class="cut"><b>Otázky na jeden klip:</b> Kolikátý den to je? Na co se lidi ptají nejčastěji? Kdy jste naposledy seděl? Co vám řekl šéf? Co byste vzkázal lidem, co ještě nepřišli?</p>
+  <p class="cut"><b>Další otázky na sérii:</b> Jak vypadalo pondělí ráno? Kdo byl nejdivnější zákazník? Co říkáte, když se zeptají na háček? Co se stane v pondělí, až to skončí? Kolikrát denně říkáte tu cenu? Co na to říká rodina? Doporučil byste tu práci?</p>
+  <p class="cut"><b>Jak se ptát:</b> ať odpovídá celou větou, tvoje otázka ve videu nebude. Když řekne něco dobrého, nech ho to hned zopakovat ještě jednou.</p>
+  <span class="sub">Část B: vstřihy z provozu</span>
+  <ol class="shots">
+    <li><svg class="fr"><use href="#f-skryt"/></svg><div><b>Celek zpoza regálu</b><p>Schovej se za roh nebo regál, ať je kus překážky v popředí. Zákazník vchází, prodavač zvedne hlavu. Vypadá to jako tajně natočené.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Pohled do kamery</b><p>Prodavač obsluhuje, pak se pomalu otočí a podívá se přímo do objektivu. Drží dvě vteřiny. Natoč jich aspoň deset: unavený, zoufalý, spokojený, nevěřícný.</p><div class="tags"><span class="t h">z ruky</span><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-ots"/></svg><div><b>Přes rameno prodavače</b><p>Stojíš za prodavačem, v popředí jeho rameno, zákazník se ptá: „A kde je háček?“ Natoč tři různé zákazníky se stejnou otázkou.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-bryle"/></svg><div><b>Detaily</b><p>Ruce podávají brýle, cenovka, čištění skel, terminál. Každý tři vteřiny, bez pohybu kamery. Slouží jako výplň pod hlas ze zpovědi.</p><div class="tags"><span class="t h">z ruky</span><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-sirka"/></svg><div><b>Prodejna zvenku</b><p>Celek z pasáže na vchod, lidi chodí dovnitř. Použije se jako úvodní záběr s titulkem „Black Week, den 3“. Sem lze dogenerovat frontu.</p><div class="tags"><span class="t">stativ</span><span class="t ai">AI volitelně</span></div></div></li>
+  </ol>
+  <p class="cut"><b>Jak to stříhat:</b> začni nejsilnější větou ze zpovědi (hook), po ní vstřih z provozu, zpět do zpovědi na pointu, konec na tichém pohledu. Příklad: „Mám tu práci rád.“ Střih: zírá do prázdna, za ním tři zákazníci. Střih: „Fakt.“ Titulky s dnem a cenou doplň až ve střihu.</p>
+</section>
+
+<section class="sb" id="s2">
+  <div class="sb-head">
+    <span class="eyebrow">Skeč 2</span>
+    <h3>Kde je háček</h3>
+    <p>Začátek klidný ze stativu, hledání rychlé z ruky. Kontrast tempa je polovina vtipu.</p>
+  </div>
+  <img class="plan" src="/dr-optik-nataceni/sb2.jpg" alt="Plán rozmístění kamery a herců, skeč 2" width="1344" height="752">
+  <ol class="shots">
+    <li><svg class="fr"><use href="#f-two"/></svg><div><b>Dvojzáběr u pultu</b><p>Oba v záběru, pult mezi nimi. Zákazník drží brýle: „Za 2 990? A kde je háček?“ Natoč celou scénu až do konce z tohoto místa.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Polodetail prodavače</b><p>Zamyslí se, podívá se pod pult. „Já vlastně nevím.“ Ohne se dolů a zmizí ze záběru. Tady je střih.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+    <li><svg class="fr"><use href="#f-hled"/></svg><div><b>Hledání, série detailů</b><p>Jdi těsně za jeho rukama. Šuplík, pod pultem, za počítačem, za zrcadlem, v krabici. Každé místo jeden krátký záběr, který začíná i končí v pohybu. Natoč jich šest až osm, použijí se čtyři.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-hled"/></svg><div><b>Zákazník hledá taky</b><p>Stejným stylem: dívá se pod židli, zvedá stojan, nakoukne do pouzdra na brýle. Dva až tři záběry.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-two"/></svg><div><b>Návrat do dvojzáběru</b><p>Stejná pozice jako první záběr. Oba se narovnají, zadýchaní. „Fakt tu není.“ Pauza. Zákazník: „Tak já si je vezmu.“</p><div class="tags"><span class="t">stativ</span></div></div></li>
+    <li><svg class="fr"><use href="#f-bryle"/></svg><div><b>Detail brýlí s cenovkou</b><p>Tři vteřiny, bez pohybu. Závěrečný záběr pod titulek s akcí.</p><div class="tags"><span class="t">stativ</span><span class="t h">2×</span></div></div></li>
+  </ol>
+  <p class="cut"><b>Střih:</b> záběry 1 a 2 nech doznít, hledání stříhej po necelé vteřině. Pod hledání se hodí rychlá hudba, která se v záběru 5 utne.</p>
+</section>
+
+<section class="sb" id="s3">
+  <div class="sb-head">
+    <span class="eyebrow">Skeč 3</span>
+    <h3>Pohřeb plné ceny</h3>
+    <p>Všechno ze stativu a pomalu. Kolem herce nech prázdné místo, kam se dají doplnit svíčky a věnec.</p>
+  </div>
+  <img class="plan" src="/dr-optik-nataceni/sb3.jpg" alt="Plán rozmístění kamery a herců, skeč 3" width="1344" height="752">
+  <ol class="shots">
+    <li><svg class="fr"><use href="#f-prazdno"/></svg><div><b>Prázdný záběr</b><p>Postav stativ na celek a natoč pět vteřin prodejny bez lidí. Stativem už pak nehýbej.</p><div class="tags"><span class="t">stativ</span><span class="t ai">AI podklad</span></div></div></li>
+    <li><svg class="fr"><use href="#f-celek"/></svg><div><b>Celek, obřad</b><p>Prodavač uprostřed, kolegové za ním se sklopenými hlavami. Vlevo a vpravo od něj volná podlaha. Na začátku i na konci dvě vteřiny nehybně.</p><div class="tags"><span class="t">stativ</span><span class="t ai">AI</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Polodetail, řeč</b><p>„Byla s námi celý rok. Odešla v pondělí.“ Mluví pomalu, dívá se na cenovku v ruce. Natoč celou řeč vcelku.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+    <li><svg class="fr"><use href="#f-bryle"/></svg><div><b>Detail cenovky v ruce</b><p>Ruka se nehýbe aspoň tři vteřiny, pozadí klidné. Z tohoto záběru AI udělá rozpad v prach.</p><div class="tags"><span class="t">stativ</span><span class="t ai">AI</span></div></div></li>
+    <li><svg class="fr"><use href="#f-detail"/></svg><div><b>Reakce kolegů</b><p>Detail jednoho z nich: utírá si oko, popotáhne. Pět vteřin.</p><div class="tags"><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Zákazník</b><p>Stojí stranou s brýlemi v ruce, dívá se z jednoho na druhého. „Můžu zaplatit?“ Natoč zvlášť němou reakci i větu.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+  </ol>
+  <p class="cut"><b>AI:</b> do celku svíčky, věnec a postupné ztmavnutí prodejny, do detailu rozpad cenovky. Cenu a logo negeneruj, přijdou až ve střihu.</p>
+</section>
+
+<section class="sb" id="s4">
+  <div class="sb-head">
+    <span class="eyebrow">Skeč 4</span>
+    <h3>Telefonát šéfovi</h3>
+    <p>Divák má mít pocit, že poslouchá něco, co slyšet neměl. Proto první záběr z úkrytu.</p>
+  </div>
+  <img class="plan" src="/dr-optik-nataceni/sb4.jpg" alt="Plán rozmístění kamery a herců, skeč 4" width="1344" height="752">
+  <ol class="shots">
+    <li><svg class="fr"><use href="#f-skryt"/></svg><div><b>Celek zpoza regálu</b><p>Prodavač přikrčený za pultem s mobilem u ucha. Ty jsi schovaný za regálem. Celý telefonát jednou odtud.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-detail"/></svg><div><b>Detail obličeje s telefonem</b><p>Šeptá: „Šéfe, oni to fakt kupujou. Ne, zdražit to už nejde, už je to venku.“ Oči mu těkají ke dveřím. Celý telefonát podruhé.</p><div class="tags"><span class="t h">z ruky</span><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-ots"/></svg><div><b>Zákazník čeká</b><p>Přes rameno prodavače, nebo z jeho výšky zpoza pultu nahoru. Zákazník stojí u pultu a rozhlíží se. Pět vteřin.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Vynoření</b><p>Polodetail zepředu. Prodavač se narovná, schová telefon, nasadí úsměv: „Dobrý den.“ Drž dvě vteřiny na úsměvu.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+  </ol>
+  <p class="cut"><b>Střih:</b> 1 jako úvod, pak 2, uprostřed věty vstřih na 3, zpět do 2 na „nemůžu zavřít, stojí tu lidi“, konec na 4.</p>
+</section>
+
+<section class="sb" id="s5">
+  <div class="sb-head">
+    <span class="eyebrow">Skeč 5</span>
+    <h3>Prodavač loví v pasáži</h3>
+    <p>Reportážní styl z ruky. Kolemjdoucí hrají kolegové nebo druhý herec, cizí lidi do záběru nebrat.</p>
+  </div>
+  <img class="plan" src="/dr-optik-nataceni/sb5.jpg" alt="Plán rozmístění kamery a herců, skeč 5" width="1344" height="752">
+  <ol class="shots">
+    <li><svg class="fr"><use href="#f-sirka"/></svg><div><b>Celek, vychází z prodejny</b><p>Stojíš v pasáži, v záběru vchod a logo. Prodavač vyjde, rozhlédne se a vykročí k tobě.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Polodetail, diagnóza</b><p>Couvej před ním. Ukáže prstem mimo záběr: „Vy mžouráte.“ Natoč tři až pět různých hlášek, každou zvlášť.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-ots"/></svg><div><b>Reakce oběti</b><p>Přes rameno prodavače na kolemjdoucího. Zastaví se, zarazí se, mžourá dál. Ke každé hlášce jedna reakce.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Natažená ruka</b><p>Prodavač natáhne prázdnou dlaň směrem k prodejně a drží dvě vteřiny. Pak mu podej brýle, stejná póza, další dvě vteřiny. Mezi tím AI vygeneruje přílet.</p><div class="tags"><span class="t">stativ</span><span class="t ai">AI</span></div></div></li>
+    <li><svg class="fr"><use href="#f-ucho"/></svg><div><b>Nasazení brýlí</b><p>Detail obou: nasadí brýle kolemjdoucímu, ten zamrká a rozhlédne se.</p><div class="tags"><span class="t h">z ruky</span><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-sirka"/></svg><div><b>Celek, odchod do prodejny</b><p>Prodavač ukáže na vchod, kolemjdoucí jde poslušně dovnitř. Prodavač se otočí a hledá dalšího.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+  </ol>
+  <p class="cut"><b>Míra drzosti:</b> každou hlášku natoč ve slušné i ostřejší verzi, rozhodne se ve střihu.</p>
+</section>
+
+<section class="sb" id="s6">
+  <div class="sb-head">
+    <span class="eyebrow">Skeč 6</span>
+    <h3>Cenu neřeknu nahlas</h3>
+    <p>Čím blíž kamera, tím lépe. Šepot funguje jen v detailu.</p>
+  </div>
+  <img class="plan" src="/dr-optik-nataceni/sb6.jpg" alt="Plán rozmístění kamery a herců, skeč 6" width="1344" height="752">
+  <ol class="shots">
+    <li><svg class="fr"><use href="#f-two"/></svg><div><b>Dvojzáběr u pultu</b><p>„Kolik stojí tyhle?“ Celá scéna jednou odtud.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Polodetail prodavače</b><p>Rozhlédne se doleva, doprava, přes rameno. Pak se nakloní dopředu ven ze záběru.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+    <li><svg class="fr"><use href="#f-ucho"/></svg><div><b>Detail, šepot do ucha</b><p>Obě hlavy těsně u sebe. Zákazník: „Cože?“ Prodavač zašeptá znovu.</p><div class="tags"><span class="t h">z ruky</span><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-mobil"/></svg><div><b>Detail displeje</b><p>Prodavač napíše cenu do kalkulačky v mobilu a otočí ho k zákazníkovi. Jas naplno, tři vteřiny nehybně.</p><div class="tags"><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-detail"/></svg><div><b>Detail zákazníka</b><p>Přečte to a zařve cenu na celou prodejnu.</p><div class="tags"><span class="t h">z ruky</span></div></div></li>
+    <li><svg class="fr"><use href="#f-celek"/></svg><div><b>Celek, všichni se otočí</b><p>Prodavač: „Pšššt.“ Lidi v prodejně zvednou hlavy. Natoč i samotné otočení hlav zvlášť.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+  </ol>
+</section>
+
+<section class="sb" id="s7">
+  <div class="sb-head">
+    <span class="eyebrow">Skeč 7</span>
+    <h3>Vyšetření zraku</h3>
+    <p>Krátký skeč, čtyři záběry. Tabule musí být natočená čistě, bez odlesků.</p>
+  </div>
+  <img class="plan" src="/dr-optik-nataceni/sb7.jpg" alt="Plán rozmístění kamery a herců, skeč 7" width="1344" height="752">
+  <ol class="shots">
+    <li><svg class="fr"><use href="#f-two"/></svg><div><b>Celek vyšetřovny</b><p>Zákazník sedí, prodavač stojí u tabule. „Přečtěte mi spodní řádek.“</p><div class="tags"><span class="t">stativ</span></div></div></li>
+    <li><svg class="fr"><use href="#f-detail"/></svg><div><b>Detail zákazníka</b><p>Mhouří oči, naklání se dopředu. „Dva… devět… devět… nula?“</p><div class="tags"><span class="t">stativ</span><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-tabule"/></svg><div><b>Detail tabule</b><p>Kolmo, celá tabule v záběru, pět vteřin nehybně. Z toho AI udělá přeskládání písmen.</p><div class="tags"><span class="t">stativ</span><span class="t ai">AI</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Polodetail prodavače</b><p>„Vidíte dobře. Ale stejně si je vezměte.“ Podá mu brýle směrem ke kameře.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+  </ol>
+</section>
+
+<section class="sb" id="s8">
+  <div class="sb-head">
+    <span class="eyebrow">Skeč 8</span>
+    <h3>Lusknutí</h3>
+    <p>Trik stojí na tom, že se kamera ani zákazník mezi záběry nepohnou. Jde to udělat i bez AI obyčejným střihem.</p>
+  </div>
+  <img class="plan" src="/dr-optik-nataceni/sb8.jpg" alt="Plán rozmístění kamery a herců, skeč 8" width="1344" height="752">
+  <ol class="shots">
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Prodavač luskne</b><p>Polodetail, luskne směrem ke kameře. Natoč pětkrát za sebou, pokaždé s jiným výrazem.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Zákazník bez brýlí</b><p>Stojí, dívá se do kamery. Řekni „stop“. Nehýbe se, kolega mu nasadí brýle, řekni „akce“. Zákazník zareaguje na to, že má něco na nose.</p><div class="tags"><span class="t">stativ</span></div></div></li>
+    <li><svg class="fr"><use href="#f-polo"/></svg><div><b>Další troje brýle</b><p>Stejný postup, stativ na místě. U každých jiná reakce: zděšení, pokrčení ramen, nadšení.</p><div class="tags"><span class="t">stativ</span><span class="t ai">AI volitelně</span></div></div></li>
+    <li><svg class="fr"><use href="#f-detail"/></svg><div><b>Detail, „tyhle“</b><p>Zákazník v posledních brýlích ukáže prstem na obroučky.</p><div class="tags"><span class="t h">2×</span></div></div></li>
+    <li><svg class="fr"><use href="#f-bryle"/></svg><div><b>Brýle na pultu</b><p>Detail, tři vteřiny. Podklad pro titulek s cenou, případně pro AI otočku brýlí.</p><div class="tags"><span class="t">stativ</span><span class="t ai">AI volitelně</span></div></div></li>
+  </ol>
+  <p class="cut"><b>Střih:</b> lusknutí ze záběru 1, na zvuk lusknutí střih do záběru 2 nebo 3 přesně v místě „stop“.</p>
+</section>
+
+</div>
+</body>
+</html>
