@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import {
   zapisLeadDoSheetu,
+  zapisLeadDoCRM,
   zalozKontaktVBrevu,
   jenCislice,
   ted,
@@ -161,6 +162,13 @@ export async function POST(req: NextRequest) {
       { ok: false, error: "Zápis se nepodařil" },
       { status: 500 }
     );
+  }
+
+  // 2b) Kopie do listu, který čte CRM. Doplňková — lead už je uložený.
+  try {
+    await zapisLeadDoCRM(lead);
+  } catch (e) {
+    console.error("Zápis do CRM listu selhal:", e);
   }
 
   // 3) Brevo je doplňkové. Lead je v tuhle chvíli uložený, takže jeho selhání

@@ -112,6 +112,67 @@ export async function zapisLeadDoSheetu(lead: Lead) {
   });
 }
 
+const NAZEV_ZDROJE: Record<string, string> = {
+  "kalkulacka-kolik-bytu": "kalkulačka Kolik bytů",
+  "moje-strategie": "Moje strategie",
+  "byt-na-hypoteku": "Byt na hypotéku",
+  "web-formular": "kontaktní formulář",
+};
+
+/**
+ * Kopie leadu do listu, ze kterého čte CRM obchodníků („FB formulář").
+ *
+ * CRM vidí jen tenhle list, takže bez kopie by leady z webu obchodník nikdy
+ * neviděl. Sloupce musí sedět s tím, co sem zapisuje Make z Facebooku:
+ * datum v ISO (CRM z něj počítá termín prvního hovoru), I = zdroj, K = odkud
+ * přišel (CRM ho ukazuje jako kreativu). Do M–AN se nesahá — patří obchodníkům a CRM.
+ */
+export async function zapisLeadDoCRM(lead: Lead) {
+  const sheetId = (process.env.SHEET_ID || "").trim();
+  if (!sheetId) return;
+
+  const zdroj = txt(lead.zdroj) || "web-formular";
+  const kalkulacka = [
+    lead.kontext && `vyšlo mu: ${txt(lead.kontext)}`,
+    lead.cil && `cíl ${txt(lead.cil)} Kč/měs`,
+    lead.vek && `věk ${txt(lead.vek)}`,
+    lead.pocet_bytu && `bytů potřeba ${txt(lead.pocet_bytu)}`,
+  ].filter(Boolean).join(", ");
+  const poznamka = [
+    lead.interest && `zájem: ${txt(lead.interest)}`,
+    lead.message && `zpráva: ${txt(lead.message)}`,
+    kalkulacka && `kalkulačka: ${kalkulacka}`,
+  ].filter(Boolean).join(" · ");
+
+  const radek: string[] = new Array(24).fill("");
+  radek[0] = new Date().toISOString(); //  A  Datum
+  radek[1] = txt(lead.name); //            B  Jméno
+  radek[2] = txt(lead.phone); //           C  Telefon
+  radek[3] = txt(lead.email); //           D  Email
+  radek[8] = "web"; //                     I  Zdroj
+  radek[9] = "web"; //                     J  Kampaň
+  radek[10] = NAZEV_ZDROJE[zdroj] || zdroj; // K  Kreativa → v CRM „odkud přišel"
+  radek[14] = poznamka ? `z webu — ${poznamka}` : ""; // O  Poznámka
+  radek[22] = lead.horizont_let ? `za ${txt(lead.horizont_let)} let` : ""; // W  Horizont
+  radek[23] = "web"; //                    X  Vlna
+
+  // Ne `append`: ten si v tomhle listu sám hledá „tabulku" a zapsal řádek
+  // o 12 sloupců doprava, do sloupců obchodníků. Proto přesná adresa
+  // na první řádek za posledním vyplněným datem ve sloupci A.
+  const sheets = google.sheets({ version: "v4", auth: autorizace() });
+  const sloupecA = await sheets.spreadsheets.values.get({
+    spreadsheetId: sheetId,
+    range: "'FB formulář'!A:A",
+  });
+  const radekCislo = (sloupecA.data.values?.length || 1) + 1;
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: sheetId,
+    range: `'FB formulář'!A${radekCislo}:X${radekCislo}`,
+    valueInputOption: "RAW",
+    requestBody: { values: [radek] },
+  });
+}
+
 /**
  * Založí nebo aktualizuje kontakt v Brevu.
  *
